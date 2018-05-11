@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+
+    
+  <url>
+    <loc>http://www.lifayu.com/2018/05/12/ArcGIS-Runtime%E4%B8%AD%E5%9D%90%E6%A0%87%E7%9A%84%E8%BD%AC%E6%8D%A2/</loc>
+    <lastmod>2018-05-11T09:43:37.742Z</lastmod>
+    <data>
+        <display>
+        <title>ArcGIS Runtime中坐标的转换</title>
+        <pubTime>2018-05-11T17:33:36.000Z</pubTime>
+        
+        <tag>Android</tag>
+         
+        <tag>ArcGIS Runtime</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.lifayu.com/2018/05/11/hello-world/</loc>
+    <lastmod>2018-05-11T08:50:02.550Z</lastmod>
+    <data>
+        <display>
+        <title>Hello World</title>
+        <pubTime>2018-05-11T07:45:36.078Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.lifayu.com/2016/06/08/chcp/</loc>
+    <lastmod>2018-05-11T07:04:55.623Z</lastmod>
+    <data>
+        <display>
+        <title>CMD命令提示符改编编码命令</title>
+        <pubTime>2016-06-08T09:13:58.000Z</pubTime>
+        
+        <tag>CMD</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.lifayu.com/2016/06/06/Android-Studio-settings/</loc>
+    <lastmod>2018-05-11T07:04:55.621Z</lastmod>
+    <data>
+        <display>
+        <title>Android Studio 自动提示代码设置</title>
+        <pubTime>2016-06-06T08:39:47.000Z</pubTime>
+        
+        <tag>Android Studio</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.lifayu.com/2016/11/19/Raspberry-IR-COntrol-BluetoothMusic/</loc>
+    <lastmod>2018-05-11T07:04:55.617Z</lastmod>
+    <data>
+        <display>
+        <title>树莓派：通过红外控制蓝牙音乐播放</title>
+        <pubTime>2016-11-19T13:55:51.000Z</pubTime>
+        
+        <tag>树莓派</tag>
+         
+        <tag>红外</tag>
+         
+        <tag>蓝牙</tag>
+         
+        <tag>串口</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.lifayu.com/2016/11/19/Raspberry-IR-Control/</loc>
+    <lastmod>2018-05-11T07:04:55.613Z</lastmod>
+    <data>
+        <display>
+        <title>树莓派红外遥控测试</title>
+        <pubTime>2016-11-18T16:10:06.000Z</pubTime>
+        
+        <tag>树莓派</tag>
+         
+        <tag>红外</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.lifayu.com/2016/11/08/TextBox-AutoScroll/</loc>
+    <lastmod>2018-05-11T07:04:55.610Z</lastmod>
+    <data>
+        <display>
+        <title>C# WinForm中RichTextBox自动滚动到最新行</title>
+        <pubTime>2016-11-08T15:47:22.000Z</pubTime>
+        
+        <tag>C#</tag>
+         
+        <tag>WinForm</tag>
+         
+        <tag>TextBox</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.lifayu.com/2016/09/17/raspberry-iot/</loc>
+    <lastmod>2018-05-11T07:04:55.607Z</lastmod>
+    <data>
+        <display>
+        <title>树莓派实现物联网第一步：控制LED</title>
+        <pubTime>2016-09-17T15:38:36.000Z</pubTime>
+        
+        <tag>树莓派</tag>
+         
+        <tag>物联网</tag>
+         
+        <tag>IOT</tag>
+         
+        <tag>LED</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.lifayu.com/2016/06/22/ActionBar-TopBackButton/</loc>
+    <lastmod>2018-05-11T07:04:55.603Z</lastmod>
+    <data>
+        <display>
+        <title>ActionBar基础：实现顶部返回按钮</title>
+        <pubTime>2016-06-22T15:36:54.000Z</pubTime>
+        
+        <tag>ActionBar</tag>
+         
+        <tag>Android</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.lifayu.com/2016/06/15/sqlite-data-type/</loc>
+    <lastmod>2018-05-11T07:04:55.600Z</lastmod>
+    <data>
+        <display>
+        <title>SQLite数据库的char,varchar,text,nchar,nvarchar,ntext的区别</title>
+        <pubTime>2016-06-14T17:33:11.000Z</pubTime>
+        
+        <tag>SQLite</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+</urlset>
