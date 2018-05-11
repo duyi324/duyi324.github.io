@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.lifayu.com/2016/06/15/sqlite-data-type/</loc>
+    
+    <lastmod>2018-05-11T10:55:50.570Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.lifayu.com/2016/11/19/Raspberry-IR-COntrol-BluetoothMusic/</loc>
     
     <lastmod>2018-05-11T10:48:47.969Z</lastmod>
@@ -61,13 +68,6 @@
     <loc>http://www.lifayu.com/2016/06/22/ActionBar-TopBackButton/</loc>
     
     <lastmod>2018-05-11T07:04:55.603Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.lifayu.com/2016/06/15/sqlite-data-type/</loc>
-    
-    <lastmod>2018-05-11T07:04:55.600Z</lastmod>
     
   </url>
   

@@ -4,6 +4,23 @@
 
     
   <url>
+    <loc>http://www.lifayu.com/2016/06/15/sqlite-data-type/</loc>
+    <lastmod>2018-05-11T10:55:50.570Z</lastmod>
+    <data>
+        <display>
+        <title>SQLite数据库的char,varchar,text,nchar,nvarchar,ntext的区别</title>
+        <pubTime>2016-06-14T17:33:11.000Z</pubTime>
+        
+        <tag>SQLite</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.lifayu.com/2016/11/19/Raspberry-IR-COntrol-BluetoothMusic/</loc>
     <lastmod>2018-05-11T10:48:47.969Z</lastmod>
     <data>
@@ -168,23 +185,6 @@
         <tag>ActionBar</tag>
          
         <tag>Android</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.lifayu.com/2016/06/15/sqlite-data-type/</loc>
-    <lastmod>2018-05-11T07:04:55.600Z</lastmod>
-    <data>
-        <display>
-        <title>SQLite数据库的char,varchar,text,nchar,nvarchar,ntext的区别</title>
-        <pubTime>2016-06-14T17:33:11.000Z</pubTime>
-        
-        <tag>SQLite</tag>
          
          
            
