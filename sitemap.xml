@@ -2,6 +2,83 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.lifayu.com/2018/05/11/hello-world/</loc>
+    
+    <lastmod>2018-05-13T05:23:56.339Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.lifayu.com/2016/06/06/Android-Studio-settings/</loc>
+    
+    <lastmod>2018-05-13T05:23:37.434Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.lifayu.com/2016/11/19/Raspberry-IR-Control/</loc>
+    
+    <lastmod>2018-05-13T05:23:07.167Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.lifayu.com/2016/11/08/TextBox-AutoScroll/</loc>
+    
+    <lastmod>2018-05-13T05:22:48.283Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.lifayu.com/2016/09/17/raspberry-iot/</loc>
+    
+    <lastmod>2018-05-13T05:22:32.769Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.lifayu.com/2018/05/12/ArcGIS-Runtime%E4%B8%AD%E5%9D%90%E6%A0%87%E7%9A%84%E8%BD%AC%E6%8D%A2/</loc>
+    
+    <lastmod>2018-05-13T05:21:37.195Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.lifayu.com/categories/index.html</loc>
+    
+    <lastmod>2018-05-13T05:16:56.477Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.lifayu.com/tags/index.html</loc>
+    
+    <lastmod>2018-05-13T05:14:24.026Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.lifayu.com/about/index.html</loc>
+    
+    <lastmod>2018-05-12T04:34:01.875Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.lifayu.com/404.html</loc>
+    
+    <lastmod>2018-05-12T04:30:26.445Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.lifayu.com/schedule/index.html</loc>
+    
+    <lastmod>2018-05-12T04:22:27.132Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.lifayu.com/2016/06/15/sqlite-data-type/</loc>
     
     <lastmod>2018-05-11T10:55:50.570Z</lastmod>
@@ -16,51 +93,9 @@
   </url>
   
   <url>
-    <loc>http://www.lifayu.com/2018/05/12/ArcGIS-Runtime%E4%B8%AD%E5%9D%90%E6%A0%87%E7%9A%84%E8%BD%AC%E6%8D%A2/</loc>
-    
-    <lastmod>2018-05-11T09:48:13.931Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.lifayu.com/2018/05/11/hello-world/</loc>
-    
-    <lastmod>2018-05-11T08:50:02.550Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://www.lifayu.com/2016/06/08/chcp/</loc>
     
     <lastmod>2018-05-11T07:04:55.623Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.lifayu.com/2016/06/06/Android-Studio-settings/</loc>
-    
-    <lastmod>2018-05-11T07:04:55.621Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.lifayu.com/2016/11/19/Raspberry-IR-Control/</loc>
-    
-    <lastmod>2018-05-11T07:04:55.613Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.lifayu.com/2016/11/08/TextBox-AutoScroll/</loc>
-    
-    <lastmod>2018-05-11T07:04:55.610Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.lifayu.com/2016/09/17/raspberry-iot/</loc>
-    
-    <lastmod>2018-05-11T07:04:55.607Z</lastmod>
     
   </url>
   

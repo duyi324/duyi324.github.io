@@ -74,23 +74,24 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="Fy.L 的个人博客" type="application/atom+xml" />
 
 
 
 
 
 
-<meta name="description" content="你若赐我一段浮华，我便许你满世繁花。">
+<meta name="description" content="你若赐我一段浮华，我便许你满世繁花">
+<meta name="keywords" content="Fy.L">
 <meta property="og:type" content="website">
-<meta property="og:title">
+<meta property="og:title" content="Fy.L 的个人博客">
 <meta property="og:url" content="http://www.lifayu.com/tags/SQLite/index.html">
-<meta property="og:site_name">
-<meta property="og:description" content="你若赐我一段浮华，我便许你满世繁花。">
+<meta property="og:site_name" content="Fy.L 的个人博客">
+<meta property="og:description" content="你若赐我一段浮华，我便许你满世繁花">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title">
-<meta name="twitter:description" content="你若赐我一段浮华，我便许你满世繁花。">
+<meta name="twitter:title" content="Fy.L 的个人博客">
+<meta name="twitter:description" content="你若赐我一段浮华，我便许你满世繁花">
 
 
 
@@ -126,7 +127,7 @@
 
 
 
-  <title>标签: SQLite | </title>
+  <title>标签: SQLite | Fy.L 的个人博客</title>
   
 
 
@@ -157,12 +158,12 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title"></span>
+        <span class="site-title">Fy.L 的个人博客</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <p class="site-subtitle"></p>
+        <p class="site-subtitle">自学尚未成才的码农0=0</p>
       
   </div>
 
@@ -192,12 +193,72 @@
         </li>
       
         
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
             归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
           </a>
         </li>
       
@@ -339,7 +400,7 @@
                 alt="Fy.L" />
             
               <p class="site-author-name" itemprop="name">Fy.L</p>
-              <p class="site-description motion-element" itemprop="description">你若赐我一段浮华，我便许你满世繁花。</p>
+              <p class="site-description motion-element" itemprop="description">你若赐我一段浮华，我便许你满世繁花</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -356,15 +417,24 @@
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
 
             
               
               
               <div class="site-state-item site-state-tags">
-                
+                <a href="/tags/index.html">
                   <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">标签</span>
-                
+                </a>
               </div>
             
 
@@ -587,6 +657,28 @@
 
 
 
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: false,
+        appId: 'LgMLox3ikl34DiwCONMx3jDa-gzGzoHsz',
+        appKey: 'Ya6TtRJBFKVwLmE3RtnF66vO',
+        placeholder: '悄悄地，回复一句吧~~~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
 
 
 
