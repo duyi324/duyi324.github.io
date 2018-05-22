@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Android Studio," />
+  <meta name="keywords" content="Android," />
 
 
 
@@ -81,20 +81,21 @@
 
 
 
-<meta name="description" content="Android Studio中默认设置自动提示代码首字母必须严格按照大小写来输入才能提示正确的代码，修改如下设置项，可实现忽略大小写，自动完成代码。">
-<meta name="keywords" content="Android Studio">
+<meta name="description" content="Android中自带的Switch控件在很多时候总觉得和整体系统风格不符，很多时候，自定义Switch是一种方法。 但其实不用这么麻烦，安卓自带的Switch通过修改一些属性，也可以达到和自定义Switch差不多的一个效果。 个人感觉，Switch的属性设置和其他控件还是有挺大区别的。因此，写下此文，方便有需要的同学参考。">
+<meta name="keywords" content="Android">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android Studio 自动提示代码设置">
-<meta property="og:url" content="http://www.lifayu.com/2016/06/06/Android-Studio-settings/index.html">
+<meta property="og:title" content="AndroidSwitch控件修改样式">
+<meta property="og:url" content="http://www.lifayu.com/2018/05/22/AndroidSwitch控件修改样式/index.html">
 <meta property="og:site_name" content="Fy.L 的个人博客">
-<meta property="og:description" content="Android Studio中默认设置自动提示代码首字母必须严格按照大小写来输入才能提示正确的代码，修改如下设置项，可实现忽略大小写，自动完成代码。">
+<meta property="og:description" content="Android中自带的Switch控件在很多时候总觉得和整体系统风格不符，很多时候，自定义Switch是一种方法。 但其实不用这么麻烦，安卓自带的Switch通过修改一些属性，也可以达到和自定义Switch差不多的一个效果。 个人感觉，Switch的属性设置和其他控件还是有挺大区别的。因此，写下此文，方便有需要的同学参考。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.z4a.net/images/2016/06/06/QQ20160531180345.png">
-<meta property="og:updated_time" content="2018-05-13T05:23:37.434Z">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3832962-561e47393fbb170a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3832962-c5cfcef0e5ece66c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-05-22T03:33:00.163Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android Studio 自动提示代码设置">
-<meta name="twitter:description" content="Android Studio中默认设置自动提示代码首字母必须严格按照大小写来输入才能提示正确的代码，修改如下设置项，可实现忽略大小写，自动完成代码。">
-<meta name="twitter:image" content="http://www.z4a.net/images/2016/06/06/QQ20160531180345.png">
+<meta name="twitter:title" content="AndroidSwitch控件修改样式">
+<meta name="twitter:description" content="Android中自带的Switch控件在很多时候总觉得和整体系统风格不符，很多时候，自定义Switch是一种方法。 但其实不用这么麻烦，安卓自带的Switch通过修改一些属性，也可以达到和自定义Switch差不多的一个效果。 个人感觉，Switch的属性设置和其他控件还是有挺大区别的。因此，写下此文，方便有需要的同学参考。">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/3832962-561e47393fbb170a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -124,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://www.lifayu.com/2016/06/06/Android-Studio-settings/"/>
+  <link rel="canonical" href="http://www.lifayu.com/2018/05/22/AndroidSwitch控件修改样式/"/>
 
 
 
 
 
-  <title>Android Studio 自动提示代码设置 | Fy.L 的个人博客</title>
+  <title>AndroidSwitch控件修改样式 | Fy.L 的个人博客</title>
   
 
 
@@ -332,7 +333,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.lifayu.com/2016/06/06/Android-Studio-settings/">
+    <link itemprop="mainEntityOfPage" href="http://www.lifayu.com/2018/05/22/AndroidSwitch控件修改样式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Fy.L">
@@ -349,7 +350,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Android Studio 自动提示代码设置</h1>
+          <h1 class="post-title" itemprop="name headline">AndroidSwitch控件修改样式</h1>
         
 
         <div class="post-meta">
@@ -361,8 +362,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-06-06T16:39:47+08:00">
-                2016-06-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-22T19:17:38+08:00">
+                2018-05-22
               </time>
             
 
@@ -380,8 +381,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2016/06/06/Android-Studio-settings/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2016/06/06/Android-Studio-settings/" itemprop="commentCount"></span>
+                <a href="/2018/05/22/AndroidSwitch控件修改样式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/05/22/AndroidSwitch控件修改样式/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -403,7 +404,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  79 字
+                  1,204 字
                 </span>
               
 
@@ -419,7 +420,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1分钟
+                  5分钟
                 </span>
               
             </div>
@@ -440,10 +441,47 @@
       
 
       
-        <p>Android Studio中默认设置自动提示代码首字母必须严格按照大小写来输入才能提示正确的代码，修改如下设置项，可实现忽略大小写，自动完成代码。</p>
+        <p>Android中自带的Switch控件在很多时候总觉得和整体系统风格不符，很多时候，自定义Switch是一种方法。</p>
+<p>但其实不用这么麻烦，安卓自带的Switch通过修改一些属性，也可以达到和自定义Switch差不多的一个效果。</p>
+<p>个人感觉，Switch的属性设置和其他控件还是有挺大区别的。因此，写下此文，方便有需要的同学参考。</p>
 <a id="more"></a>
-<p>下面的两个时间为代码提示弹出的速度，单位：毫秒。</p>
-<p><img src="http://www.z4a.net/images/2016/06/06/QQ20160531180345.png" alt="Android Studio自动提示代码设置"></p>
+<p>先上效果图：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3832962-561e47393fbb170a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="效果图"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3832962-c5cfcef0e5ece66c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="效果图"></p>
+<p>以上便是修改后效果 与 原生Switch的效果对比。代码在文章底部给出</p>
+<p>实现方式：</p>
+<h3 id="1-底部滑动条，在开关打开状态为绿色，开关关闭状态为灰色"><a href="#1-底部滑动条，在开关打开状态为绿色，开关关闭状态为灰色" class="headerlink" title="1.底部滑动条，在开关打开状态为绿色，开关关闭状态为灰色"></a>1.底部滑动条，在开关打开状态为绿色，开关关闭状态为灰色</h3><p>在 res/drawable 文件夹下面，写两个滑动条的底图 ，通过一个选择器selector进行控制。</p>
+<p>gray_track.xml ：非打开状态，灰色的底图</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xmlversion="1.0"encoding="utf-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">shapexmlns:android="http:</span>//<span class="attr">schemas.android.com</span>/<span class="attr">apk</span>/<span class="attr">res</span>/<span class="attr">android</span>"</span></span><br><span class="line"><span class="tag">	<span class="attr">android:shape</span>=<span class="string">"rectangle"</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--高度30此处设置宽度无效--&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">size</span> <span class="attr">android:height</span>=<span class="string">"30dp"</span>/&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--圆角弧度15--&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">corners</span> <span class="attr">android:radius</span>=<span class="string">"15dp"</span>/&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--变化率定义从左到右的颜色不变--&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">gradient</span></span></span><br><span class="line"><span class="tag">		<span class="attr">android:endColor</span>=<span class="string">"#888888"</span></span></span><br><span class="line"><span class="tag">	    <span class="attr">android:startColor</span>=<span class="string">"#888888"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">shape</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>green_track.xml：打开状态下，绿色的底图。 </p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xmlversion="1.0"encoding="utf-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">shapexmlns:android="http:</span>//<span class="attr">schemas.android.com</span>/<span class="attr">apk</span>/<span class="attr">res</span>/<span class="attr">android</span>"&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--高度40--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">sizeandroid:height="30dp"</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--圆角弧度20--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">cornersandroid:radius="15dp"</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--变化率--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">gradient</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:endColor</span>=<span class="string">"#33da33"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:startColor</span>=<span class="string">"#33da33"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">shape</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>选择器 track.xml   用于控制Switch不同状态下，滑动条的底图 </p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xmlversion="1.0"encoding="utf-8"?&gt;</span><br><span class="line"><span class="comment">&lt;!--底层下滑条的样式选择器，可控制Switch在不同状态下，底下下滑条的颜色--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">selector</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">android:state_checked</span>=<span class="string">"true"</span> <span class="attr">android:drawable</span>=<span class="string">"@drawable/green_track"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">android:drawable</span>=<span class="string">"@drawable/gray_track"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">selector</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-滑动按钮：底色我用的接近白色的淡灰色，打开时，边上的一圈线条为灰色，关闭时，边上的一圈线条为绿色"><a href="#2-滑动按钮：底色我用的接近白色的淡灰色，打开时，边上的一圈线条为灰色，关闭时，边上的一圈线条为绿色" class="headerlink" title="2. 滑动按钮：底色我用的接近白色的淡灰色，打开时，边上的一圈线条为灰色，关闭时，边上的一圈线条为绿色"></a>2. 滑动按钮：底色我用的接近白色的淡灰色，打开时，边上的一圈线条为灰色，关闭时，边上的一圈线条为绿色</h4><p>实现方式和底部滑动一致</p>
+<p>gray_thumb.xml  :关闭状态，按钮边上一圈颜色为深灰色</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xmlversion="1.0"encoding="utf-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">shapexmlns:android="http:</span>//<span class="attr">schemas.android.com</span>/<span class="attr">apk</span>/<span class="attr">res</span>/<span class="attr">android</span>"</span></span><br><span class="line"><span class="tag">	<span class="attr">android:shape</span>=<span class="string">"rectangle"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--高度40--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">sizeandroid:height="40dp"android:width="40dp"</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--圆角弧度20--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">cornersandroid:radius="20dp"</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--变化率--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">gradient</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:endColor</span>=<span class="string">"#eeeeee"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:startColor</span>=<span class="string">"#eeeeee"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">strokeandroid:width="1dp"</span></span></span><br><span class="line"><span class="tag">    	<span class="attr">android:color</span>=<span class="string">"#666666"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">shape</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>green_thumb.xml : 打开状态，按钮边上一圈的颜色为绿色 </p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xmlversion="1.0"encoding="utf-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">shapexmlns:android="http:</span>//<span class="attr">schemas.android.com</span>/<span class="attr">apk</span>/<span class="attr">res</span>/<span class="attr">android</span>"</span></span><br><span class="line"><span class="tag">	<span class="attr">android:shape</span>=<span class="string">"rectangle"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--高度40--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">size</span> <span class="attr">android:height</span>=<span class="string">"40dp"</span> <span class="attr">android:width</span>=<span class="string">"40dp"</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--圆角弧度20--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">corners</span> <span class="attr">android:radius</span>=<span class="string">"20dp"</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--变化率--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">gradient</span></span></span><br><span class="line"><span class="tag">    	<span class="attr">android:endColor</span>=<span class="string">"#eeeeee"</span></span></span><br><span class="line"><span class="tag">    	<span class="attr">android:startColor</span>=<span class="string">"#eeeeee"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">stroke</span> <span class="attr">android:width</span>=<span class="string">"1dp"</span></span></span><br><span class="line"><span class="tag">	    <span class="attr">android:color</span>=<span class="string">"#33da33"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">shape</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>选择器 thumb.xml   用于控制Switch不同状态下，按钮的显示状态</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xmlversion="1.0"encoding="utf-8"?&gt;</span><br><span class="line"><span class="comment">&lt;!--按钮的选择器，可以设置按钮在不同状态下的时候，按钮不同的颜色--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">selector</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">android:state_checked</span>=<span class="string">"true"</span> <span class="attr">android:drawable</span>=<span class="string">"@drawable/green_thumb"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">android:drawable</span>=<span class="string">"@drawable/gray_thumb"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">selector</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="3-将以上选择器设置给Switch，就好了"><a href="#3-将以上选择器设置给Switch，就好了" class="headerlink" title="3. 将以上选择器设置给Switch，就好了"></a>3. 将以上选择器设置给Switch，就好了</h4><p>界面  activity_main.xml </p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xmlversion="1.0"encoding="utf-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">LinearLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:orientation</span>=<span class="string">"vertical"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Switch</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:switchMinWidth</span>=<span class="string">"20dp"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:textOn</span>=<span class="string">""</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:textOff</span>=<span class="string">""</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:thumb</span>=<span class="string">"@drawable/thumb"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:track</span>=<span class="string">"@drawable/track"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--用于对比使用的不设置任何属性的Switch--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Switch</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="4-高度，宽度的设置"><a href="#4-高度，宽度的设置" class="headerlink" title="4.高度，宽度的设置"></a>4.高度，宽度的设置</h4><p>细心的同学会发现，修改  android:layout_width  ， android:layout_height  这两个属性，并不会实际修改Switch的大小</p>
+<p>设置大了，边上会出现空白部分，设置小了，Switch显示不全。</p>
+<p>实际设置高度方法：</p>
+<p>上面定义滑动条和按钮底图的地方相信大家都注意到，   <size android:height="30dp">  这行代码，</size></p>
+<p>修改  green_track.xml,gray_track.xml  中的高度，即可修改高度（修改green_thumb.xml  gray_thumb.xml  中的高度貌似无效）。</p>
+<p>实际修改宽度的方法：</p>
+<p>（1）修改滑动按钮的宽度：滑动按钮的宽度和按钮上的文字有关，</p>
+<p>想要按钮变长，在按钮显示的文字上添加几个空字符串即可，想要按钮变短的话，减少按钮上显示的字即可（修改按钮上字体大小也可以试试）</p>
+<p>Switch的属性</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">android:textOn="  "</span><br><span class="line">android:textOff="  "</span><br></pre></td></tr></table></figure>
+<p>（2）修改按钮  打开，关闭  两种状态之间滑动距离（貌似小到一定程度，再改小就无效了）</p>
+<p>Switch的属性</p>
+<p><code>android:switchMinWidth=&quot;20dp&quot;</code></p>
+<p>通过以上的设置，相信能满足大部分实际使用的需求了，希望对大家有帮助。</p>
+<p>相信源代码才是大家最关注的吧，哈哈，我也是！<br>下载地址：   <a href="http://download.csdn.net/detail/qq_34763699/9751234" target="_blank" rel="noopener">http://download.csdn.net/detail/qq_34763699/9751234</a></p>
+<p>百度网盘：<a href="http://pan.baidu.com/s/1slp1CZV" target="_blank" rel="noopener">http://pan.baidu.com/s/1slp1CZV</a></p>
 
       
     </div>
@@ -511,7 +549,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Android-Studio/" rel="tag"><i class="fa fa-tag"></i> Android Studio</a>
+            <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
           
         </div>
       
@@ -524,15 +562,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/05/12/ArcGIS-Runtime中坐标的转换/" rel="next" title="ArcGIS Runtime中坐标的转换">
+                <i class="fa fa-chevron-left"></i> ArcGIS Runtime中坐标的转换
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/06/08/chcp/" rel="prev" title="CMD命令提示符改编编码命令">
-                CMD命令提示符改编编码命令 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -587,8 +625,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -669,6 +716,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-底部滑动条，在开关打开状态为绿色，开关关闭状态为灰色"><span class="nav-number">1.</span> <span class="nav-text">1.底部滑动条，在开关打开状态为绿色，开关关闭状态为灰色</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-滑动按钮：底色我用的接近白色的淡灰色，打开时，边上的一圈线条为灰色，关闭时，边上的一圈线条为绿色"><span class="nav-number">1.1.</span> <span class="nav-text">2. 滑动按钮：底色我用的接近白色的淡灰色，打开时，边上的一圈线条为灰色，关闭时，边上的一圈线条为绿色</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-将以上选择器设置给Switch，就好了"><span class="nav-number">1.2.</span> <span class="nav-text">3. 将以上选择器设置给Switch，就好了</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-高度，宽度的设置"><span class="nav-number">1.3.</span> <span class="nav-text">4.高度，宽度的设置</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
