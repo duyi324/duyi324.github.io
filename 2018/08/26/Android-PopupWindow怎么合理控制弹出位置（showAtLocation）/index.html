@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Android PopupWindow," />
 
 
 
@@ -81,18 +81,23 @@
 
 
 
-<meta name="description" content="你若赐我一段浮华，我便许你满世繁花">
-<meta name="keywords" content="Fy.L">
-<meta property="og:type" content="website">
-<meta property="og:title" content="categories">
-<meta property="og:url" content="http://www.lifayu.com/categories/index.html">
+<meta name="description" content="说到PopupWindow，应该都会有种熟悉的感觉，使用起来也很简单 1234567891011121314// 一个自定义的布局，作为显示的内容Context context = null;　　// 真实环境中要赋值int layoutId = 0;　　　　　　// 布局IDView contentView = LayoutInflater.from(context).inflate(layou">
+<meta name="keywords" content="Android PopupWindow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android PopupWindow怎么合理控制弹出位置">
+<meta property="og:url" content="http://www.lifayu.com/2018/08/26/Android-PopupWindow怎么合理控制弹出位置（showAtLocation）/index.html">
 <meta property="og:site_name" content="Fy.L 的个人博客">
-<meta property="og:description" content="你若赐我一段浮华，我便许你满世繁花">
+<meta property="og:description" content="说到PopupWindow，应该都会有种熟悉的感觉，使用起来也很简单 1234567891011121314// 一个自定义的布局，作为显示的内容Context context = null;　　// 真实环境中要赋值int layoutId = 0;　　　　　　// 布局IDView contentView = LayoutInflater.from(context).inflate(layou">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-13T05:16:56.477Z">
+<meta property="og:image" content="leanote://file/getImage?fileId=5ad403cc06b76875c7000000">
+<meta property="og:image" content="leanote://file/getImage?fileId=5ad4043506b76875c7000002">
+<meta property="og:image" content="leanote://file/getImage?fileId=5ad4043a06b76875c7000003">
+<meta property="og:image" content="leanote://file/getImage?fileId=5ad4044206b76875c7000004">
+<meta property="og:updated_time" content="2018-08-26T01:09:16.125Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="categories">
-<meta name="twitter:description" content="你若赐我一段浮华，我便许你满世繁花">
+<meta name="twitter:title" content="Android PopupWindow怎么合理控制弹出位置">
+<meta name="twitter:description" content="说到PopupWindow，应该都会有种熟悉的感觉，使用起来也很简单 1234567891011121314// 一个自定义的布局，作为显示的内容Context context = null;　　// 真实环境中要赋值int layoutId = 0;　　　　　　// 布局IDView contentView = LayoutInflater.from(context).inflate(layou">
+<meta name="twitter:image" content="leanote://file/getImage?fileId=5ad403cc06b76875c7000000">
 
 
 
@@ -122,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://www.lifayu.com/categories/"/>
+  <link rel="canonical" href="http://www.lifayu.com/2018/08/26/Android-PopupWindow怎么合理控制弹出位置（showAtLocation）/"/>
 
 
 
 
 
-  <title>categories | Fy.L 的个人博客</title>
+  <title>Android PopupWindow怎么合理控制弹出位置 | Fy.L 的个人博客</title>
   
 
 
@@ -318,40 +323,252 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.lifayu.com/2018/08/26/Android-PopupWindow怎么合理控制弹出位置（showAtLocation）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fy.L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://z4a.net/images/2018/05/11/L.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fy.L 的个人博客">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">categories</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="category-all-page">
-            <div class="category-all-title">
-                目前共计 2 个分类
+          <h1 class="post-title" itemprop="name headline">Android PopupWindow怎么合理控制弹出位置</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-26T09:07:33Z">
+                2018-08-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/26/Android-PopupWindow怎么合理控制弹出位置（showAtLocation）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/08/26/Android-PopupWindow怎么合理控制弹出位置（showAtLocation）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  799 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3分钟
+                </span>
+              
             </div>
-            <div class="category-all">
-              <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/ArcGIS-Runtime/">ArcGIS Runtime</a><span class="category-list-count">1</span></li></ul></li></ul>
-            </div>
-          </div>
-        
-      </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <p>说到PopupWindow，应该都会有种熟悉的感觉，使用起来也很简单</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// 一个自定义的布局，作为显示的内容</span><br><span class="line">Context context = null;　　// 真实环境中要赋值</span><br><span class="line">int layoutId = 0;　　　　　　// 布局ID</span><br><span class="line">View contentView = LayoutInflater.from(context).inflate(layoutId, null);</span><br><span class="line">      </span><br><span class="line">final PopupWindow popupWindow = new PopupWindow(contentView,</span><br><span class="line">                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, true);</span><br><span class="line"></span><br><span class="line">popupWindow.setTouchable(true);</span><br><span class="line">// 如果不设置PopupWindow的背景，有些版本就会出现一个问题：无论是点击外部区域还是Back键都无法dismiss弹框</span><br><span class="line">// 这里单独写一篇文章来分析</span><br><span class="line">popupWindow.setBackgroundDrawable(new ColorDrawable());</span><br><span class="line">// 设置好参数之后再show</span><br><span class="line">popupWindow.showAsDropDown(contentView);</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>如果创建PopupWindow的时候没有指定高宽，那么showAsDropDown默认只会向下弹出显示，这种情况有个最明显的缺点就是：弹窗口可能被屏幕截断，显示不全，所以需要使用到另外一个方法showAtLocation,这个的坐标是相对于整个屏幕的，所以需要我们自己计算位置。</p>
+<p>如下图所示，我们可以根据屏幕左上角的坐标A，屏幕高宽，点击View的左上角的坐标C，点击View的大小以及PopupWindow布局的大小计算出PopupWindow的显示位置B</p>
+<p><img src="leanote://file/getImage?fileId=5ad403cc06b76875c7000000" alt=""></p>
+<p>计算方法源码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 计算出来的位置，y方向就在anchorView的上面和下面对齐显示，x方向就是与屏幕右边对齐显示</span><br><span class="line"> * 如果anchorView的位置有变化，就可以适当自己额外加入偏移来修正</span><br><span class="line"> * @param anchorView  呼出window的view</span><br><span class="line"> * @param contentView   window的内容布局</span><br><span class="line"> * @return window显示的左上角的xOff,yOff坐标</span><br><span class="line"> */</span><br><span class="line">private static int[] calculatePopWindowPos(final View anchorView, final View contentView) &#123;</span><br><span class="line">    final int windowPos[] = new int[2];</span><br><span class="line">    final int anchorLoc[] = new int[2];</span><br><span class="line">　　 // 获取锚点View在屏幕上的左上角坐标位置</span><br><span class="line">    anchorView.getLocationOnScreen(anchorLoc);</span><br><span class="line">    final int anchorHeight = anchorView.getHeight();</span><br><span class="line">    // 获取屏幕的高宽</span><br><span class="line">    final int screenHeight = ScreenUtils.getScreenHeight(anchorView.getContext());</span><br><span class="line">    final int screenWidth = ScreenUtils.getScreenWidth(anchorView.getContext());</span><br><span class="line">    contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);</span><br><span class="line">    // 计算contentView的高宽</span><br><span class="line">    final int windowHeight = contentView.getMeasuredHeight();</span><br><span class="line">    final int windowWidth = contentView.getMeasuredWidth();</span><br><span class="line">    // 判断需要向上弹出还是向下弹出显示</span><br><span class="line">    final boolean isNeedShowUp = (screenHeight - anchorLoc[1] - anchorHeight &lt; windowHeight);</span><br><span class="line">    if (isNeedShowUp) &#123;</span><br><span class="line">        windowPos[0] = screenWidth - windowWidth;</span><br><span class="line">        windowPos[1] = anchorLoc[1] - windowHeight;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        windowPos[0] = screenWidth - windowWidth;</span><br><span class="line">        windowPos[1] = anchorLoc[1] + anchorHeight;</span><br><span class="line">    &#125;</span><br><span class="line">    return windowPos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来调用showAtLoaction显示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">View windowContentViewRoot = 我们要设置给PopupWindow进行显示的View</span><br><span class="line">int windowPos[] = calculatePopWindowPos(view, windowContentViewRoot);</span><br><span class="line">int xOff = 20；// 可以自己调整偏移</span><br><span class="line">windowPos[0] -= xOff;</span><br><span class="line">popupwindow.showAtLocation(view, Gravity.TOP | Gravity.START, windowPos[0], windowPos[1]);</span><br><span class="line">// windowContentViewRoot是根布局View</span><br></pre></td></tr></table></figure>
+<p>上面的例子只是提供了一种计算方式，在实际开发中可以根据需求自己计算，比如anchorView在左边的情况，在中间的情况，可以根据实际需求写一个弹出位置能够自适应的PopupWindow。</p>
+<p>补充上获取屏幕高宽的代码ScreenUtils.java：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 获取屏幕高度(px)</span><br><span class="line"> */</span><br><span class="line">public static int getScreenHeight(Context context) &#123;</span><br><span class="line">    return context.getResources().getDisplayMetrics().heightPixels;</span><br><span class="line">&#125;</span><br><span class="line">/**</span><br><span class="line"> * 获取屏幕宽度(px)</span><br><span class="line"> */</span><br><span class="line">public static int getScreenWidth(Context context) &#123;</span><br><span class="line">    return context.getResources().getDisplayMetrics().widthPixels;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Demo截图展示：<br><img src="leanote://file/getImage?fileId=5ad4043506b76875c7000002" alt=""></p>
+<p><img src="leanote://file/getImage?fileId=5ad4043a06b76875c7000003" alt=""></p>
+<p><img src="leanote://file/getImage?fileId=5ad4044206b76875c7000004" alt=""></p>
+<p>看完觉得有用记得点击推荐支持一下，谢谢</p>
+<p>Demo下载地址：<a href="https://github.com/PopFisher/SmartPopupWindow" target="_blank" rel="noopener">https://github.com/PopFisher/SmartPopupWindow</a></p>
+
       
     </div>
     
     
     
+
+	<div>
+      
+        
+      
+	</div>
+	
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果觉着我的文章不错，打赏我一包辣条吧 O(∩_∩)O</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="http://z4a.net/images/2018/05/11/4c698d5e65a32f9f21667df7c7c40c0c.jpg" alt="Fy.L 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="http://z4a.net/images/2018/05/11/f81d8cd29e1a233798e944fd5b7d6fe2.jpg" alt="Fy.L 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+	<div>
+		
+			<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+            -------------本文结束
+            <i class="fa fa-paw"></i>
+            感谢您的阅读-------------
+        </div>
+    
+</div>
+		
+	</div>
+	
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android-PopupWindow/" rel="tag"><i class="fa fa-tag"></i> Android PopupWindow</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/22/AndroidSwitch控件修改样式/" rel="next" title="AndroidSwitch控件修改样式">
+                <i class="fa fa-chevron-left"></i> AndroidSwitch控件修改样式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
