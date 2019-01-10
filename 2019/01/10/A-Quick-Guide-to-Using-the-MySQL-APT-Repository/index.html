@@ -1,0 +1,1627 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="树莓派,MySQL," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Fy.L 的个人博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="标签： MySQL APT Repository  【来自：https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/】 Abstract This is a quick guide to using the MySQL APT repository, which provides deb packages for installing and">
+<meta name="keywords" content="树莓派,MySQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A Quick Guide to Using the MySQL APT Repository">
+<meta property="og:url" content="http://www.lifayu.com/2019/01/10/A-Quick-Guide-to-Using-the-MySQL-APT-Repository/index.html">
+<meta property="og:site_name" content="Fy.L 的个人博客">
+<meta property="og:description" content="标签： MySQL APT Repository  【来自：https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/】 Abstract This is a quick guide to using the MySQL APT repository, which provides deb packages for installing and">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-09T11:39:29.949Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="A Quick Guide to Using the MySQL APT Repository">
+<meta name="twitter:description" content="标签： MySQL APT Repository  【来自：https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/】 Abstract This is a quick guide to using the MySQL APT repository, which provides deb packages for installing and">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.lifayu.com/2019/01/10/A-Quick-Guide-to-Using-the-MySQL-APT-Repository/"/>
+
+
+
+
+
+  <title>A Quick Guide to Using the MySQL APT Repository | Fy.L 的个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+	
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Fy.L 的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">自学尚未成才的码农0=0</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.lifayu.com/2019/01/10/A-Quick-Guide-to-Using-the-MySQL-APT-Repository/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fy.L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://z4a.net/images/2018/05/11/L.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fy.L 的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">A Quick Guide to Using the MySQL APT Repository</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-10T03:38:15+08:00">
+                2019-01-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/树莓派/" itemprop="url" rel="index">
+                    <span itemprop="name">树莓派</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/01/10/A-Quick-Guide-to-Using-the-MySQL-APT-Repository/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/01/10/A-Quick-Guide-to-Using-the-MySQL-APT-Repository/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  5,542 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  35分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>标签： MySQL APT Repository</p>
+<hr>
+<p>【来自：<a href="https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/】" target="_blank" rel="noopener">https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/】</a></p>
+<p><strong>Abstract</strong></p>
+<p>This is a quick guide to using the MySQL APT repository, which provides <code>deb</code> packages for installing and managing the MySQL server, client, and other components on the following Linux platforms:</p>
+<ul>
+<li><p>Debian 7.x (“Wheezy”)</p>
+</li>
+<li><p>Debian 8.x (“Jessie”)</p>
+</li>
+<li><p>Debian 9.x (“Stretch”)</p>
+</li>
+<li><p>Ubuntu 14.04 LTS (“Trusty Tahr”)</p>
+</li>
+<li><p>Ubuntu 16.04 (“Xenial Xerus”)</p>
+</li>
+<li><p>Ubuntu 17.04 (“Zesty Zapu”)</p>
+</li>
+<li><p>Ubuntu 17.10 (“Artful Aardvark”)</p>
+</li>
+</ul>
+<p>For legal information, see the <a href="https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/index.html#legalnotice" target="_blank" rel="noopener">Legal Notices</a>.</p>
+<p>For help with using MySQL, please visit either the <a href="http://forums.mysql.com/" target="_blank" rel="noopener">MySQL Forums</a> or <a href="http://lists.mysql.com/" target="_blank" rel="noopener">MySQL Mailing Lists</a>, where you can discuss your issues with other MySQL users.</p>
+<p>For additional documentation on MySQL products, including translations of the documentation into other languages, and downloadable versions in variety of formats, including HTML and PDF formats, see the <a href="http://dev.mysql.com/doc" target="_blank" rel="noopener">MySQL Documentation Library</a>.</p>
+<p>Document generated on: 2018-01-06 (revision: 55374)</p>
+<hr>
+<p><strong>Table of Contents</strong></p>
+<hr>
+<ol>
+<li><p><a href="https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/index.html#apt-repo-fresh-install" target="_blank" rel="noopener">Steps for a Fresh Installation of MySQL</a></p>
+</li>
+<li><p><a href="https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/index.html#repo-qg-apt-select-series" target="_blank" rel="noopener">Selecting a Major Release Version</a></p>
+</li>
+<li><p><a href="https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/index.html#apt-repo-install-components" target="_blank" rel="noopener">Installing Additional MySQL Products and Components with APT</a></p>
+</li>
+<li><p><a href="https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/index.html#repo-qp-apt-install-from-source" target="_blank" rel="noopener">Installing MySQL from Source with the MySQL APT Repository</a></p>
+</li>
+<li><p><a href="https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/index.html#repo-qg-apt-upgrading" target="_blank" rel="noopener">Upgrading MySQL with the MySQL APT Repository</a></p>
+</li>
+<li><p><a href="https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/index.html#repo-qg-apt-replacing" target="_blank" rel="noopener">Replacing a Native Distribution of MySQL Using the MySQL APT Repository</a></p>
+</li>
+<li><p><a href="https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/index.html#repo-qg-apt-replace-direct" target="_blank" rel="noopener">Replacing a MySQL Server Installed by a Direct deb Package Download</a></p>
+</li>
+<li><p><a href="https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/index.html#apt-repo-remove" target="_blank" rel="noopener">Removing MySQL with APT</a></p>
+</li>
+<li><p><a href="https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/index.html#updating-apt-repo-client-lib" target="_blank" rel="noopener">Special Notes on Upgrading the Shared Client Libraries</a></p>
+</li>
+<li><p><a href="https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/index.html#repo-qg-apt-cluster-install" target="_blank" rel="noopener">Installing MySQL NDB Cluster Using the APT Repository</a></p>
+</li>
+<li><p><a href="https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/index.html#apt-repo-install-cluster-components" target="_blank" rel="noopener">Installing Additional MySQL NDB Cluster Products and Components</a></p>
+</li>
+<li><p><a href="https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/index.html#repo-qg-apt-available" target="_blank" rel="noopener">Available Packages from the MySQL APT Repository</a></p>
+</li>
+<li><p><a href="https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/index.html#repo-qg-apt-repo-manual-setup" target="_blank" rel="noopener">Appendix A: Adding and Configuring the MySQL APT Repository Manually</a></p>
+</li>
+<li><p><a href="https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/index.html#repo-qg-apt-repo-non-insteractive" target="_blank" rel="noopener">Appendix B: Installing MySQL Non-interactively with MySQL APT Repository</a></p>
+</li>
+<li><p><a href="https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/index.html#repo-qg-apt-repo-errors-sources-list" target="_blank" rel="noopener">Appendix C: Errors with Missing Entries in the Repository Sources List</a></p>
+</li>
+</ol>
+<p><strong>Steps for a Fresh Installation of MySQL</strong></p>
+<blockquote>
+<p><strong>Note</strong><br>The following instructions assume that no versions of MySQL (whether distributed by Oracle or other parties) have already been installed on your system; if that is not the case, follow the instructions given in <a href="https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/index.html#repo-qg-apt-replacing" target="_blank" rel="noopener">Replacing a Native Distribution of MySQL Using the MySQL APT Repository</a> or <a href="https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/index.html#repo-qg-apt-replace-direct" target="_blank" rel="noopener">Replacing a MySQL Server Installed by a Direct deb Package Download</a> instead.</p>
+</blockquote>
+<h1 id="1-Adding-the-MySQL-APT-Repository"><a href="#1-Adding-the-MySQL-APT-Repository" class="headerlink" title="1.Adding the MySQL APT Repository"></a>1.Adding the MySQL APT Repository</h1><p>First, add the MySQL APT repository to your system’s software repository list. Follow these steps:</p>
+<ol>
+<li><p>Go to the download page for the MySQL APT repository at <a href="http://dev.mysql.com/downloads/repo/apt/" target="_blank" rel="noopener">http://dev.mysql.com/downloads/repo/apt/</a>.</p>
+</li>
+<li><p>Select and download the release package for your Linux distribution.</p>
+</li>
+<li><p>Install the downloaded release package with the following command, replacing <strong><em>version-specific-package-name</em></strong> with the name of the downloaded package (preceded by its path, if you are not running the command inside the folder where the package is):</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo dpkg -i /PATH/version-specific-package-name.deb</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>For example, for version <strong><em>w.x.y-z</em></strong> of the package, the command is:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo dpkg -i mysql-apt-config_w.x.y-z_all.deb</span><br></pre></td></tr></table></figure></p>
+<p>Note that the same package works on all supported Debian and Ubuntu platforms.</p>
+<ol start="4">
+<li>During the installation of the package, you will be asked to choose the versions of the MySQL server and other components (for example, the MySQL Workbench) that you want to install. If you are not sure which version to choose, do not change the default options selected for you. You can also choose <strong>none</strong> if you do not want a particular component to be installed. After making the choices for all components, choose <strong>Ok</strong> to finish the configuration and installation of the release package.</li>
+</ol>
+<p>You can always change your choices for the versions later; see <a href="https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/index.html#repo-qg-apt-select-series" target="_blank" rel="noopener">Selecting a Major Release Version</a> for instructions.</p>
+<ol start="5">
+<li>Update package information from the MySQL APT repository with the following command (<em>this step is mandatory</em>):<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo apt-get update</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>Instead of using the release package, you can also add and configure the MySQL APT repository manually; see <a href="https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/index.html#repo-qg-apt-repo-manual-setup" target="_blank" rel="noopener">Appendix A: Adding and Configuring the MySQL APT Repository Manually</a> for details.</p>
+<blockquote>
+<p><strong>Note</strong><br>Once the MySQL APT repository is enabled on your system, you will no longer be able to install any MySQL packages from your platform’s native software repositories until the MySQL APT repository is disabled.</p>
+</blockquote>
+<p>#2.Installing MySQL with APT<br>Install MySQL by the following command:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo apt-get install mysql-server</span><br></pre></td></tr></table></figure></p>
+<p>This installs the package for the MySQL server, as well as the packages for the client and for the database common files.</p>
+<p>During the installation, you are asked to supply a password for the root user for your MySQL installation.</p>
+<blockquote>
+<p><strong>Important</strong><br>Make sure you remember the root password you set. Users who want to set a password later can leave the <strong>password</strong> field blank in the dialogue box and just press <strong>Ok</strong>; in that case, root access to the server will be authenticated by <a href="https://dev.mysql.com/doc/refman/5.7/en/socket-pluggable-authentication.html" target="_blank" rel="noopener">Socket Peer-Credential Pluggable Authentication</a> for connections using a Unix socket file. You can set the root password later using the program <a href="https://dev.mysql.com/doc/refman/5.7/en/mysql-secure-installation.html" target="_blank" rel="noopener"><strong>mysql_secure_installation</strong></a>.</p>
+</blockquote>
+<p>#3.Starting and Stopping the MySQL Server<br>The MySQL server is started automatically after installation. You can check the status of the MySQL server with the following command:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo service mysql status</span><br></pre></td></tr></table></figure></p>
+<p>Stop the MySQL server with the following command:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo service mysql stop</span><br></pre></td></tr></table></figure></p>
+<p>To restart the MySQL server, use the following command:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo service mysql start</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p><strong>Note</strong><br>A few third-party native repository packages that have dependencies on the native MySQL packages may not work with the MySQL APT repository packages and should not be used together with them; these include akonadi-backend-mysql, handlersocket-mysql-5.5, and zoneminder.</p>
+</blockquote>
+<p><strong>Selecting a Major Release Version</strong><br>By default, all installations and upgrades for your MySQL server and the other required components come from the release series of the major version you have selected during the installation of the configuration package (see <a href="https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/index.html#apt-repo-setup" target="_blank" rel="noopener">Adding the MySQL APT Repository</a>). However, you can switch to another supported major release series at any time by reconfiguring the configuration package you have installed. Use the following command:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo dpkg-reconfigure mysql-apt-config</span><br></pre></td></tr></table></figure></p>
+<p>A dialogue box then asks you to choose the major release version you want. Make your selection and choose <strong>Ok</strong>. After returning to the command prompt, update package information from the MySQL APT repository with this command:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo apt-get update</span><br></pre></td></tr></table></figure></p>
+<p>The latest version in the selected series will then be installed when you use the <strong>apt-get install</strong> command next time.</p>
+<p>You can use the same method to change the version for any other MySQL component you want to install with the MySQL APT repository.</p>
+<p><strong>Installing Additional MySQL Products and Components</strong><br>You can use APT to install individual components of MySQL from the MySQL APT repository. Assuming you already have the MySQL APT repository on your system’s repository list (see <a href="https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/index.html#apt-repo-setup" target="_blank" rel="noopener">Adding the MySQL APT Repository for instructions</a>), first, use the following command to get the latest package information from the MySQL APT repository:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo apt-get update</span><br></pre></td></tr></table></figure></p>
+<p>Install any packages of your choice with the following command, replacing <strong><em>package-name</em></strong> with name of the package (<a href="https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/index.html#repo-qg-apt-available" target="_blank" rel="noopener">here</a> is a list of available packages):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo apt-get install package-name</span><br></pre></td></tr></table></figure></p>
+<p>For example, to install the MySQL Workbench:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo apt-get install mysql-workbench-community</span><br></pre></td></tr></table></figure></p>
+<p>To install the shared client libraries:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo apt-get install libmysqlclient18</span><br></pre></td></tr></table></figure></p>
+<p><strong>Installing MySQL from Source with the MySQL APT Repository</strong></p>
+<blockquote>
+<p><strong>Note</strong><br>This feature is only supported on 64-bit systems.</p>
+</blockquote>
+<p>You can download the source code for MySQL and build it using the MySQL APT Repository:</p>
+<ol>
+<li><p>Add the MySQL APT repository to your system’s repository list and choose the major release series you want (see <a href="https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/index.html#apt-repo-setup" target="_blank" rel="noopener">Adding the MySQL APT Repository</a> for instructions).</p>
+</li>
+<li><p>Update package information from the MySQL APT repository with the following command (<em>this step is mandatory</em>):</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo apt-get update</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Install packages that the build process depends on:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo apt-get build-dep mysql-server</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Download the source code for the major components of MySQL and then build them (run this command in the folder in which you want the downloaded files and the builds to be located):</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; apt-get source -b mysql-server</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><code>deb</code> packages for installing the various MySQL components are created.</p>
+<ol start="5">
+<li>Pick the <code>deb</code> packages for the MySQL components you need and install them with the command:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo dpkg -i package-name.deb</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>Notice that dependency relationships exist among the MySQL packages. For a basic installation of the MySQL server, install the database common files package, the client package, the client metapackage, the server package, and the server metapackage (in that order) with the following steps:</p>
+<ul>
+<li>Preconfigure the MySQL server package with the following command:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo dpkg-preconfigure mysql-community-server_version-and-platform-specific-part.deb</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>You will be asked to provide a password for the root user for your MySQL installation; see important information on root password given in <a href="https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/index.html#repo-qg-apt-installing" target="_blank" rel="noopener">Installing MySQL with APT</a> above. You might also be asked other questions regarding the installation.</p>
+<ul>
+<li><p>Install the required packages with a single command:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo dpkg -i mysql-&#123;common,community-client,client,community-server,server&#125;_*.deb</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>If you are being warned of unmet dependencies by <strong>dpkg</strong>, you can fix them using <strong>apt-get</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get -f install</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>Here are where the files are installed on the system:</p>
+<ul>
+<li><p>All configuration files (like <code>my.cnf</code>) are under <code>/etc/mysql</code></p>
+</li>
+<li><p>All binaries, libraries, headers, etc., are under <code>/usr/bin</code> and <code>/usr/sbin</code></p>
+</li>
+<li><p>The data directory is under <code>/var/lib/mysql</code></p>
+</li>
+</ul>
+<p>See also information given in <a href="https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/index.html#repo-qg-apt-starting-and-stopping-server" target="_blank" rel="noopener">Starting and Stopping the MySQL Server</a>.</p>
+<p><strong>Upgrading MySQL with the MySQL APT Repository</strong></p>
+<blockquote>
+<p><strong>Notes</strong></p>
+</blockquote>
+<blockquote>
+<ul>
+<li>Before performing any upgrade to MySQL, follow carefully the instructions in <a href="https://dev.mysql.com/doc/refman/5.7/en/upgrading.html" target="_blank" rel="noopener">Upgrading MySQL</a>. Among other instructions discussed there, <strong><em>it is especially important to back up your database before the upgrade</em></strong>.</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>The following instructions assume that MySQL has been installed on your system using the MySQL APT repository; if that is not the case, follow the instructions given in <a href="https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/index.html#repo-qg-apt-replacing" target="_blank" rel="noopener">Replacing a Native Distribution of MySQL Using the MySQL APT Repository</a> or <a href="https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/index.html#repo-qg-apt-replace-direct" target="_blank" rel="noopener">Replacing a MySQL Server Installed by a Direct deb Package Download</a> instead. Also notice that you cannot use the MySQL APT repository to upgrade a distribution of MySQL that you have installed from a nonnative software repository (for example, from MariaDB or Percona).</li>
+</ul>
+</blockquote>
+<p>Use the MySQL APT repository to perform an in-place upgrade for your MySQL installation (that is, replacing the old version and then running the new version off the old data files) by following these steps:</p>
+<ol>
+<li><p>Make sure you already have the MySQL APT repository on your system’s repository list (see <a href="https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/index.html#apt-repo-setup" target="_blank" rel="noopener">Adding the MySQL APT Repository</a> for instructions).</p>
+</li>
+<li><p>Make sure you have the most up-to-date package information on the MySQL APT repository by running:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo apt-get update</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Note that, by default, the MySQL APT repository will update MySQL to the release series you have selected when you were <a href="https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/index.html#repo-qg-apt-select-series" target="_blank" rel="noopener">adding the MySQL APT repository to your system</a>. If you want to upgrade to another release series, select it by following the steps given in <a href="https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/index.html#repo-qg-apt-select-series" target="_blank" rel="noopener">Selecting a Major Release Version</a>.</p>
+</li>
+</ol>
+<p>As a general rule, to upgrade from one release series to another, go to the next series rather than skipping a series. For example, if you are currently running MySQL 5.5 and wish to upgrade to a newer series, upgrade to MySQL 5.6 first before upgrading to 5.7, and so on.</p>
+<blockquote>
+<p><strong>Important</strong></p>
+</blockquote>
+<blockquote>
+<ul>
+<li>For important information about upgrading from MySQL 5.5 to 5.6, see U<a href="https://dev.mysql.com/doc/refman/5.6/en/upgrading-from-previous-series.html" target="_blank" rel="noopener">pgrading from MySQL 5.5 to 5.6</a>.</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>For important information about upgrading from MySQL 5.6 to 5.7, see <a href="https://dev.mysql.com/doc/refman/5.7/en/upgrading-from-previous-series.html" target="_blank" rel="noopener">Upgrading from MySQL 5.6 to 5.7</a>.</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>For important information about upgrading from MySQL 5.7 to 8.0, see <a href="https://dev.mysql.com/doc/refman/8.0/en/upgrading-from-previous-series.html" target="_blank" rel="noopener">Upgrading from MySQL 5.7 to 8.0</a>.</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>In-place downgrading of MySQL is not supported by the MySQL APT repository. Follow the instructions in <a href="https://dev.mysql.com/doc/refman/5.7/en/downgrading.html" target="_blank" rel="noopener">Downgrading MySQL</a>.</li>
+</ul>
+</blockquote>
+<ol start="4">
+<li>Upgrade MySQL by the following command:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo apt-get install mysql-server</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>The MySQL server, client, and the database common files are upgraded if newer versions are available. To upgrade any other MySQL package, use the same <strong>apt-get install</strong> command and supply the name for the package you want to upgrade:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo apt-get install package-name</span><br></pre></td></tr></table></figure></p>
+<p>To see the names of the packages you have installed from the MySQL APT repository, use the following command:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; dpkg -l | grep mysql | grep ii</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p><strong>Note</strong><br>If you perform a system-wide upgrade by the <strong>apt-get upgrade</strong>, only the library and development packages for MySQL will get upgraded with newer versions (if available). To upgrade other components including the server, client, test suite, etc., use the <strong>apt-get install</strong> command, as explained precedingly.</p>
+</blockquote>
+<ol start="5">
+<li>The MySQL server always restarts after an update by APT. Once the server restarts, you should run <strong>mysql_upgrade</strong> to check and possibly resolve any incompatibilities between the old data and the upgraded software. <strong>mysql_upgrade</strong> also performs other functions; see <a href="https://dev.mysql.com/doc/refman/5.7/en/mysql-upgrade.html" target="_blank" rel="noopener"><strong>mysql_upgrade</strong> — Check and Upgrade MySQL Tables</a> for details.</li>
+</ol>
+<p><strong>Replacing a Native Distribution of MySQL Using the MySQL APT Repository</strong><br>Variants and forks of MySQL are distributed by different parties through their own software repositories or download sites. You can replace a native distribution of MySQL installed from your Linux platform’s software repository with a distribution from the MySQL APT repository in a few steps.</p>
+<blockquote>
+<p><strong>Note</strong><br>The MySQL APT repository can only replace distributions of MySQL maintained and distributed by Debian or Ubuntu. It cannot replace any MySQL forks found either inside or outside of the distributions’ native repositories. To replace such MySQL forks, you have to uninstall them first before you install MySQL using the MySQL APT repository. Follow the instructions for uninstallation from the forks’ distributors and, before you proceed, make sure you back up your data and you know how to restore them to a new server.</p>
+</blockquote>
+<blockquote>
+<p><strong>Warning</strong><br>A few third-party native repository packages that have dependencies on the native MySQL packages may not work with the MySQL APT repository packages and should not be used together with them; these include akonadi-backend-mysql, handlersocket-mysql-5.5, and zoneminder.</p>
+</blockquote>
+<p><strong>1.Backing Up Your Database</strong><br>To avoid loss of data, always back up your database before trying to replace your MySQL installation using the MySQL APT repository. See Backup and Recovery for instructions.</p>
+<p><strong>2.Adding the MySQL APT Repository and Selecting a Release Series</strong><br>Add the MySQL APT repository to your system’s repository list and select the release series you want by following the instructions given in <a href="https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/index.html#apt-repo-setup" target="_blank" rel="noopener">Adding the MySQL APT Repository</a>.</p>
+<p><strong>3.Replacing the Native Distribution by an APT Update</strong><br>By design, the MySQL APT repository replaces your native distribution of MySQL when you perform upgrades on the MySQL packages. To perform the upgrades, follow the same instructions given in <a href="https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/index.html#apt-repo-upgrade-step4" target="_blank" rel="noopener">Step 4</a> in <a href="https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/index.html#repo-qg-apt-upgrading" target="_blank" rel="noopener">Upgrading MySQL with the MySQL APT Repository</a>.</p>
+<blockquote>
+<p><strong>Warning</strong><br>Once the native distribution of MySQL has been replaced using the MySQL APT repository, purging the old MySQL packages from the native repository using the <strong>apt-get purge, apt-get remove –purge</strong>, or <strong>dpkg -P</strong> command might impact the newly installed MySQL server in various ways. Therefore, <em>do not purge the old MySQL packages from the native repository packages</em>.</p>
+</blockquote>
+<p><strong>Replacing a MySQL Server Installed by a Direct deb Package Download</strong><br><code>deb</code> packages from MySQL for installing the MySQL server and its components can either be downloaded from the MySQL Developer Zone’s MySQL Download page or from the MySQL APT repository. The deb packages from the two sources are different, and they install and configure MySQL in different ways.</p>
+<p>If you have installed MySQL with the MySQL Developer Zone’s deb packages and now want to replace the installation using the ones from the MySQL APT repository, follow these steps:</p>
+<p>Back up your database. See Backup and Recovery for instructions.</p>
+<p>Follow the steps given previously for adding the MySQL APT repository.</p>
+<p>Remove the old installation of MySQL by running:</p>
+<p>shell&gt; sudo dpkg -P mysql<br>Install MySQL from the MySQL APT repository:</p>
+<p>shell&gt; sudo apt-get install mysql-server<br>If needed, restore the data on the new MySQL installation. See Backup and Recovery for instructions.</p>
+<p>Removing MySQL with APT<br>To uninstall the MySQL server and the related components that have been installed using the MySQL APT repository, first, remove the MySQL server using the following command:</p>
+<p>shell&gt; sudo apt-get remove mysql-server<br>Then, remove any other software that was installed automatically with the MySQL server:</p>
+<p>shell&gt; sudo apt-get autoremove<br>To uninstall other components, use the following command, replacing package-name with the name of the package of the component you want to remove:</p>
+<p>shell&gt; sudo apt-get remove package-name<br>To see a list of packages you have installed from the MySQL APT repository, use the following command:</p>
+<p>shell&gt; dpkg -l | grep mysql | grep ii<br>Special Notes on Upgrading the Shared Client Libraries<br>You can install the shared client libraries from MySQL APT repository by the following command (see Installing Additional MySQL Products and Components with APT for more details):</p>
+<p>shell&gt; sudo apt-get install libmysqlclient20<br>If you already have the shared client libraries installed from you Linux platform’s software repository, it can be updated by the MySQL APT repository with its own package by using the same command (see Replacing the Native Distribution by an APT Update for more details).</p>
+<p>After updating MySQL using the APT repository, applications compiled with older versions of the shared client libraries should continue to work.</p>
+<p>If you recompile applications and dynamically link them with the updated libraries: as typical with new versions of shared libraries, any applications compiled using the updated, newer shared libraries might require those updated libraries on systems where the applications are deployed. If those libraries are not in place, the applications requiring the shared libraries might fail. Therefore, it is recommended that the packages for the shared libraries from MySQL be deployed on those systems. You can do this by adding the MySQL APT repository to the systems (see Adding the MySQL APT Repository) and installing the latest shared client libraries using the command given at the beginning of this section.</p>
+<p>Installing MySQL NDB Cluster Using the APT Repository<br>Notes<br>The MySQL APT repository supports installation of MySQL NDB Cluster only for release 7.5.6 and later, and only for Debian 7.x and 8.x, and Ubuntu 14.04 and 16.04. For other methods of installing NDB Cluster, see Installation of NDB Cluster on Linux, or Installation of NDB Cluster on Linux, depending on the release series that you are using.</p>
+<p>If you already have the MySQL server or MySQL NDB Cluster installed on your system, make sure it is stopped and you have your data and configuration files backed up before proceeding.</p>
+<p>Known issues: The MySQL NDB Cluster packages have dependencies on the python-paramiko and libclass-methodmaker-perl packages, which are currently NOT installed automatically when you install the NDB Cluster packages; install those required packages yourself with this command before installing the NDB Cluster packages:</p>
+<p>shell&gt; sudo apt-get install python-paramiko libclass-methodmaker-perl<br>Adding the MySQL APT Repository for MySQL NDB Cluster<br>Follow the steps in Adding the MySQL APT Repository to add the MySQL APT repository to your system’s repository list. During the installation process of the configuration package, when you are asked which MySQL product you want to configure, choose “MySQL Server &amp; Cluster”; when asked which version you wish to receive, choose “mysql-cluster-x.y.” After returning to the command prompt, go to Step 2 below.</p>
+<p>If you already have the configuration package installed on your system, make sure it is up-to-date by running the following command:</p>
+<p>shell&gt; sudo apt-get install mysql-apt-config<br>Then, use the same method described in Selecting a Major Release Version to select MySQL NDB Cluster for installation. When you are asked which MySQL product you want to configure, choose “MySQL Server &amp; Cluster”; when asked which version you wish to receive, choose “mysql-cluster-x.y.” After returning to the command prompt, update package information from the MySQL APT repository with this command:</p>
+<p>shell&gt; sudo apt-get update<br>Installing MySQL NDB Cluster<br>For a minimal installation of MySQL NDB Cluster, follow these steps:</p>
+<p>Install the components for SQL nodes:</p>
+<p>shell&gt; sudo apt-get install mysql-cluster-community-server<br>You will be asked to provide a password for the root user for your SQL node; see important information on the root password given in Installing MySQL with APT above. You might also be asked other questions regarding the installation.</p>
+<p>Install the executables for management nodes:</p>
+<p>shell&gt; sudo apt-get install mysql-cluster-community-management-server<br>Install the executables for data nodes:</p>
+<p>shell&gt; sudo apt-get install mysql-cluster-community-data-node<br>Configuring and Starting MySQL NDB Cluster<br>See Initial Configuration of NDB Cluster on how to configure MySQL NDB Cluster and Initial Startup of NDB Cluster on how to start it for the first time. When following those instructions, adjust them according to the following details regarding the SQL nodes of your NDB Cluster installation:</p>
+<p>All configuration files (like my.cnf) are under /etc/mysql</p>
+<p>All binaries, libraries, headers, etc., are under /usr/bin and /usr/sbin</p>
+<p>The data directory is /var/lib/mysql</p>
+<p>Installing Additional MySQL NDB Cluster Products and Components<br>You can use APT to install individual components and additional products of MySQL NDB Cluster from the MySQL APT repository (see Available Packages from the MySQL APT Repository for a list). To do that, assuming you already have the MySQL APT repository on your system’s repository list (see Adding the MySQL Yum Repository for MySQL NDB Cluster), follow the same steps given in Installing Additional MySQL Products and Components with APT.</p>
+<p>Note<br>Known issue: Currently, not all components required for running the MySQL NDB Cluster test suite are installed automatically when you install the test suite package (mysql-cluster-community-test). Install the following packages with apt-get install before you run the test suite:</p>
+<p>mysql-cluster-community-auto-installer</p>
+<p>mysql-cluster-community-management-server</p>
+<p>mysql-cluster-community-data-node</p>
+<p>mysql-cluster-community-memcached</p>
+<p>mysql-cluster-community-java</p>
+<p>ndbclient-dev</p>
+<p>Available Packages from the MySQL APT Repository<br>Table 1 Available Packages from the MySQL APT Repository</p>
+<p>Package Name    Description<br>mysql-server</p>
+<p>Metapackage for installing the MySQL server</p>
+<p>mysql-community-server</p>
+<p>MySQL server</p>
+<p>mysql-client</p>
+<p>Metapackage for installing the MySQL client</p>
+<p>mysql-cluster-community-auto-installer</p>
+<p>Auto installer for NDB Cluster</p>
+<p>mysql-cluster-community-client</p>
+<p>MySQL client for NDB Cluster</p>
+<p>mysql-cluster-community-data-node</p>
+<p>NDB Cluster data node</p>
+<p>mysql-cluster-community-java</p>
+<p>NDB Cluster Java drivers</p>
+<p>mysql-cluster-community-management-server</p>
+<p>NDB Cluster management node</p>
+<p>mysql-cluster-community-memcached</p>
+<p>NDB Cluster memcached server</p>
+<p>mysql-cluster-community-server</p>
+<p>MySQL server for NDB Cluster</p>
+<p>mysql-cluster-community-source</p>
+<p>Source package for NDB Cluster</p>
+<p>mysql-cluster-community-test</p>
+<p>NDB Cluster testsuite</p>
+<p>mysql-community-client</p>
+<p>MySQL client</p>
+<p>mysql-common</p>
+<p>MySQL database common files</p>
+<p>libmysqlclient20</p>
+<p>MySQL database client library</p>
+<p>libmysqlclient-dev</p>
+<p>MySQL database development files</p>
+<p>libmysqld-dev</p>
+<p>MySQL embedded database development files</p>
+<p>mysql-testsuite</p>
+<p>Metapackage for installing the MySQL test suite</p>
+<p>mysql-community-test</p>
+<p>MySQL test suite</p>
+<p>mysql-community-bench</p>
+<p>MySQL benchmark suite</p>
+<p>mysql-community-source</p>
+<p>MySQL source code</p>
+<p>mysql-workbench-community<br>MySQL Workbench (not available for Debian platforms)</p>
+<p>mysql-connector-python-py3<br>MySQL Connector/Python for Ubuntu 14.04, 14.10, and 15.04 with Python 3.2 or later</p>
+<p>mysql-connector-python<br>MySQL Connector/Python for Debian 7.x or Debian 8.x with Python 2.6.3 or later, and for Ubuntu 14.04, 14.10, or 15.04 with Python 2.6.3 to 3.1</p>
+<p>mysql-utilities    MySQL Utilities (currently not available for Debian 8.x)<br>mysql-router    MySQL Router<br>ndbclient    NDB Cluster client<br>ndbclient-dev    NDB Cluster client development library</p>
+<p>Appendix A: Adding and Configuring the MySQL APT Repository Manually<br>Here are the steps for adding manually the MySQL APT repository to your system’s software repository list and configuring it, without using the release packages provided by MySQL:</p>
+<p>Download the MySQL GPG Public key (see Signature Checking Using GnuPG on how to do that) and save it to a file, without adding any spaces or special characters. Then, add the key to your system’s GPG keyring with the following command:</p>
+<p>shell&gt; sudo apt-key add path/to/signature-file<br>Alternatively, you can download the GPG key to your APT keyring directly using the apt-key utility:</p>
+<p>shell&gt; sudo apt-key adv –keyserver pgp.mit.edu –recv-keys 5072E1F5<br>Create a file named /etc/apt/sources.list.d/mysql.list, and put into it repository entries in the following format:</p>
+<p>deb <a href="http://repo.mysql.com/apt/{debian|ubuntu}/" target="_blank" rel="noopener">http://repo.mysql.com/apt/{debian|ubuntu}/</a> {jessie|wheezy|trusty|utopic|vivid} {mysql-5.6|mysql-5.7|workbench-6.2|utilities-1.4|connector-python-2.0}<br>Pick the relevant options for your repository set up:</p>
+<p>Choose “debian” or “ubuntu” according to whether you are on a Debian or Ubuntu platform.</p>
+<p>Choose “jessie,” “ wheezy,” “trusty,” “utopic,” or “vivid,” according to the version of your operating system.</p>
+<p>For installing MySQL server, client, and database common files, choose “mysql-5.6” or “mysql-5.7” according to the MySQL version you want. To switch to another release series later, come back and adjust the entry with your new choice.</p>
+<p>Note<br>If you already have a version of MySQL installed on your system, do not choose a lower version at this step, or it might result in an unsupported downgrade operation.</p>
+<p>For installing components like MySQL Workbench, MySQL Utilities, or MySQL Connector Python, create a single entry for each of them, specifying respectively “workbench-6.2,” “utilities-1.4,” or “connector-python-2.0” at the end of each entry.</p>
+<p>As an example, for a Ubuntu 14.04 platform, here are the lines in your mysql.list files for installing MySQL 5.6 and MySQL Connector/Python from the MySQL APT repository:</p>
+<p>deb <a href="http://repo.mysql.com/apt/ubuntu/" target="_blank" rel="noopener">http://repo.mysql.com/apt/ubuntu/</a> trusty mysql-5.6<br>deb <a href="http://repo.mysql.com/apt/ubuntu/" target="_blank" rel="noopener">http://repo.mysql.com/apt/ubuntu/</a> trusty connector-python-2.0<br>Use the following command to get the most up-to-date package information from the MySQL APT repository:</p>
+<p>shell&gt; sudo apt-get update<br>You have configured your system to use the MySQL APT repository and are now ready to continue with Installing MySQL with APT or Installing Additional MySQL Products and Components with APT.</p>
+<p>Appendix B: Installing MySQL Non-interactively with MySQL APT Repository<br>For non-interactive installations of MySQL with the MySQL APT repository, answer the interactive questions asked by the server package by setting the relevant debconf variables in, for example, your installation script. These are the variables to set:</p>
+<p>root_password: This is the root password for the server installation.</p>
+<p>root_password_again: This is the root password, entered a second time for confirmation.</p>
+<p>The following are steps from a sample script that set the debconf variables and then install MySQL non-interactively by setting the environment variable DEBIAN_FRONTEND to noninteractive:</p>
+<p>sudo debconf-set-selections &lt;&lt;&lt; “mysql-community-server mysql-community-server/root-pass password mypassword”<br>sudo debconf-set-selections &lt;&lt;&lt; “mysql-community-server mysql-community-server/re-root-pass password mypassword”<br>sudo DEBIAN_FRONTEND=noninteractive apt-get -y install mysql-server<br>The password variables are erased automatically after MySQL has been installed, so they need to be set again if the installation is to be repeated.</p>
+<p>Appendix C: Errors with Missing Entries in the Repository Sources List<br>Users who configured their systems some time ago with an early and now outdated version of the release package for the MySQL APT repository might see a warning similar to the one below when running the apt-get update command:</p>
+<p>shell&gt; sudo apt-get update<br>W: Failed to fetch <a href="http://repo.mysql.com/apt/ubuntu/dists/trusty/InRelease" target="_blank" rel="noopener">http://repo.mysql.com/apt/ubuntu/dists/trusty/InRelease</a><br>Unable to find expected entry ‘utilities-1.4/binary-amd64/Packages’ in<br>Release file (Wrong sources.list entry or malformed file)<br>The apt-get update command fails with this, and it is no longer possible to update package information for the MySQL APT repository. This is due to outdated entries in the sources list, and you can resolve the problem by the following steps:</p>
+<p>Delete the file /etc/apt/sources.list.d/mysql.list from your system. That removes all sources list entries for the MySQL APT repository.</p>
+<p>Download and install the latest version of the release package for the MySQL repository by following the steps given in Adding the MySQL APT Repository, including the sudo apt-get update step. It reconfigures your system properly for using the MySQL APT repository.</p>
+<p>Legal Notices<br>Copyright © 1997, 2018, Oracle and/or its affiliates. All rights reserved.</p>
+<p>This software and related documentation are provided under a license agreement containing restrictions on use and disclosure and are protected by intellectual property laws. Except as expressly permitted in your license agreement or allowed by law, you may not use, copy, reproduce, translate, broadcast, modify, license, transmit, distribute, exhibit, perform, publish, or display any part, in any form, or by any means. Reverse engineering, disassembly, or decompilation of this software, unless required by law for interoperability, is prohibited.</p>
+<p>The information contained herein is subject to change without notice and is not warranted to be error-free. If you find any errors, please report them to us in writing.</p>
+<p>If this is software or related documentation that is delivered to the U.S. Government or anyone licensing it on behalf of the U.S. Government, then the following notice is applicable:</p>
+<p>U.S. GOVERNMENT END USERS: Oracle programs, including any operating system, integrated software, any programs installed on the hardware, and/or documentation, delivered to U.S. Government end users are “commercial computer software” pursuant to the applicable Federal Acquisition Regulation and agency-specific supplemental regulations. As such, use, duplication, disclosure, modification, and adaptation of the programs, including any operating system, integrated software, any programs installed on the hardware, and/or documentation, shall be subject to license terms and license restrictions applicable to the programs. No other rights are granted to the U.S. Government.</p>
+<p>This software or hardware is developed for general use in a variety of information management applications. It is not developed or intended for use in any inherently dangerous applications, including applications that may create a risk of personal injury. If you use this software or hardware in dangerous applications, then you shall be responsible to take all appropriate fail-safe, backup, redundancy, and other measures to ensure its safe use. Oracle Corporation and its affiliates disclaim any liability for any damages caused by use of this software or hardware in dangerous applications.</p>
+<p>Oracle and Java are registered trademarks of Oracle and/or its affiliates. Other names may be trademarks of their respective owners.</p>
+<p>Intel and Intel Xeon are trademarks or registered trademarks of Intel Corporation. All SPARC trademarks are used under license and are trademarks or registered trademarks of SPARC International, Inc. AMD, Opteron, the AMD logo, and the AMD Opteron logo are trademarks or registered trademarks of Advanced Micro Devices. UNIX is a registered trademark of The Open Group.</p>
+<p>This software or hardware and documentation may provide access to or information about content, products, and services from third parties. Oracle Corporation and its affiliates are not responsible for and expressly disclaim all warranties of any kind with respect to third-party content, products, and services unless otherwise set forth in an applicable agreement between you and Oracle. Oracle Corporation and its affiliates will not be responsible for any loss, costs, or damages incurred due to your access to or use of third-party content, products, or services, except as set forth in an applicable agreement between you and Oracle.</p>
+<p>This documentation is NOT distributed under a GPL license. Use of this documentation is subject to the following terms:</p>
+<p>You may create a printed copy of this documentation solely for your own personal use. Conversion to other formats is allowed as long as the actual content is not altered or edited in any way. You shall not publish or distribute this documentation in any form or on any media, except if you distribute the documentation in a manner similar to how Oracle disseminates it (that is, electronically for download on a Web site with the software) or on a CD-ROM or similar medium, provided however that the documentation is disseminated together with the software on the same medium. Any other use, such as any dissemination of printed copies or use of this documentation, in whole or in part, in another publication, requires the prior written consent from an authorized representative of Oracle. Oracle and/or its affiliates reserve any and all rights to this documentation not expressly granted above.</p>
+<p>Documentation Accessibility<br>For information about Oracle’s commitment to accessibility, visit the Oracle Accessibility Program website at <a href="http://www.oracle.com/pls/topic/lookup?ctx=acc&amp;id=docacc" target="_blank" rel="noopener">http://www.oracle.com/pls/topic/lookup?ctx=acc&amp;id=docacc</a>.</p>
+<p>Access to Oracle Support<br>Oracle customers that have purchased support have access to electronic support through My Oracle Support. For information, visit <a href="http://www.oracle.com/pls/topic/lookup?ctx=acc&amp;id=info" target="_blank" rel="noopener">http://www.oracle.com/pls/topic/lookup?ctx=acc&amp;id=info</a> or visit <a href="http://www.oracle.com/pls/topic/lookup?ctx=acc&amp;id=trs" target="_blank" rel="noopener">http://www.oracle.com/pls/topic/lookup?ctx=acc&amp;id=trs</a> if you are hearing impaired.</p>
+<p>  [37ml#repo-qg-apt-replace-direct</p>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        
+      
+	</div>
+	
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果觉着我的文章不错，打赏我一包辣条吧 O(∩_∩)O</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="http://z4a.net/images/2018/05/11/4c698d5e65a32f9f21667df7c7c40c0c.jpg" alt="Fy.L 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="http://z4a.net/images/2018/05/11/f81d8cd29e1a233798e944fd5b7d6fe2.jpg" alt="Fy.L 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+	<div>
+		
+			<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+            -------------本文结束
+            <i class="fa fa-paw"></i>
+            感谢您的阅读-------------
+        </div>
+    
+</div>
+		
+	</div>
+	
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/树莓派/" rel="tag"><i class="fa fa-tag"></i> 树莓派</a>
+          
+            <a href="/tags/MySQL/" rel="tag"><i class="fa fa-tag"></i> MySQL</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/10/树莓派-RASPBERRY-PI-SD卡系统备份与还原/" rel="next" title="树莓派 RASPBERRY PI SD卡系统备份与还原">
+                <i class="fa fa-chevron-left"></i> 树莓派 RASPBERRY PI SD卡系统备份与还原
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/10/解决树莓派软件源更新时公钥问题/" rel="prev" title="解决树莓派软件源更新时公钥问题">
+                解决树莓派软件源更新时公钥问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://z4a.net/images/2018/05/11/L.jpg"
+                alt="Fy.L" />
+            
+              <p class="site-author-name" itemprop="name">Fy.L</p>
+              <p class="site-description motion-element" itemprop="description">你若赐我一段浮华，我便许你满世繁花</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/duyi324" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Adding-the-MySQL-APT-Repository"><span class="nav-number">1.</span> <span class="nav-text">1.Adding the MySQL APT Repository</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fy.L</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: false,
+        appId: 'LgMLox3ikl34DiwCONMx3jDa-gzGzoHsz',
+        appKey: 'Ya6TtRJBFKVwLmE3RtnF66vO',
+        placeholder: '悄悄地，回复一句吧~~~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  
+	<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+	</script>
+
+  
+  </body>
+</html>

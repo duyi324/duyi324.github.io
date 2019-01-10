@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="树莓派,NextCloud," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Fy.L 的个人博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="【原文链接：https://wzfou.com/nextcloud-install/】  NextCloud由原ownCloud联合创始人Frank Karlitschek创建的，继承原ownCloud的核心技术又有不少的创新。在功能上NextCloud和ownCloud差不多，甚至还要丰富一些，在用户使用体验方面，NextCloud安装与使用都非常地顺手，最重要的是NextCloud完全开源免费">
+<meta name="keywords" content="树莓派,NextCloud">
+<meta property="og:type" content="article">
+<meta property="og:title" content="手动安装NextCloud教程-免费开源的私有云存储网盘可播放图片音乐">
+<meta property="og:url" content="http://www.lifayu.com/2019/01/10/手动安装NextCloud教程-免费开源的私有云存储网盘可播放图片音乐/index.html">
+<meta property="og:site_name" content="Fy.L 的个人博客">
+<meta property="og:description" content="【原文链接：https://wzfou.com/nextcloud-install/】  NextCloud由原ownCloud联合创始人Frank Karlitschek创建的，继承原ownCloud的核心技术又有不少的创新。在功能上NextCloud和ownCloud差不多，甚至还要丰富一些，在用户使用体验方面，NextCloud安装与使用都非常地顺手，最重要的是NextCloud完全开源免费">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3832962-142f8ca689e7d524.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3832962-2d4e7c6a373b3b67.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3832962-eb982f15f1949705.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3832962-35bad6780fd4c569.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3832962-9d165b0781ecc8fe.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3832962-516d8fe28cf6a69d.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3832962-c8e9f87eb15e3eab.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3832962-77182db0bdd0121b.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3832962-d2cbe62dbd888ac1.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3832962-6dfb933da287375a.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3832962-2d976dc9a6f9afa6.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3832962-16a8467ded56a63b.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3832962-3134ebe01ad560e7.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3832962-cb0df8aa0851ed0d.gif?imageMogr2/auto-orient/strip">
+<meta property="og:updated_time" content="2019-01-09T11:36:45.761Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="手动安装NextCloud教程-免费开源的私有云存储网盘可播放图片音乐">
+<meta name="twitter:description" content="【原文链接：https://wzfou.com/nextcloud-install/】  NextCloud由原ownCloud联合创始人Frank Karlitschek创建的，继承原ownCloud的核心技术又有不少的创新。在功能上NextCloud和ownCloud差不多，甚至还要丰富一些，在用户使用体验方面，NextCloud安装与使用都非常地顺手，最重要的是NextCloud完全开源免费">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/3832962-142f8ca689e7d524.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.lifayu.com/2019/01/10/手动安装NextCloud教程-免费开源的私有云存储网盘可播放图片音乐/"/>
+
+
+
+
+
+  <title>手动安装NextCloud教程-免费开源的私有云存储网盘可播放图片音乐 | Fy.L 的个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+	
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Fy.L 的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">自学尚未成才的码农0=0</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.lifayu.com/2019/01/10/手动安装NextCloud教程-免费开源的私有云存储网盘可播放图片音乐/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fy.L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://z4a.net/images/2018/05/11/L.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fy.L 的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">手动安装NextCloud教程-免费开源的私有云存储网盘可播放图片音乐</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-10T03:32:09+08:00">
+                2019-01-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/树莓派/" itemprop="url" rel="index">
+                    <span itemprop="name">树莓派</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/树莓派/NextCloud/" itemprop="url" rel="index">
+                    <span itemprop="name">NextCloud</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/01/10/手动安装NextCloud教程-免费开源的私有云存储网盘可播放图片音乐/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/01/10/手动安装NextCloud教程-免费开源的私有云存储网盘可播放图片音乐/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,524 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  10分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>【原文链接：<a href="https://wzfou.com/nextcloud-install/】" target="_blank" rel="noopener">https://wzfou.com/nextcloud-install/】</a></p>
+<hr>
+<p>NextCloud由原ownCloud联合创始人Frank Karlitschek创建的，继承原ownCloud的核心技术又有不少的创新。在功能上NextCloud和ownCloud差不多，甚至还要丰富一些，在用户使用体验方面，NextCloud安装与使用都非常地顺手，最重要的是NextCloud完全开源免费。</p>
+<p><a href="https://wzfou.com/tag/nextcloud/" target="_blank" rel="noopener">NextCloud</a>不仅是一个私人云网盘平台，也支持多用户同步协作使用。NextCloud支持账号注册，可以为账号开启两步验证，以确保账号安全。同时，NextCloud对于公开分享的文件可以设置有效期，对于上传的视频、音乐、Office文档等直接支持在线预览和播放。</p>
+<p>NextCloud还提供了上百种的免费应用和插件，这些<a href="https://wzfou.com/tag/nextcloud-yingyong/" target="_blank" rel="noopener">NextCloud应用</a>与插件可以将NextCloud打造成为一个在线文档共享与编辑平台、音乐与视频娱乐平台以及文件存储下载平台。当然，如果是自己手动安装的NextCloud的话，那么这些插件也得自己配置好环境才行。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud-install_00.jpg" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-142f8ca689e7d524.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="手动安装NextCloud教程-免费开源私人云存储网盘可在线预览图片播放音乐"></a> </p>
+<p>本篇文章就来分享一下手动安装<a href="https://wzfou.com/tag/nextcloud-jiaocheng/" target="_blank" rel="noopener">NextCloud教程</a>，更多的站长自建服务与平台，你还可以试试：</p>
+<ol>
+<li><a href="https://wzfou.com/lsyncd/" target="_blank" rel="noopener">Lsyncd搭建同步镜像-用Lsyncd实现本地和远程服务器之间实时同步</a></li>
+<li><a href="https://wzfou.com/vestacp-whmcs/" target="_blank" rel="noopener">VestaCP与WHMCS整合教程-实现自助开通虚拟主机销售主机空间产品</a></li>
+<li><a href="https://wzfou.com/ispconfig-whmcs/" target="_blank" rel="noopener">ISPConfig与WHMCS整合方法-自动激活开通虚拟主机和管理空间用户</a></li>
+</ol>
+<p><strong>PS：2017年9月20日更新，</strong>觉得手动安装麻烦的朋友，可以使用一键安装的方法，参考：<a href="https://wzfou.com/nextcloud/" target="_blank" rel="noopener">Nextcloud个人云存储绝佳选择：一键自动安装方法和云盘使用体验</a>。</p>
+<h2 id="一、LAMP安装NextCloud"><a href="#一、LAMP安装NextCloud" class="headerlink" title="一、LAMP安装NextCloud"></a>一、LAMP安装NextCloud</h2><p>NextCloud官网：</p>
+<ol>
+<li><a href="https://nextcloud.com/" target="_blank" rel="noopener">https://nextcloud.com/</a></li>
+</ol>
+<p><strong>准备好LAMP环境。</strong>LAMP即Apache、MysqL或Mariadb、PHP环境，NextCloud官方推荐使用Apache运行NextCloud，自带了.htaccess规则。而Nginx的话还需要自己手动编写NextCloud的URL重写规则。推荐以下方法一键安装LAMP：</p>
+<ol>
+<li><a href="https://wzfou.com/lnmp-1-4/" target="_blank" rel="noopener">Linux VPS建站工具LNMP 1.4安装与使用-SSL自动配置续期和多版本PHP支持</a></li>
+<li><a href="https://wzfou.com/oneinstack/" target="_blank" rel="noopener">OneinStack一键安装脚本-轻松部署Let’s Encrypt证书配置Https站点</a></li>
+</ol>
+<p>LNMP 1.4和OneinStack都可以一键安装LAMP环境，这里我以OneinStack来作为操作演示，在安装OneinStack时选择组件时选择Apache即可，PHP建议使用7.0以上，数据库的话建议Mariadb。其它的缓存组件也可以安装。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud-install_01.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-2d4e7c6a373b3b67.gif?imageMogr2/auto-orient/strip" alt="NextCloud安装Apache"></a> </p>
+<p><strong>绑定好域名与添加SSL证书。</strong>OneinStack在添加网站时直接就可以添加SSL证书了，同时要求绑定的域名必须提前解析到服务器的IP上，这样才可以一键生成Lets免费证书。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud-install_02.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-eb982f15f1949705.gif?imageMogr2/auto-orient/strip" alt="NextCloud添加SSL证书"></a> </p>
+<p><strong>下载NextCloud程度包安装。</strong>到官网：<a href="https://nextcloud.com/install/#instructions-server，下载最新的程序包解压上传到网站的根目录。" target="_blank" rel="noopener">https://nextcloud.com/install/#instructions-server，下载最新的程序包解压上传到网站的根目录。</a></p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud-install_03_1.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-35bad6780fd4c569.gif?imageMogr2/auto-orient/strip" alt="NextCloud下载程序包"></a> </p>
+<p>为NextCloud建立新的数据库。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud-install_03.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-9d165b0781ecc8fe.gif?imageMogr2/auto-orient/strip" alt="NextCloud新建数据库"></a> </p>
+<p>访问域名就会自动进入到NextCloud的安装页面了，填写你的管理员账号与密码，然后在下方设置好文件存储路径，最好与程序不要在同一个目录下。同时填入SQL数据库信息，完成安装。（点击放大）</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud-install_04.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-516d8fe28cf6a69d.gif?imageMogr2/auto-orient/strip" alt="NextCloud点击安装"></a> </p>
+<p>完成后，你就可以登录到NextCloud后台，这就是NextCloud的用户管理界面。（点击放大）</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud-install_05.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-c8e9f87eb15e3eab.gif?imageMogr2/auto-orient/strip" alt="NextCloud用户管理界面"></a> </p>
+<h2 id="二、LNMP安装NextCloud"><a href="#二、LNMP安装NextCloud" class="headerlink" title="二、LNMP安装NextCloud"></a>二、LNMP安装NextCloud</h2><p>准备<a href="https://wzfou.com/tag/lnmp/" target="_blank" rel="noopener">LNMP</a>环境和上面一样，只是在LNMP 1.4和OneinStack安装时选择Nginx环境即可，其它的组件都一样有选择性地安装。如果安装了Zend OPcache，可能在安装时会提示错误：<code>“PHP 被设置为移除内联块, 这将导致多个核心应用无法访问</code>。</p>
+<p><strong>解决方法：</strong>修改php.ini中Opcache的参数进行修改，如果是Oneinstack的话需要在/usr/local/php/etc/php.d/ext-opcache.ini 中修改。找到此代码并改成：opcache.save_comments=1 ，因为默认是0，改完重启php-fpm就行。</p>
+<p><strong>编写URL地址重写规则。</strong>出现错误：No input file specified.，主要是Nginx还需要自己写重写规则，你可以将以下规则复制粘贴到/usr/local/nginx/conf/vhost/你的网站.conf，由于规则太多，你也可单独建立一个文件，然后在你的网站.conf引用即可。具体规则如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">#(可选)添加如下header主要为了安全</span><br><span class="line">  add_header X-Content-Type-Options nosniff;</span><br><span class="line">  add_header X-XSS-Protection &quot;1; mode=block&quot;;</span><br><span class="line">  add_header X-Robots-Tag none;</span><br><span class="line">  add_header X-Download-Options noopen;</span><br><span class="line">  add_header X-Permitted-Cross-Domain-Policies none;</span><br><span class="line">  #(可选)为了支持user_webfinger app</span><br><span class="line">  rewrite ^/.well-known/host-meta /public.php?service=host-meta last;</span><br><span class="line">  rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json last;</span><br><span class="line"></span><br><span class="line">  #日历和联系人，建议加上</span><br><span class="line">  location = /.well-known/carddav &#123;</span><br><span class="line">  return 301 $scheme://$host/remote.php/dav;</span><br><span class="line">  &#125;</span><br><span class="line">  location = /.well-known/caldav &#123;</span><br><span class="line">  return 301 $scheme://$host/remote.php/dav;</span><br><span class="line">  &#125;</span><br><span class="line">  #设置上传文件的最大大小</span><br><span class="line">  client_max_body_size 512M;</span><br><span class="line">  fastcgi_buffers 64 4K;</span><br><span class="line">  #将所有请求转发到index.php上</span><br><span class="line">  location / &#123;</span><br><span class="line">  rewrite ^ /index.php$uri;</span><br><span class="line">  &#125;</span><br><span class="line">  #安全设置，禁止访问部分敏感内容</span><br><span class="line">  location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/ &#123;</span><br><span class="line">  deny all;</span><br><span class="line">  &#125;</span><br><span class="line">  location ~ ^/(?:\.|autotest|occ|issue|indie|db_|console) &#123;</span><br><span class="line">  deny all;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  #默认有，替换原来的就行</span><br><span class="line">  location ~ ^/(?:index|remote|public|cron|core/ajax/update|status|ocs/v[12]|updater/.+|ocs-provider/.+)\.php(?:$|/) &#123;</span><br><span class="line">  fastcgi_split_path_info ^(.+\.php)(/.*)$;</span><br><span class="line">  fastcgi_param PATH_INFO $fastcgi_path_info;</span><br><span class="line">  fastcgi_param modHeadersAvailable true;</span><br><span class="line">  fastcgi_param front_controller_active true;</span><br><span class="line">  fastcgi_pass unix:/dev/shm/php-cgi.sock; #这边我改过，参照原来的</span><br><span class="line">  fastcgi_intercept_errors on;</span><br><span class="line">  fastcgi_request_buffering off;</span><br><span class="line">  include fastcgi.conf;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  #安全设置，禁止访问部分敏感内容</span><br><span class="line">  location ~ ^/(?:updater|ocs-provider)(?:$|/) &#123;</span><br><span class="line">  try_files $uri/ =404;</span><br><span class="line">  index index.php;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  location ~ \.(?:css|js|woff|svg|gif)$ &#123;</span><br><span class="line">  try_files $uri /index.php$uri$is_args$args;</span><br><span class="line">  add_header Cache-Control &quot;public, max-age=15778463&quot;;</span><br><span class="line">  add_header X-Content-Type-Options nosniff;</span><br><span class="line">  add_header X-XSS-Protection &quot;1; mode=block&quot;;</span><br><span class="line">  add_header X-Robots-Tag none;</span><br><span class="line">  add_header X-Download-Options noopen;</span><br><span class="line">  add_header X-Permitted-Cross-Domain-Policies none;</span><br><span class="line">  access_log off;</span><br><span class="line">  &#125;</span><br><span class="line">  location ~ \.(?:png|html|ttf|ico|jpg|jpeg)$ &#123;</span><br><span class="line">  try_files $uri /index.php$uri$is_args$args;</span><br><span class="line">  access_log off;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>fileinfo\Memcached\Redis等都可以通过OneinStack一键安装。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud-install_06.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-77182db0bdd0121b.gif?imageMogr2/auto-orient/strip" alt="NextCloud安装附加组件"></a> </p>
+<p><strong>NextCloud安全与性能优化：</strong>这种提示一般在NextCloud的服务器管理中可以看到，建议缓存类的直接安装一个即可，安装多了也没有什么用。</p>
+<blockquote>
+<p>为了您服务的安全和性能, 请将所有设置配置正确. 我们将会进行一些自动化检查以帮助您完成这项工作. 详情请查看 “小提示” 部分及相关文档.</p>
+<p>PHP 模块 ‘fileinfo’ 缺失. 我们强烈建议启用此模块以便在 MIME 类型检测时获得最准确的结果.</p>
+<p>HTTP 请求头 “Strict-Transport-Security” 没有配置为至少 “15552000” 秒. 出于增强安全性考虑, 我们推荐按照安全提示中的说明启用 HSTS.</p>
+<p>内存缓存未配置. 如果可用, 请配置 memcache 以增强性能. 更多信息请查看我们的文档.<br>PHP 的组件 OPcache 没有正确配置. 为了提供更好的性能, 我们建议在php.ini文件中使用下列设置:</p>
+<p>opcache.enable=1<br>opcache.enable_cli=1<br>opcache.interned_strings_buffer=8<br>opcache.max_accelerated_files=10000<br>opcache.memory_consumption=128<br>opcache.save_comments=1<br>opcache.revalidate_freq=1</p>
+</blockquote>
+<p><strong>NextCloud添加Memcached缓存。</strong>修改程序目录下的config目录中的config.php文件，在配置文件中添加如下，这个是多个Memcached实例，单个自己改：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&apos;memcache.local&apos; =&gt; &apos;\OC\Memcache\APCu&apos;,</span><br><span class="line">&apos;memcache.distributed&apos; =&gt; &apos;\OC\Memcache\Memcached&apos;,</span><br><span class="line">&apos;memcached_servers&apos; =&gt; array(</span><br><span class="line">     array(&apos;localhost&apos;, 11211),</span><br><span class="line">     array(&apos;server1.example.com&apos;, 11211),</span><br><span class="line">     array(&apos;server2.example.com&apos;, 11211),</span><br><span class="line">     ),</span><br></pre></td></tr></table></figure>
+<p><strong>NextCloud添加Redis缓存。</strong>在配置文件中添加如下，这个是通过TCP连接的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&apos;memcache.local&apos; =&gt; &apos;\OC\Memcache\Redis&apos;,</span><br><span class="line">&apos;redis&apos; =&gt; array(</span><br><span class="line">     &apos;host&apos; =&gt; &apos;localhost&apos;,</span><br><span class="line">     &apos;port&apos; =&gt; 6379,</span><br><span class="line">      ),</span><br></pre></td></tr></table></figure>
+<p>还有性能更好的UNIX连接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&apos;memcache.local&apos; =&gt; &apos;\OC\Memcache\Redis&apos;,</span><br><span class="line">&apos;redis&apos; =&gt; array(</span><br><span class="line">     &apos;host&apos; =&gt; &apos;/var/run/redis/redis.sock&apos;,</span><br><span class="line">     &apos;port&apos; =&gt; 0,</span><br><span class="line">     &apos;dbindex&apos; =&gt; 0,</span><br><span class="line">     &apos;password&apos; =&gt; &apos;secret&apos;,</span><br><span class="line">     &apos;timeout&apos; =&gt; 1.5,</span><br><span class="line">      ),</span><br></pre></td></tr></table></figure>
+<p>同时，官方还推荐加入如下，来用于存储文件锁</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos;memcache.locking&apos; =&gt; &apos;\OC\Memcache\Redis&apos;,</span><br></pre></td></tr></table></figure>
+<p>Nginx运行NextCloud一切正常。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud-install_11.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-d2cbe62dbd888ac1.gif?imageMogr2/auto-orient/strip" alt="NextCloud运行正常"></a> </p>
+<h2 id="三、NextCloud添加应用"><a href="#三、NextCloud添加应用" class="headerlink" title="三、NextCloud添加应用"></a>三、NextCloud添加应用</h2><p>NextCloud提供了丰富了内置应用，并且这些应用可以直接在NextCloud的后台下载并安装，有点像我们的Wordpress插件一样直接安装。这些介绍几个有用的<a href="https://wzfou.com/tag/nextcloud-pluin/" target="_blank" rel="noopener">NextCloud插件</a>，相信大家一定会用到。</p>
+<p><strong>SMTP发信与限制最大上传文件。</strong>这个直接在NextCloud的后台设置中就可以设置选项，SMTP可以让我们调用第三方的发信服务来发送NextCloud的邮件，自带的PHP发信也可以，但是基本上会被各大邮箱判定为垃圾邮件。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud-install_07.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-6dfb933da287375a.gif?imageMogr2/auto-orient/strip" alt="NextCloud发信设置"></a> </p>
+<p><strong>数据存储加密与外挂存储。</strong>首先到NextCloud应用中激活Default encryption module、External storage support这两个插件。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud-install_08.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-2d976dc9a6f9afa6.gif?imageMogr2/auto-orient/strip" alt="NextCloud存储加密"></a> </p>
+<p><strong>启用数据加密需要谨慎：</strong>因为数据一旦加密被启用, 之后上传到服务器的所有文件都将服务器上加密，只有当启用状态的加密模块支持解密并且所有前提都满足时 (例如: 设定恢复密钥) 才能解除加密。请注意, 加密会增加文件大小，单独的加密不能保证系统的安全性，你需要同时设置恢复密钥。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud-install_09.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-16a8467ded56a63b.gif?imageMogr2/auto-orient/strip" alt="NextCloud启用文件加密"></a> </p>
+<p>外挂存储主要是可以让NextCloud通过SMB / CIFS 登录 OC 的方式挂载第三方的存储应用，启用这个插件有些麻烦，可能提示：没有安装 “smbclient”. 安装命令：apt-get install smbclient和apt-get install php-smbclient。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud-install_10.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-3134ebe01ad560e7.gif?imageMogr2/auto-orient/strip" alt="NextCloud外挂存储"></a> </p>
+<h2 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h2><p>至于选择Apache还是Nginx来运行NextCloud主要还是取决你对Nginx或者Apache的熟悉程度，LNMP 1.4和OneinStack对Nginx都做了很好了优化，Http 2.0、SSL证书还有缓存组件和PHP函数都可以一键安装与配置，省去了不少的麻烦。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud-install_12.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-cb0df8aa0851ed0d.gif?imageMogr2/auto-orient/strip" alt="NextCloud私有云"></a> </p>
+<p>NextCloud的图片预览、音乐视频在线播放等基本功能都是没有问题了，在使用NextCloud应用过程中倒是遇到了不少的问题。首要的问题就是NextCloud的应用配置比较难，例如Office文档插件、RSS在线阅读器插件等，都需要自己手动配置好服务器环境。</p>
+<p>文章出自：<a href="https://wzfou.com/" target="_blank" rel="noopener">挖站否</a> <a href="https://wzfou.com/nextcloud-install/" target="_blank" rel="noopener">https://wzfou.com/nextcloud-install/</a>，部分内容参考自：<a href="https://www.zrj96.com/post-542.html" target="_blank" rel="noopener">zrj96</a>  版权所有。本站文章除注明出处外，皆为作者原创文章，可自由引用，但请注明来源。</p>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        
+      
+	</div>
+	
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果觉着我的文章不错，打赏我一包辣条吧 O(∩_∩)O</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="http://z4a.net/images/2018/05/11/4c698d5e65a32f9f21667df7c7c40c0c.jpg" alt="Fy.L 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="http://z4a.net/images/2018/05/11/f81d8cd29e1a233798e944fd5b7d6fe2.jpg" alt="Fy.L 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+	<div>
+		
+			<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+            -------------本文结束
+            <i class="fa fa-paw"></i>
+            感谢您的阅读-------------
+        </div>
+    
+</div>
+		
+	</div>
+	
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/树莓派/" rel="tag"><i class="fa fa-tag"></i> 树莓派</a>
+          
+            <a href="/tags/NextCloud/" rel="tag"><i class="fa fa-tag"></i> NextCloud</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/10/RASPBIAN-STRETCH-安装桌面/" rel="next" title="RASPBIAN STRETCH 安装桌面">
+                <i class="fa fa-chevron-left"></i> RASPBIAN STRETCH 安装桌面
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/10/Nextcloud个人云存储绝佳选择：一键自动安装方法和云盘使用体验/" rel="prev" title="Nextcloud个人云存储绝佳选择：一键自动安装方法和云盘使用体验">
+                Nextcloud个人云存储绝佳选择：一键自动安装方法和云盘使用体验 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://z4a.net/images/2018/05/11/L.jpg"
+                alt="Fy.L" />
+            
+              <p class="site-author-name" itemprop="name">Fy.L</p>
+              <p class="site-description motion-element" itemprop="description">你若赐我一段浮华，我便许你满世繁花</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/duyi324" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、LAMP安装NextCloud"><span class="nav-number">1.</span> <span class="nav-text">一、LAMP安装NextCloud</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、LNMP安装NextCloud"><span class="nav-number">2.</span> <span class="nav-text">二、LNMP安装NextCloud</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、NextCloud添加应用"><span class="nav-number">3.</span> <span class="nav-text">三、NextCloud添加应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、总结"><span class="nav-number">4.</span> <span class="nav-text">四、总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fy.L</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: false,
+        appId: 'LgMLox3ikl34DiwCONMx3jDa-gzGzoHsz',
+        appKey: 'Ya6TtRJBFKVwLmE3RtnF66vO',
+        placeholder: '悄悄地，回复一句吧~~~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  
+	<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+	</script>
+
+  
+  </body>
+</html>
