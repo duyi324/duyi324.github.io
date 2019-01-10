@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="ArcGIS,ArcGIS Runtime," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Fy.L 的个人博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="【原文链接：https://www.cnblogs.com/gis-luq/p/5858055.html】  1、前言在上一篇我们已经实现了离线地理数据库的下载，这一篇我们着重介绍离线数据库的加载与编辑。 由于ArcGIS Runtime SDK for Android 10.2.X版本并没提供要素绘制功能，所以本篇中的要素绘制部分基于之前开源的Drawtools3.0工具实现。 本DEMO主要实">
+<meta name="keywords" content="ArcGIS,ArcGIS Runtime">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【转载】ArcGIS Runtime SDK for Android开发笔记》——离在线一体化技术：离线矢量数据编辑">
+<meta property="og:url" content="http://www.lifayu.com/2019/01/11/【转载】ArcGIS-Runtime-SDK-for-Android开发笔记》——离在线一体化技术-离线矢量数据编辑/index.html">
+<meta property="og:site_name" content="Fy.L 的个人博客">
+<meta property="og:description" content="【原文链接：https://www.cnblogs.com/gis-luq/p/5858055.html】  1、前言在上一篇我们已经实现了离线地理数据库的下载，这一篇我们着重介绍离线数据库的加载与编辑。 由于ArcGIS Runtime SDK for Android 10.2.X版本并没提供要素绘制功能，所以本篇中的要素绘制部分基于之前开源的Drawtools3.0工具实现。 本DEMO主要实">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3832962-acfb21b094c25bd7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3832962-af5597d7f66d57c6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3832962-d086b0b7d53205bf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3832962-6ab13d21bc562981.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3832962-2b1a497576e1e87e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-01-10T11:12:24.447Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【转载】ArcGIS Runtime SDK for Android开发笔记》——离在线一体化技术：离线矢量数据编辑">
+<meta name="twitter:description" content="【原文链接：https://www.cnblogs.com/gis-luq/p/5858055.html】  1、前言在上一篇我们已经实现了离线地理数据库的下载，这一篇我们着重介绍离线数据库的加载与编辑。 由于ArcGIS Runtime SDK for Android 10.2.X版本并没提供要素绘制功能，所以本篇中的要素绘制部分基于之前开源的Drawtools3.0工具实现。 本DEMO主要实">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/3832962-acfb21b094c25bd7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.lifayu.com/2019/01/11/【转载】ArcGIS-Runtime-SDK-for-Android开发笔记》——离在线一体化技术-离线矢量数据编辑/"/>
+
+
+
+
+
+  <title>【转载】ArcGIS Runtime SDK for Android开发笔记》——离在线一体化技术：离线矢量数据编辑 | Fy.L 的个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+	
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Fy.L 的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">自学尚未成才的码农0=0</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.lifayu.com/2019/01/11/【转载】ArcGIS-Runtime-SDK-for-Android开发笔记》——离在线一体化技术-离线矢量数据编辑/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fy.L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://z4a.net/images/2018/05/11/L.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fy.L 的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【转载】ArcGIS Runtime SDK for Android开发笔记》——离在线一体化技术：离线矢量数据编辑</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-11T03:11:33+08:00">
+                2019-01-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ArcGIS/" itemprop="url" rel="index">
+                    <span itemprop="name">ArcGIS</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ArcGIS/ArcGIS-Runtime-for-Android/" itemprop="url" rel="index">
+                    <span itemprop="name">ArcGIS Runtime for Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/01/11/【转载】ArcGIS-Runtime-SDK-for-Android开发笔记》——离在线一体化技术-离线矢量数据编辑/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/01/11/【转载】ArcGIS-Runtime-SDK-for-Android开发笔记》——离在线一体化技术-离线矢量数据编辑/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,062 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>【原文链接：<a href="https://www.cnblogs.com/gis-luq/p/5858055.html】" target="_blank" rel="noopener">https://www.cnblogs.com/gis-luq/p/5858055.html】</a></p>
+<hr>
+<h2 id="1、前言"><a href="#1、前言" class="headerlink" title="1、前言"></a>1、前言</h2><p>在上一篇我们已经实现了<a href="http://www.cnblogs.com/gis-luq/p/5858048.html" target="_blank" rel="noopener">离线地理数据库的下载</a>，这一篇我们着重介绍离线数据库的加载与编辑。</p>
+<p>由于ArcGIS Runtime SDK for Android 10.2.X版本并没提供要素绘制功能，所以本篇中的要素绘制部分基于之前开源的<a href="http://www.cnblogs.com/gis-luq/p/5857661.html" target="_blank" rel="noopener">Drawtools3.0工具</a>实现。</p>
+<p>本DEMO主要实现了：离线地理数据库加载、要素样式模板加载，要素新建、要素选择并开启编辑状态、要素删除等操作。由于内容较多涉及编辑部分仅详细介绍对Geodatabase的要素添加、要素删除、要素更新部分，其余请自行查阅源代码。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3832962-acfb21b094c25bd7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="离线地理数据库编辑"></p>
+<p>转载请注明出处：<a href="http://www.cnblogs.com/gis-luq/p/5858055.html" title="view: 《ArcGIS Runtime SDK for Android开发笔记》——离在线一体化技术：离线矢量数据编辑" target="_blank" rel="noopener">http://www.cnblogs.com/gis-luq/p/5858055.html</a> </p>
+<h2 id="2、离线要素编辑实现过程"><a href="#2、离线要素编辑实现过程" class="headerlink" title="2、离线要素编辑实现过程"></a>2、离线要素编辑实现过程</h2><h3 id="2-1、加载本地离线要素"><a href="#2-1、加载本地离线要素" class="headerlink" title="2.1、加载本地离线要素"></a>2.1、加载本地离线要素</h3><p>ArcGIS Runtime SDK for Android中提供了具体的Geodatabase类和FeatureLayer图层来加载.geodatabase文件，常用的类包括Geodatabase、GeodatabaseFeatureTable、GeodatabaseFeature、GeodatabaseFeatureServiceTable等，分别用来打开geodatabase数据文件、获取要素图层、获取图层中的具体要素，以及获取在线的要素服务。具体来讲，加载.geodatabase文件的步骤有如下几步：</p>
+<ol>
+<li>实例化一个Geodatabase对象，这个类有两个构造函数，都需要指定本地数据库的存储路径；</li>
+<li>创建一个GeodatabaseFeatureTable对象实例，用来获取需要的图层；</li>
+<li>创建一个FeatureLayer来存储获取的图层，并将获取的图层加载到地图中；</li>
+<li>调用dispose()方式释放资源。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** * 读取Geodatabase中离线地图信息</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> geodatabsePath 离线Geodatabase文件路径 */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">addFeatureLayer</span><span class="params">(String geodatabsePath)</span> </span>&#123;</span><br><span class="line">    Geodatabase localGdb = <span class="keyword">null</span>; </span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        localGdb = <span class="keyword">new</span> Geodatabase(geodatabsePath);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (FileNotFoundException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    layerList = <span class="keyword">new</span> ArrayList&lt;&gt;(); <span class="comment">// 添加FeatureLayer到MapView中</span></span><br><span class="line">    <span class="keyword">if</span> (localGdb != <span class="keyword">null</span>) &#123; </span><br><span class="line">        <span class="keyword">for</span> (GeodatabaseFeatureTable gdbFeatureTable : localGdb.getGeodatabaseTables()) &#123; </span><br><span class="line">            <span class="keyword">if</span> (gdbFeatureTable.hasGeometry())&#123;</span><br><span class="line">                FeatureLayer layer = <span class="keyword">new</span> FeatureLayer(gdbFeatureTable);</span><br><span class="line">                mMapView.addLayer(layer);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>2.2、加载本地要素样式模板</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3832962-af5597d7f66d57c6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="点"></p>
+<p>  <img src="http://upload-images.jianshu.io/upload_images/3832962-d086b0b7d53205bf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="线"></p>
+<p>  <img src="http://upload-images.jianshu.io/upload_images/3832962-6ab13d21bc562981.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="面"></p>
+<p>绘制要素时往往会需要知道待绘制要素的图层名称以及要素的符号化样式，这里我们以geodatabse中的FeatureLayer为例演示要素样式模板获取流程。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** * 添加要素绘制样式模板</span></span><br><span class="line"><span class="comment"> * 获取图层要素模板并添加到featureTempleteView</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> layer */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">addFeatureTemplate</span><span class="params">(FeatureLayer layer)</span> </span>&#123;</span><br><span class="line">    List&lt;FeatureTemplate&gt; featureTemp = ((GeodatabaseFeatureTable) layer.getFeatureTable()).getFeatureTemplates(); </span><br><span class="line">    <span class="keyword">for</span> (FeatureTemplate featureTemplate : featureTemp) &#123;</span><br><span class="line">        GeodatabaseFeature g = <span class="keyword">null</span>; </span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            g = ((GeodatabaseFeatureTable) layer.getFeatureTable()).createFeatureWithTemplate(featureTemplate, <span class="keyword">null</span>);</span><br><span class="line">            Renderer renderer = layer.getRenderer();</span><br><span class="line">            Symbol symbol = renderer.getSymbol(g); <span class="keyword">float</span> scale = context.getResources().getDisplayMetrics().density; <span class="keyword">int</span> widthInPixels = (<span class="keyword">int</span>) (<span class="number">35</span> * scale + <span class="number">0.5f</span>);</span><br><span class="line">            Bitmap bitmap = SymbolHelper.getLegendImage(symbol, widthInPixels, widthInPixels); <span class="comment">//将要素样式模板赋值给imgButton</span></span><br><span class="line">            ImageButton imageButton = <span class="keyword">new</span> ImageButton(context);</span><br><span class="line">            imageButton.setImageBitmap(bitmap);</span><br><span class="line">            imageButton.setTag(layer);<span class="comment">//保存当前待编辑图层</span></span><br><span class="line">            ((LinearLayout)featureTempleteView).addView(imageButton);<span class="comment">//添加到要素样式模板列表</span></span><br><span class="line">            imageButton.setOnClickListener(<span class="keyword">new</span> ImageButtonOnClickListener());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (TableException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            Toast.makeText(MainActivity.<span class="keyword">this</span>, <span class="string">"Error："</span> + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-2-编辑本地离线要素"><a href="#2-2-编辑本地离线要素" class="headerlink" title="2.2 编辑本地离线要素"></a>2.2 编辑本地离线要素</h3><p>要素编辑最核心的是FeatureTable中的增删改方法，通过这些方法可以实现本地数据库中要素编辑操作。</p>
+<p>FeatureTable中的常用方法如下：</p>
+<ul>
+<li><a href="https://developers.arcgis.com/android/api-reference/reference/com/esri/core/table/FeatureTable.html#addFeature(com.esri.core.map.Feature" target="_blank" rel="noopener">addFeature</a>):增加本地要素</li>
+<li><a href="https://developers.arcgis.com/android/api-reference/reference/com/esri/core/table/FeatureTable.html#addFeatures(java.util.List%3Ccom.esri.core.map.Feature%3E" target="_blank" rel="noopener">addFeatures</a>):一次添加多个要素到离线数据库中</li>
+<li><a href="https://developers.arcgis.com/android/api-reference/reference/com/esri/core/table/FeatureTable.html#deleteFeature(long" target="_blank" rel="noopener">deleteFeature</a>):删除本地要素</li>
+<li><a href="https://developers.arcgis.com/android/api-reference/reference/com/esri/core/table/FeatureTable.html#deleteFeatures(long[]" target="_blank" rel="noopener">deleteFeatures</a>):删除多个本地要素</li>
+<li><a href="https://developers.arcgis.com/android/api-reference/reference/com/esri/core/table/FeatureTable.html#queryFeatures(com.esri.core.tasks.query.QueryParameters,%20com.esri.core.map.CallbackListener%3Ccom.esri.core.map.FeatureResult%3E" target="_blank" rel="noopener">queryFeatures</a>):查询本地要素</li>
+<li><a href="https://developers.arcgis.com/android/api-reference/reference/com/esri/core/table/FeatureTable.html#updateFeature(long,%20com.esri.core.map.Feature" target="_blank" rel="noopener">updateFeature</a>):更新要素到本地</li>
+<li><a href="https://developers.arcgis.com/android/api-reference/reference/com/esri/core/table/FeatureTable.html#updateFeatures(long[],%20java.util.List%3Ccom.esri.core.map.Feature%3E" target="_blank" rel="noopener">updateFeatures</a>):更新多个要素到本地</li>
+</ul>
+<h4 id="2-2-1-要素添加"><a href="#2-2-1-要素添加" class="headerlink" title="2.2.1 要素添加"></a>2.2.1 要素添加</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">private FeatureLayer selectFeatureLayer;//当前选中图层 </span><br><span class="line">private Graphic selectGraphic = null;//待添加要素（零时图层中获取）</span><br><span class="line">    GeodatabaseFeatureTable geodatabaseFeatureTable = (GeodatabaseFeatureTable)selectFeatureLayer.getFeatureTable();</span><br><span class="line">    GeodatabaseFeature gdbFeature = new GeodatabaseFeature(null, selectGraphic.getGeometry(), geodatabaseFeatureTable); long fid = geodatabaseFeatureTable.addFeature(gdbFeature);// 添加要素</span><br><span class="line">    Log.d(TAG,&quot;要素添加成功，Feature ID：&quot;+fid);</span><br><span class="line">&#125; catch (TableException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-2-2-要素删除"><a href="#2-2-2-要素删除" class="headerlink" title="2.2.2 要素删除"></a>2.2.2 要素删除</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">private FeatureLayer selectFeatureLayer;//当前选中图层</span><br><span class="line">private Feature selectFeature = null;//当前选中要素</span><br><span class="line">GeodatabaseFeatureTable geodatabaseFeatureTable = (GeodatabaseFeatureTable)selectFeatureLayer.getFeatureTable(); </span><br><span class="line">try&#123; </span><br><span class="line">    if (selectFeature!=null)&#123;</span><br><span class="line">        eodatabaseFeatureTable.deleteFeature(selectFeature.getId());//删除要素</span><br><span class="line">   &#125;</span><br><span class="line">&#125; catch (TableException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-2-3-要素矢量信息更新"><a href="#2-2-3-要素矢量信息更新" class="headerlink" title="2.2.3 要素矢量信息更新"></a>2.2.3 要素矢量信息更新</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">private FeatureLayer selectFeatureLayer;//当前选中图层 private Feature selectFeature = null;//当前选中要素</span><br><span class="line">private Graphic selectGraphic = null;//待更新要素（零时图层中获取）</span><br><span class="line">try &#123;</span><br><span class="line">    GeodatabaseFeatureTable geodatabaseFeatureTable = (GeodatabaseFeatureTable)selectFeatureLayer.getFeatureTable();</span><br><span class="line">    geodatabaseFeatureTable.updateFeature(selectFeature.getId(),selectGraphic.getGeometry());//更新要素</span><br><span class="line">    Log.d(TAG,&quot;要素更新成功&quot;);</span><br><span class="line">&#125; catch (TableException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="扩展说明：如何选中要素，以及如何处理具有压盖关系的要素选择问题？"><a href="#扩展说明：如何选中要素，以及如何处理具有压盖关系的要素选择问题？" class="headerlink" title="扩展说明：如何选中要素，以及如何处理具有压盖关系的要素选择问题？"></a>扩展说明：如何选中要素，以及如何处理具有压盖关系的要素选择问题？</h4><p>针对这两个问题我们一并处理，首先扩展MapOnTouchListener类，实现长按出现放大镜，并选中要素。选中要素时我们采用遍历当前所有图层的方式，找出每个图层中第一个被选中的要素，然后弹窗提示供用户选择。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//全局定义信息</span><br><span class="line">private List&lt;FeatureLayer&gt; layerList;//矢量图层列表</span><br><span class="line">private GraphicsLayer graphicsLayer = null;//零时图层</span><br><span class="line">private FeatureLayer selectFeatureLayer;//当前选中图层</span><br><span class="line">private Graphic selectGraphic = null;//当前选中要素（零时图层）</span><br><span class="line">private Feature selectFeature = null;//当前选中要素</span><br></pre></td></tr></table></figure>
+<p>要素选中扩展事件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line">/** * 地图窗口默认Touch事件</span><br><span class="line"> * 支持长按放大镜选种要素 */</span><br><span class="line">public class MapSelectFeatureOnTouchListener extends MapOnTouchListener&#123; </span><br><span class="line"></span><br><span class="line">    public MapSelectFeatureOnTouchListener(Context context, MapView view) &#123; </span><br><span class="line">        super(context, view);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override public boolean onLongPressUp(MotionEvent point) &#123;</span><br><span class="line">        handleTap(point); //长按放大镜选择事件</span><br><span class="line">        super.onLongPressUp(point); return true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override public boolean onSingleTap(final MotionEvent e) &#123; //单击响应事件</span><br><span class="line">        return true;</span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    /** * 获取当前选中要素</span><br><span class="line">     * @param point */</span><br><span class="line">    private void handleTap(MotionEvent point) &#123;</span><br><span class="line">        MotionEvent screePoint = point; //选中图层信息</span><br><span class="line">        final List&lt;SelectFeatureInfo&gt; selectFeatureInfoList = new ArrayList&lt;&gt;(); //记录当前选中要素信息，涉及多个图层情况</span><br><span class="line">        for (int i=0;i&lt;layerList.size();i++)&#123;</span><br><span class="line">            FeatureLayer featureLayer = layerList.get(i);</span><br><span class="line">            featureLayer.setSelectionColor(Color.YELLOW);</span><br><span class="line">            featureLayer.setSelectionColorWidth(10); long[] selids = featureLayer.getFeatureIDs(screePoint.getX(), screePoint.getY(), 1); if (selids.length &gt;= 1) &#123;</span><br><span class="line">                SelectFeatureInfo selectFeatureInfo = new SelectFeatureInfo();</span><br><span class="line">                selectFeatureInfo.featureLayer = featureLayer;</span><br><span class="line">                selectFeatureInfo.selectFeatureID = selids[0];</span><br><span class="line">                selectFeatureInfoList.add(selectFeatureInfo);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; </span><br><span class="line">        //根据待选图层确定是否弹窗选择</span><br><span class="line">        if(selectFeatureInfoList.size()&gt;1)&#123; //当前选中要素大于1个图层</span><br><span class="line">            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);</span><br><span class="line">            builder.setTitle(&quot;请确认选择哪个图层要素？&quot;); //指定下拉列表的显示数据</span><br><span class="line">            final String[] layerNamelist = getSelectFeatureInfoListName(selectFeatureInfoList); //设置一个下拉的列表选择项</span><br><span class="line">            builder.setItems(layerNamelist, new DialogInterface.OnClickListener()</span><br><span class="line">            &#123;</span><br><span class="line">                @Override public void onClick(DialogInterface dialog, int which)</span><br><span class="line">                &#123;</span><br><span class="line">                    Toast.makeText(MainActivity.this, &quot;选择的图层为：&quot; + layerNamelist[which], Toast.LENGTH_SHORT).show();</span><br><span class="line">                    SelectFeatureInfo selectFeaInfo = getFeatureLayerbyName(selectFeatureInfoList,layerNamelist[which]);</span><br><span class="line">                    setSelectFeature(selectFeaInfo);//根据选中图层信息选中当前要素</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">            builder.show();</span><br><span class="line">        &#125;else if(selectFeatureInfoList.size()==1) &#123;</span><br><span class="line">            SelectFeatureInfo selectFeaInfo = selectFeatureInfoList.get(0);</span><br><span class="line">            setSelectFeature(selectFeaInfo);//根据选中图层信息选中当前要素</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    /** * 设置选中图层的要素选中信息</span><br><span class="line">     * @param selectFeaInfo 待选图层信息 */</span><br><span class="line">    private void setSelectFeature(SelectFeatureInfo selectFeaInfo) &#123;</span><br><span class="line">        clearFeatureSelection();//设置选中状态前，清空已选择要素</span><br><span class="line">        selectFeaInfo.featureLayer.selectFeature(selectFeaInfo.selectFeatureID);</span><br><span class="line">        selectFeatureLayer = selectFeaInfo.featureLayer;</span><br><span class="line">        selectFeature = selectFeatureLayer.getFeature(selectFeaInfo.selectFeatureID); switch (selectFeature.getGeometry().getType())&#123; </span><br><span class="line">            case POINT: case MULTIPOINT:</span><br><span class="line">                selectGraphic = new Graphic(selectFeature.getGeometry(), DrawSymbol.markerSymbol, null); </span><br><span class="line">                break; </span><br><span class="line">            case LINE: case POLYLINE:</span><br><span class="line">                selectGraphic = new Graphic(selectFeature.getGeometry(), DrawSymbol.mLineSymbol,null); </span><br><span class="line">                break; </span><br><span class="line">            case ENVELOPE: </span><br><span class="line">            case POLYGON:</span><br><span class="line">                selectGraphic = new Graphic(selectFeature.getGeometry(), DrawSymbol.mFillSymbol, null); </span><br><span class="line">                break; </span><br><span class="line">            default: </span><br><span class="line">                break;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    /** * 通过图层名称获取要素</span><br><span class="line">     * @param name 图层名称</span><br><span class="line">     * @return 选中图层信息 */</span><br><span class="line">    private SelectFeatureInfo getFeatureLayerbyName(List&lt;SelectFeatureInfo&gt; selectFeatureInfoList,String name)&#123;</span><br><span class="line">        SelectFeatureInfo selectinfo= null; </span><br><span class="line">        for (int i=0;i&lt;selectFeatureInfoList.size();i++)&#123;</span><br><span class="line">            FeatureLayer tmplayer = selectFeatureInfoList.get(i).featureLayer; </span><br><span class="line">            if (tmplayer.getName().equals(name))&#123;</span><br><span class="line">               selectinfo = selectFeatureInfoList.get(i);//选中图层信息</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; </span><br><span class="line">        return selectinfo;</span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    /** * 获取待选择要素列表名称</span><br><span class="line">     * @param selectFeatureInfoList 待选中要素列表信息</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    private String[] getSelectFeatureInfoListName(List&lt;SelectFeatureInfo&gt; selectFeatureInfoList) &#123;</span><br><span class="line">        List&lt;String&gt; lsname = new ArrayList&lt;&gt;(); for (int i=0;i&lt;selectFeatureInfoList.size();i++)&#123;</span><br><span class="line">            lsname.add(selectFeatureInfoList.get(i).featureLayer.getName());</span><br><span class="line">        &#125; return lsname.toArray(new String[lsname.size()]);</span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    /** * 记录当前选中要素信息 */</span><br><span class="line">    public class SelectFeatureInfo&#123; public FeatureLayer featureLayer ;//当前选中要素</span><br><span class="line">        public long selectFeatureID ;//当前选中要素ID</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3、完整代码"><a href="#3、完整代码" class="headerlink" title="3、完整代码"></a>3、完整代码</h2><p>完整代码不定期更新，具体请查阅DEMOt源代码，托管地址：<a href="http://git.oschina.net/gis-luq/RuntimeOfflineEdit" target="_blank" rel="noopener">http://git.oschina.net/gis-luq/RuntimeOfflineEdit</a></p>
+<h2 id="4、运行后编辑结果（以备同步测试使用）"><a href="#4、运行后编辑结果（以备同步测试使用）" class="headerlink" title="4、运行后编辑结果（以备同步测试使用）"></a>4、运行后编辑结果（以备同步测试使用）</h2><p><img src="http://upload-images.jianshu.io/upload_images/3832962-2b1a497576e1e87e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="编辑结果"></p>
+<p>转载请注明出处：<a href="http://www.cnblogs.com/gis-luq/p/5858055.html" title="view: 《ArcGIS Runtime SDK for Android开发笔记》——离在线一体化技术：离线矢量数据编辑" target="_blank" rel="noopener">http://www.cnblogs.com/gis-luq/p/5858055.html</a></p>
+<blockquote>
+<p><strong>文章若无特殊说明均为原创，原创作品，允许转载，转载时请务必以超链接形式标明文章出处、作者信息和本声明。<br>博客：<a href="http://www.cnblogs.com/gis-luq" target="_blank" rel="noopener">http:</a><a href="http://www.cnblogs.com/gis-luq" target="_blank" rel="noopener">//www.cnblogs.com/gis-luq​</a> 作者：gis-luq 邮箱：<a href="mailto:luqiang.gis@foxmail.com" target="_blank" rel="noopener">luqiang.gis@foxmail.com</a></strong></p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        
+      
+	</div>
+	
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果觉着我的文章不错，打赏我一包辣条吧 O(∩_∩)O</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="http://z4a.net/images/2018/05/11/4c698d5e65a32f9f21667df7c7c40c0c.jpg" alt="Fy.L 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="http://z4a.net/images/2018/05/11/f81d8cd29e1a233798e944fd5b7d6fe2.jpg" alt="Fy.L 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+	<div>
+		
+			<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+            -------------本文结束
+            <i class="fa fa-paw"></i>
+            感谢您的阅读-------------
+        </div>
+    
+</div>
+		
+	</div>
+	
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ArcGIS/" rel="tag"><i class="fa fa-tag"></i> ArcGIS</a>
+          
+            <a href="/tags/ArcGIS-Runtime/" rel="tag"><i class="fa fa-tag"></i> ArcGIS Runtime</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/11/《ArcGIS-Runtime-SDK-for-Android开发笔记》——离在线一体化技术-离线矢量数据下载/" rel="next" title="《ArcGIS Runtime SDK for Android开发笔记》——离在线一体化技术：离线矢量数据下载">
+                <i class="fa fa-chevron-left"></i> 《ArcGIS Runtime SDK for Android开发笔记》——离在线一体化技术：离线矢量数据下载
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/11/ArcGIS-Runtime-Android查看Shapefile几何类型/" rel="prev" title="ArcGIS Runtime Android查看Shapefile几何类型">
+                ArcGIS Runtime Android查看Shapefile几何类型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://z4a.net/images/2018/05/11/L.jpg"
+                alt="Fy.L" />
+            
+              <p class="site-author-name" itemprop="name">Fy.L</p>
+              <p class="site-description motion-element" itemprop="description">你若赐我一段浮华，我便许你满世繁花</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/duyi324" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、前言"><span class="nav-number">1.</span> <span class="nav-text">1、前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、离线要素编辑实现过程"><span class="nav-number">2.</span> <span class="nav-text">2、离线要素编辑实现过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1、加载本地离线要素"><span class="nav-number">2.1.</span> <span class="nav-text">2.1、加载本地离线要素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-编辑本地离线要素"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 编辑本地离线要素</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-1-要素添加"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.2.1 要素添加</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-2-要素删除"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2.2 要素删除</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-3-要素矢量信息更新"><span class="nav-number">2.2.3.</span> <span class="nav-text">2.2.3 要素矢量信息更新</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#扩展说明：如何选中要素，以及如何处理具有压盖关系的要素选择问题？"><span class="nav-number">2.2.4.</span> <span class="nav-text">扩展说明：如何选中要素，以及如何处理具有压盖关系的要素选择问题？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、完整代码"><span class="nav-number">3.</span> <span class="nav-text">3、完整代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、运行后编辑结果（以备同步测试使用）"><span class="nav-number">4.</span> <span class="nav-text">4、运行后编辑结果（以备同步测试使用）</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fy.L</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: false,
+        appId: 'LgMLox3ikl34DiwCONMx3jDa-gzGzoHsz',
+        appKey: 'Ya6TtRJBFKVwLmE3RtnF66vO',
+        placeholder: '悄悄地，回复一句吧~~~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  
+	<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+	</script>
+
+  
+  </body>
+</html>

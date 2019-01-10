@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="ArcGIS,ArcGIS Runtime," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Fy.L 的个人博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="【原文链接：http://www.cnblogs.com/gis-luq/p/5858048.html 】  1、前言1.1、环境准备： ArcGIS for Desktop 10.4.1（10.2.1以上版本即可） ArcGIS for Server 10.4.1 （10.2.1以上版本即可） PostgreSQL、Microsoft SQL Server、或 Oracle 设置企业级地理数据库">
+<meta name="keywords" content="ArcGIS,ArcGIS Runtime">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《ArcGIS Runtime SDK for Android开发笔记》——离在线一体化技术：离线矢量数据下载">
+<meta property="og:url" content="http://www.lifayu.com/2019/01/11/《ArcGIS-Runtime-SDK-for-Android开发笔记》——离在线一体化技术-离线矢量数据下载/index.html">
+<meta property="og:site_name" content="Fy.L 的个人博客">
+<meta property="og:description" content="【原文链接：http://www.cnblogs.com/gis-luq/p/5858048.html 】  1、前言1.1、环境准备： ArcGIS for Desktop 10.4.1（10.2.1以上版本即可） ArcGIS for Server 10.4.1 （10.2.1以上版本即可） PostgreSQL、Microsoft SQL Server、或 Oracle 设置企业级地理数据库">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3832962-5c05a63330036344.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3832962-4d99d1ec0fc8da1f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3832962-ba90df41a97b7063.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-01-10T11:12:06.135Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《ArcGIS Runtime SDK for Android开发笔记》——离在线一体化技术：离线矢量数据下载">
+<meta name="twitter:description" content="【原文链接：http://www.cnblogs.com/gis-luq/p/5858048.html 】  1、前言1.1、环境准备： ArcGIS for Desktop 10.4.1（10.2.1以上版本即可） ArcGIS for Server 10.4.1 （10.2.1以上版本即可） PostgreSQL、Microsoft SQL Server、或 Oracle 设置企业级地理数据库">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/3832962-5c05a63330036344.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.lifayu.com/2019/01/11/《ArcGIS-Runtime-SDK-for-Android开发笔记》——离在线一体化技术-离线矢量数据下载/"/>
+
+
+
+
+
+  <title>《ArcGIS Runtime SDK for Android开发笔记》——离在线一体化技术：离线矢量数据下载 | Fy.L 的个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+	
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Fy.L 的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">自学尚未成才的码农0=0</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.lifayu.com/2019/01/11/《ArcGIS-Runtime-SDK-for-Android开发笔记》——离在线一体化技术-离线矢量数据下载/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fy.L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://z4a.net/images/2018/05/11/L.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fy.L 的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">《ArcGIS Runtime SDK for Android开发笔记》——离在线一体化技术：离线矢量数据下载</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-11T03:10:27+08:00">
+                2019-01-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ArcGIS/" itemprop="url" rel="index">
+                    <span itemprop="name">ArcGIS</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ArcGIS/ArcGIS-Runtime-for-Android/" itemprop="url" rel="index">
+                    <span itemprop="name">ArcGIS Runtime for Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/01/11/《ArcGIS-Runtime-SDK-for-Android开发笔记》——离在线一体化技术-离线矢量数据下载/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/01/11/《ArcGIS-Runtime-SDK-for-Android开发笔记》——离在线一体化技术-离线矢量数据下载/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,848 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>【<strong>原文链接：<a href="http://www.cnblogs.com/gis-luq/p/5858048.html" target="_blank" rel="noopener">http://www.cnblogs.com/gis-luq/p/5858048.html</a> </strong>】</p>
+<hr>
+<h2 id="1、前言"><a href="#1、前言" class="headerlink" title="1、前言"></a>1、前言</h2><h3 id="1-1、环境准备："><a href="#1-1、环境准备：" class="headerlink" title="1.1、环境准备："></a>1.1、环境准备：</h3><ul>
+<li>ArcGIS for Desktop 10.4.1（10.2.1以上版本即可）</li>
+<li>ArcGIS for Server 10.4.1 （10.2.1以上版本即可）</li>
+<li>PostgreSQL、Microsoft SQL Server、或 Oracle <a href="https://server.arcgis.com/zh-cn/server/latest/get-started/windows/tutorial-set-up-feature-service-data-for-offline-use.htm#GUID-1707450E-02E5-4F37-BE66-B561849C10A3" target="_blank" rel="noopener">设置企业级地理数据库</a>。</li>
+</ul>
+<h3 id="1-2、发布具有同步能力的FeatureService服务"><a href="#1-2、发布具有同步能力的FeatureService服务" class="headerlink" title="1.2、发布具有同步能力的FeatureService服务"></a>1.2、发布具有同步能力的FeatureService服务</h3><p>　　过程参考 <a href="http://www.cnblogs.com/gis-luq/p/5857188.html" target="_blank" rel="noopener">数据制作篇：发布具有同步能力的FeatureService服务</a> 一文。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3832962-5c05a63330036344.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>转载请注明出处：<a href="http://www.cnblogs.com/gis-luq/p/5858048.html" title="view: 《ArcGIS Runtime SDK for Android开发笔记》——离在线一体化技术：离线矢量数据下载" target="_blank" rel="noopener">http://www.cnblogs.com/gis-luq/p/5858048.html</a> </p>
+<h2 id="2、demo实现过程"><a href="#2、demo实现过程" class="headerlink" title="2、demo实现过程"></a>2、demo实现过程</h2><p>ArcGIS Runtime SDK 配置实现过程略：具体请参考：</p>
+<p><a href="http://www.cnblogs.com/gis-luq/p/4760370.html" target="_blank" rel="noopener">基于Android Studio构建ArcGIS Android开发环境</a> </p>
+<p><a href="http://www.cnblogs.com/gis-luq/p/4760377.html" target="_blank" rel="noopener">基于Android Studio构建ArcGIS Android开发环境（离线部署）</a></p>
+<h3 id="2-1、Demo-UI实现"><a href="#2-1、Demo-UI实现" class="headerlink" title="2.1、Demo UI实现"></a>2.1、Demo UI实现</h3><p>activity_main.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&lt;RelativeLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; </span><br><span class="line">	xmlns:tools=&quot;http://schemas.android.com/tools&quot; </span><br><span class="line">	android:layout_width=&quot;match_parent&quot; </span><br><span class="line">	android:layout_height=&quot;match_parent&quot; </span><br><span class="line">	tools:context=&quot;com.example.downgdb.MainActivity&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- MapView --&gt;</span><br><span class="line">    &lt;com.esri.android.map.MapView </span><br><span class="line">    	android:id=&quot;@+id/map&quot; </span><br><span class="line">    	android:layout_width=&quot;fill_parent&quot; </span><br><span class="line">    	android:layout_height=&quot;fill_parent&quot; </span><br><span class="line">    	mapoptions.MapType=&quot;Topo&quot; </span><br><span class="line">    	mapoptions.ZoomLevel=&quot;5&quot; </span><br><span class="line">    	mapoptions.center=&quot;28.671298, 104.066404&quot; /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;LinearLayout </span><br><span class="line">	    android:orientation=&quot;horizontal&quot; </span><br><span class="line">	    android:layout_width=&quot;match_parent&quot; </span><br><span class="line">	    android:layout_height=&quot;wrap_content&quot; </span><br><span class="line">	    android:padding=&quot;10dp&quot; </span><br><span class="line">	    android:id=&quot;@+id/linearLayout&quot; </span><br><span class="line">	    android:background=&quot;@color/primary_material_light&quot;&gt;</span><br><span class="line"></span><br><span class="line">        &lt;EditText </span><br><span class="line">        	android:layout_width=&quot;match_parent&quot; </span><br><span class="line">        	android:layout_height=&quot;match_parent&quot; </span><br><span class="line">        	android:id=&quot;@+id/editTextGDBUrl&quot; </span><br><span class="line">        	android:layout_alignParentTop=&quot;true&quot; </span><br><span class="line">        	android:layout_alignParentRight=&quot;true&quot; </span><br><span class="line">        	android:layout_alignParentEnd=&quot;true&quot; </span><br><span class="line">        	android:layout_weight=&quot;1&quot; </span><br><span class="line">        	android:text=&quot;http://192.168.1.212:6080/arcgis/rest/services/testdata/FeatureServer&quot; android:inputType=&quot;textUri&quot; /&gt;</span><br><span class="line"></span><br><span class="line">        &lt;Button </span><br><span class="line">        	android:layout_width=&quot;wrap_content&quot; </span><br><span class="line">        	android:layout_height=&quot;wrap_content&quot; </span><br><span class="line">        	android:text=&quot;数据下载&quot; </span><br><span class="line">        	android:id=&quot;@+id/btnDownGDB&quot; /&gt;</span><br><span class="line">    &lt;/LinearLayout&gt;</span><br><span class="line"></span><br><span class="line">&lt;/RelativeLayout&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="2-2、在Android清单文件AndroidManifest-xml中增加网络及存储访问权限"><a href="#2-2、在Android清单文件AndroidManifest-xml中增加网络及存储访问权限" class="headerlink" title="2.2、在Android清单文件AndroidManifest.xml中增加网络及存储访问权限"></a>2.2、在Android清单文件AndroidManifest.xml中增加网络及存储访问权限</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;uses-permission android:name=&quot;android.permission.INTERNET&quot; /&gt;</span><br><span class="line">&lt;uses-permission android:name=&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="2-3、实现离线地理数据库下载逻辑"><a href="#2-3、实现离线地理数据库下载逻辑" class="headerlink" title="2.3、实现离线地理数据库下载逻辑"></a>2.3、实现离线地理数据库下载逻辑</h3><h4 id="基本思路："><a href="#基本思路：" class="headerlink" title="基本思路："></a>基本思路：</h4><ol>
+<li>设置.geodatabase文件存储路径</li>
+<li>根据FeatureService服务获取FeatureServiceInfo服务参数信息</li>
+<li>根据FeatureServiceInfo信息创建离线地理数据库文件、</li>
+<li>从已经下载的本地Geodatabase文件中加载矢量数据</li>
+</ol>
+<h4 id="下载数据的核心功能类说明："><a href="#下载数据的核心功能类说明：" class="headerlink" title="下载数据的核心功能类说明："></a>下载数据的核心功能类说明：</h4><ul>
+<li><p>GeodatabaseSyncTask类，实现下载同步功能</p>
+</li>
+<li><p>GenerateGeodatabaseParameters，下载数据时所需的参数对象，该类构造函数一共有7个根据需要选择：</p>
+</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/3832962-4d99d1ec0fc8da1f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>本次示例代码主要用到以下三个参数：</p>
+<ul>
+<li><ul>
+<li>featureServerInfo 服务参数信息</li>
+<li>geodatabaseExtent 地图下载区域范围</li>
+<li>geodatabaseSpatialReference 地图空间参考</li>
+</ul>
+</li>
+<li><p>CallbackListener<geodatabase>，完成GDB数据库下载的回调函数类，在该回调中我们只可以执行一些操作，如示例里在回调中删除了在线的服务图层，加载离线的数据图层到地图上进行显示。通过Geodatabase本地数据库可以获取要素图层列表<a href="http://blog.csdn.net/arcgis_all/article/details/20442663" target="_blank" rel="noopener">List</a>&lt;<a href="http://blog.csdn.net/arcgis_all/article/details/20442663" target="_blank" rel="noopener">GdbFeatureTable</a>&gt;对象，通过newFeatureLayer(gdbFeatureTable)来创建一个离线要素图层进行要素显示。</geodatabase></p>
+</li>
+<li>GeodatabaseStatusCallback，本地数据库回调状态类，在数据下载过程中会有很多状态改变，各种状态改变时都会走这个类的回调函数。</li>
+<li>GeodatabaseTask.generateGeodatabase<em>，</em>通过该方法生成离线数据库和相应的要素表，方法需要传递上面介绍的三个参数和一个数据库存储的路径。</li>
+</ul>
+<h3 id="完整代码示例："><a href="#完整代码示例：" class="headerlink" title="完整代码示例："></a>完整代码示例：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br></pre></td><td class="code"><pre><span class="line">package com.example.downgdb; </span><br><span class="line">import android.app.Activity; </span><br><span class="line">import android.app.ProgressDialog; </span><br><span class="line">import android.content.Context; </span><br><span class="line">import android.os.Environment; </span><br><span class="line">import android.support.v7.app.AppCompatActivity; </span><br><span class="line">import android.os.Bundle; </span><br><span class="line">import android.util.Log; </span><br><span class="line">import android.view.View; </span><br><span class="line">import android.view.WindowManager; </span><br><span class="line">import android.widget.Button; </span><br><span class="line">import android.widget.EditText; </span><br><span class="line">import com.esri.android.map.FeatureLayer; </span><br><span class="line">import com.esri.android.map.MapView; </span><br><span class="line">import com.esri.core.ags.FeatureServiceInfo; </span><br><span class="line">import com.esri.core.geodatabase.Geodatabase; </span><br><span class="line">import com.esri.core.geodatabase.GeodatabaseFeatureTable; </span><br><span class="line">import com.esri.core.map.CallbackListener; </span><br><span class="line">import com.esri.core.tasks.geodatabase.GenerateGeodatabaseParameters; </span><br><span class="line">import com.esri.core.tasks.geodatabase.GeodatabaseStatusCallback; </span><br><span class="line">import com.esri.core.tasks.geodatabase.GeodatabaseStatusInfo; </span><br><span class="line">import com.esri.core.tasks.geodatabase.GeodatabaseSyncTask; </span><br><span class="line">import java.io.File; </span><br><span class="line">import java.io.FileNotFoundException; </span><br><span class="line">import java.util.ArrayList; </span><br><span class="line">public class MainActivity extends AppCompatActivity &#123; </span><br><span class="line">	protected static final String TAG = &quot;downGDB&quot;; </span><br><span class="line">	private Context context; private MapView mMapView;//地图容器</span><br><span class="line"></span><br><span class="line">    private EditText editTextDownGDBUrl;//GDB地址</span><br><span class="line">    private Button btnDownGDB;//下载GDB</span><br><span class="line"></span><br><span class="line">    private static String onlineFeatureLayerUrl;//在线FeatureLayer地址</span><br><span class="line">    private static String localGdbFilePath;//离线GDB地址</span><br><span class="line"></span><br><span class="line">    private GeodatabaseSyncTask gdbSyncTask;//离线地理数据库下载Task</span><br><span class="line">    private ProgressDialog mProgressDialog;//状态框</span><br><span class="line"></span><br><span class="line"> 	@Override protected void onCreate(Bundle savedInstanceState) &#123; </span><br><span class="line"> 	super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line"></span><br><span class="line">        context = this; // 默认软键盘不弹出</span><br><span class="line"> 		getWindow().setSoftInputMode( WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN); </span><br><span class="line"> 		this.mMapView = (MapView)findViewById(R.id.map); </span><br><span class="line"> 		this.editTextDownGDBUrl = (EditText)findViewById(R.id.editTextGDBUrl); //获取并设置在线服务地址</span><br><span class="line">        this.onlineFeatureLayerUrl = this.editTextDownGDBUrl.getText().toString();</span><br><span class="line"></span><br><span class="line">        mProgressDialog = new ProgressDialog(context); //设置点击进度对话框外的区域对话框不消失</span><br><span class="line">        mProgressDialog.setCanceledOnTouchOutside(false);</span><br><span class="line">        mProgressDialog.setTitle(&quot;正在创建离线地理数据库副本&quot;); //绑定按钮设置下载事件</span><br><span class="line">        btnDownGDB = (Button)this.findViewById(R.id.btnDownGDB);</span><br><span class="line">        btnDownGDB.setOnClickListener(new View.OnClickListener() &#123;</span><br><span class="line">            @Override public void onClick(View v) &#123;</span><br><span class="line">                downloadData(onlineFeatureLayerUrl);//下载离线数据</span><br><span class="line"> 			&#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    /** </span><br><span class="line">     * Geodatabase文件存储路径 </span><br><span class="line">     */</span><br><span class="line">    static String createGeodatabaseFilePath() &#123; </span><br><span class="line">    	return Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + &quot;/RuntimeOfflineEdit&quot;</span><br><span class="line">                + File.separator + &quot;demo.geodatabase&quot;;</span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    /** </span><br><span class="line">     * 下载离线地理数据库</span><br><span class="line">     * @param url FeatureService服务地址</span><br><span class="line">     * 例如：http://192.168.1.212:6080/arcgis/rest/services/testdata/FeatureServer</span><br><span class="line">     * 支持ArcGIS for Server 10.2.1以上版本，必须开启FeatureServer要素同步功能 */</span><br><span class="line">    private void downloadData(String url) &#123;</span><br><span class="line">        Log.i(TAG, &quot;Create GeoDatabase&quot;); // create a dialog to update user on progress</span><br><span class="line"> 		mProgressDialog.show();</span><br><span class="line"></span><br><span class="line">        gdbSyncTask = new GeodatabaseSyncTask(url, null);</span><br><span class="line">        gdbSyncTask.fetchFeatureServiceInfo(new CallbackListener&lt;FeatureServiceInfo&gt;() &#123;</span><br><span class="line">            @Override public void onError(Throwable arg0) &#123;</span><br><span class="line">                Log.e(TAG, &quot;获取FeatureServiceInfo失败&quot;);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override public void onCallback(FeatureServiceInfo fsInfo) &#123; if (fsInfo.isSyncEnabled()) &#123;</span><br><span class="line">                    createGeodatabase(fsInfo);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    /** </span><br><span class="line">     * 根据FeatureServiceInfo信息创建离线地理数据库文件</span><br><span class="line">     * @param featureServerInfo 服务参数信息 */</span><br><span class="line">    private void createGeodatabase(FeatureServiceInfo featureServerInfo) &#123; // 生成一个geodatabase设置参数</span><br><span class="line">        GenerateGeodatabaseParameters params = new GenerateGeodatabaseParameters(</span><br><span class="line">                featureServerInfo, mMapView.getMaxExtent(), mMapView.getSpatialReference()); // 下载结果回调函数</span><br><span class="line">        CallbackListener&lt;String&gt; gdbResponseCallback = new CallbackListener&lt;String&gt;() &#123;</span><br><span class="line">            @Override public void onError(final Throwable e) &#123;</span><br><span class="line">                Log.e(TAG, &quot;创建geodatabase失败&quot;);</span><br><span class="line">                mProgressDialog.dismiss();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override public void onCallback(String path) &#123;</span><br><span class="line">                Log.i(TAG, &quot;Geodatabase 路径: &quot; + path);</span><br><span class="line">                mProgressDialog.dismiss();</span><br><span class="line">                loadGeodatabase(path);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;; // 下载状态回调函数</span><br><span class="line">        GeodatabaseStatusCallback statusCallback = new GeodatabaseStatusCallback() &#123;</span><br><span class="line">            @Override public void statusUpdated(final GeodatabaseStatusInfo status) &#123; </span><br><span class="line">            	final String progress = status.getStatus().toString(); //在UI线程更新下载状态</span><br><span class="line">                ((Activity)context).runOnUiThread(new Runnable()&#123;</span><br><span class="line">                    @Override public void run() &#123;</span><br><span class="line">                        mProgressDialog.setMessage(&quot;数据下载中，请稍后……&quot;);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;; //设置离线地理数据库存储路径</span><br><span class="line">        localGdbFilePath = createGeodatabaseFilePath(); //执行下载Geodatabase数据库</span><br><span class="line">        gdbSyncTask.generateGeodatabase(params, localGdbFilePath, false, statusCallback, gdbResponseCallback);</span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    /** * 加载离线地理数据库</span><br><span class="line">     * @param path .geodatabse文件路径 </span><br><span class="line">     */</span><br><span class="line">    private void loadGeodatabase(String path) &#123; // 创建一个geodatabase数据库</span><br><span class="line">        Geodatabase localGdb = null; try &#123;</span><br><span class="line">            localGdb = new Geodatabase(path);</span><br><span class="line">        &#125; catch (FileNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; // 添加FeatureLayer到MapView中</span><br><span class="line">        if (localGdb != null) &#123; </span><br><span class="line">        	for (GeodatabaseFeatureTable gdbFeatureTable : localGdb.getGeodatabaseTables()) &#123; </span><br><span class="line">        		if (gdbFeatureTable.hasGeometry())&#123;</span><br><span class="line">                    mMapView.addLayer(new FeatureLayer(gdbFeatureTable));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3、Demo运行结果"><a href="#3、Demo运行结果" class="headerlink" title="3、Demo运行结果"></a>3、Demo运行结果</h2><p><img src="http://upload-images.jianshu.io/upload_images/3832962-ba90df41a97b7063.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>源代码托管地址：<a href="http://git.oschina.net/gis-luq/RuntimeOfflineEdit" target="_blank" rel="noopener">http://git.oschina.net/gis-luq/RuntimeOfflineEdit</a></p>
+<h2 id="4、参考资料"><a href="#4、参考资料" class="headerlink" title="4、参考资料"></a>4、参考资料</h2><p><a href="https://developers.arcgis.com/android/api-reference/reference/com/esri/core/tasks/geodatabase/package-summary.html" target="_blank" rel="noopener">https://developers.arcgis.com/android/api-reference/reference/com/esri/core/tasks/geodatabase/package-summary.html</a></p>
+<p><a href="http://blog.csdn.net/arcgis_all/article/details/20442663" target="_blank" rel="noopener">http://blog.csdn.net/arcgis_all/article/details/20442663</a></p>
+<h2 id="相关内容列表"><a href="#相关内容列表" class="headerlink" title="相关内容列表"></a>相关内容列表</h2><p><a href="http://www.cnblogs.com/gis-luq/p/5858043.html" target="_blank" rel="noopener">《ArcGIS Runtime SDK for Android开发笔记》——离在线一体化技术：概述</a></p>
+<p><a href="http://www.cnblogs.com/gis-luq/p/5858048.html" target="_blank" rel="noopener">《ArcGIS Runtime SDK for Android开发笔记》——离在线一体化技术：离线矢量数据下载</a></p>
+<p><a href="http://www.cnblogs.com/gis-luq/p/5858055.html" target="_blank" rel="noopener">《ArcGIS Runtime SDK for Android开发笔记》——离在线一体化技术：离线矢量数据编辑</a></p>
+<p><a href="http://www.cnblogs.com/gis-luq/p/5858062.html" target="_blank" rel="noopener">《ArcGIS Runtime SDK for Android开发笔记》——离在线一体化技术：离线矢量数据同步</a></p>
+<p><a href="http://www.cnblogs.com/gis-luq/p/5857188.html" target="_blank" rel="noopener">《ArcGIS Runtime SDK for Android开发笔记》——数据制作篇：发布具有同步能力的FeatureService服务</a></p>
+<blockquote>
+<p><strong>文章若无特殊说明均为原创，原创作品，允许转载，转载时请务必以超链接形式标明文章出处、作者信息和本声明。<br>博客：<a href="http://www.cnblogs.com/gis-luq" target="_blank" rel="noopener">http:</a><a href="http://www.cnblogs.com/gis-luq" target="_blank" rel="noopener">//www.cnblogs.com/gis-luq​</a> 作者：gis-luq 邮箱：<a href="mailto:luqiang.gis@foxmail.com" target="_blank" rel="noopener">luqiang.gis@foxmail.com</a></strong></p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        
+      
+	</div>
+	
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果觉着我的文章不错，打赏我一包辣条吧 O(∩_∩)O</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="http://z4a.net/images/2018/05/11/4c698d5e65a32f9f21667df7c7c40c0c.jpg" alt="Fy.L 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="http://z4a.net/images/2018/05/11/f81d8cd29e1a233798e944fd5b7d6fe2.jpg" alt="Fy.L 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+	<div>
+		
+			<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+            -------------本文结束
+            <i class="fa fa-paw"></i>
+            感谢您的阅读-------------
+        </div>
+    
+</div>
+		
+	</div>
+	
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ArcGIS/" rel="tag"><i class="fa fa-tag"></i> ArcGIS</a>
+          
+            <a href="/tags/ArcGIS-Runtime/" rel="tag"><i class="fa fa-tag"></i> ArcGIS Runtime</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/11/在一个项目中同时使用ArcGIS-Runtime-和-百度定位SDK/" rel="next" title="在一个项目中同时使用ArcGIS Runtime 和 百度定位SDK">
+                <i class="fa fa-chevron-left"></i> 在一个项目中同时使用ArcGIS Runtime 和 百度定位SDK
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/11/【转载】ArcGIS-Runtime-SDK-for-Android开发笔记》——离在线一体化技术-离线矢量数据编辑/" rel="prev" title="【转载】ArcGIS Runtime SDK for Android开发笔记》——离在线一体化技术：离线矢量数据编辑">
+                【转载】ArcGIS Runtime SDK for Android开发笔记》——离在线一体化技术：离线矢量数据编辑 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://z4a.net/images/2018/05/11/L.jpg"
+                alt="Fy.L" />
+            
+              <p class="site-author-name" itemprop="name">Fy.L</p>
+              <p class="site-description motion-element" itemprop="description">你若赐我一段浮华，我便许你满世繁花</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/duyi324" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、前言"><span class="nav-number">1.</span> <span class="nav-text">1、前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1、环境准备："><span class="nav-number">1.1.</span> <span class="nav-text">1.1、环境准备：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2、发布具有同步能力的FeatureService服务"><span class="nav-number">1.2.</span> <span class="nav-text">1.2、发布具有同步能力的FeatureService服务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、demo实现过程"><span class="nav-number">2.</span> <span class="nav-text">2、demo实现过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1、Demo-UI实现"><span class="nav-number">2.1.</span> <span class="nav-text">2.1、Demo UI实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2、在Android清单文件AndroidManifest-xml中增加网络及存储访问权限"><span class="nav-number">2.2.</span> <span class="nav-text">2.2、在Android清单文件AndroidManifest.xml中增加网络及存储访问权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3、实现离线地理数据库下载逻辑"><span class="nav-number">2.3.</span> <span class="nav-text">2.3、实现离线地理数据库下载逻辑</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本思路："><span class="nav-number">2.3.1.</span> <span class="nav-text">基本思路：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下载数据的核心功能类说明："><span class="nav-number">2.3.2.</span> <span class="nav-text">下载数据的核心功能类说明：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#完整代码示例："><span class="nav-number">2.4.</span> <span class="nav-text">完整代码示例：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、Demo运行结果"><span class="nav-number">3.</span> <span class="nav-text">3、Demo运行结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、参考资料"><span class="nav-number">4.</span> <span class="nav-text">4、参考资料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关内容列表"><span class="nav-number">5.</span> <span class="nav-text">相关内容列表</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fy.L</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: false,
+        appId: 'LgMLox3ikl34DiwCONMx3jDa-gzGzoHsz',
+        appKey: 'Ya6TtRJBFKVwLmE3RtnF66vO',
+        placeholder: '悄悄地，回复一句吧~~~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  
+	<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+	</script>
+
+  
+  </body>
+</html>

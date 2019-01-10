@@ -330,7 +330,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.lifayu.com/2016/09/17/raspberry-iot/">
+    <link itemprop="mainEntityOfPage" href="http://www.lifayu.com/2019/01/10/树莓派-RASPBERRY-PI-SD卡系统备份与还原/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Fy.L">
@@ -349,7 +349,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2016/09/17/raspberry-iot/" itemprop="url">树莓派实现物联网第一步：控制LED</a></h1>
+                <a class="post-title-link" href="/2019/01/10/树莓派-RASPBERRY-PI-SD卡系统备份与还原/" itemprop="url">树莓派 RASPBERRY PI SD卡系统备份与还原</a></h1>
         
 
         <div class="post-meta">
@@ -361,8 +361,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-17T15:38:36Z">
-                2016-09-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-09T19:34:49Z">
+                2019-01-09
               </time>
             
 
@@ -372,6 +372,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/树莓派/" itemprop="url" rel="index">
+                    <span itemprop="name">树莓派</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -380,8 +402,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2016/09/17/raspberry-iot/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2016/09/17/raspberry-iot/" itemprop="commentCount"></span>
+                <a href="/2019/01/10/树莓派-RASPBERRY-PI-SD卡系统备份与还原/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/01/10/树莓派-RASPBERRY-PI-SD卡系统备份与还原/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -403,7 +425,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  767 字
+                  1,347 字
                 </span>
               
 
@@ -419,7 +441,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4分钟
+                  6分钟
                 </span>
               
             </div>
@@ -441,18 +463,1213 @@
 
       
         
-          <p><strong>硬件部分</strong></p>
-<p> 准备材料：</p>
-<ul>
-<li>树莓派</li>
-<li>面包板（可选）</li>
-<li>杜邦线（可选）</li>
-<li>LED</li>
-<li>继电器</li>
-</ul>
+          
+            <p>标签： 树莓派 Linux 系统备份</p>
+<hr>
+<p>【<strong>原文链接</strong>：<a href="http://www.fendou.info/raspberry-pi-sd-card-backup-and-recovery/comment-page-1/】" target="_blank" rel="noopener">http://www.fendou.info/raspberry-pi-sd-card-backup-and-recovery/comment-page-1/】</a><br><strong>【没看到作者的声明，转侵删】</strong></p>
+<hr>
+<p>近半年时间用来监控陆龟的树莓派 Raspberry Pi  还算稳定，可到了冬天龟箱里的加热灯长时间加热导致树莓派温度很高，时不时的自动重启。如果每次都能正常起来也就罢了，可偶尔会挂不上SD卡的文件系统直接宕了，还得用备份还原SD卡(如果没备份那就悲催了)。</p>
+<p>买树莓派的时候只想到存储空间大能多存的东西于是买了个16GB的SD卡，可实际用了2G空间不到。最开始备份树莓派SD卡是用windwos下的<a href="https://sourceforge.net/projects/win32diskimager/" target="_blank" rel="noopener">Win32DiskImager</a>，这种备份恢复树莓派的方式最简单，Windows+读卡器+Win32DiskImager 就可以对树莓派的SD做完整的镜像备份，可我的树莓派用的16GB的SD卡，备份还原既浪费空间又浪费时间。</p>
+<p>后来发现一种直接用dd备份树莓派的方法，就是先在树莓派上mount一个共享目录(空间大于SD卡的即可)，然后用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dd if=/dev/mmcblk0 of=raspberrypi.img bs=1M</span><br></pre></td></tr></table></figure></p>
+<p>备份成raspberrypi.img镜像文件，恢复的方式有两种：一是用Win32DiskImager在windows系统上直接写到SD卡中；二是在Linux系统中用(先fdisk -l查看设备)</p>
+<p>dd if=/path/to/image/raspberrypi.img of=/dev/sdx<br>这种方式要考虑网络环境，如果你的树莓派接的无线网卡，最好放弃这种方式，太慢！</p>
+<p>最后介绍最终极的备份还原树莓派的方式，利用dump 和 restore。先说明一下这种备份方式的好处：一是可以像Windows的Ghost只dump有效数据，也就是说可以最有效的节省备份空间，树莓派有多少数据就生成多大的镜像文件；二是可以恢复到比原来SD卡空间的小的SD卡上，我原来用的树莓派是16GB，现在可以把镜像恢复到8GB或者4GB的SD中。下面看详细步骤(不想看可以直接跳到最后的脚本)</p>
+<p><strong>一、安装需要的软件</strong></p>
+<p>dosfstools：fat32分区格式化工具<br>dump：dump &amp; restore 备份工具<br>parted &amp; kpartx：虚拟磁盘工具</p>
+<p>执行安装脚本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install dosfstools</span><br><span class="line">sudo apt-get install dump</span><br><span class="line">sudo apt-get install parted</span><br><span class="line">sudo apt-get install kpartx</span><br></pre></td></tr></table></figure></p>
+<p><strong>二、生成新的img文件</strong><br>先df -h查看下树莓派实际使用空间然后在决定生成文件大小，下面命令生成块大小为1MB总大小为2500MB的镜像文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dd if=/dev/zero of=raspberrypi.img bs=1MB count=2500</span><br></pre></td></tr></table></figure></p>
+<p><strong>三、分割虚拟磁盘</strong></p>
+<p>利用parted将刚才生成的虚拟盘分割成两个分区</p>
+<p>第一个分割区采用FAT32格式，由sector 8192开始到sector 12879，约62.9MB<br>第二个分割区采用EXT4，由sector 122880开始到结束。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo parted raspberrypi.img --script -- mklabel msdos</span><br><span class="line">sudo parted raspberrypi.img --script -- mkpart primary fat32 8192s 122879s</span><br><span class="line">sudo parted raspberrypi.img --script -- mkpart primary ext4 122880s -1</span><br></pre></td></tr></table></figure></p>
+<p><strong>四、挂载虚拟磁盘并格式化</strong></p>
+<p>loopdevice：执行 losetup 连接 img 文件的 loop device<br>device：执行完 kpartx 后，虚拟磁盘代号。<br>partBoot：由 device 加上 p1 组合而成的 FAT32 虚拟磁盘分区。<br>partRoot：由 device 加上 p2 组合而成的 EXT4 虚拟磁盘分区。<br>首先建立虚拟磁盘并分区<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">loopdevice=`sudo losetup -f --show raspberrypi.img`</span><br><span class="line">device=`sudo kpartx -va $loopdevice | sed -E &apos;s/.*(loop[0-9])p.*/\1/g&apos; | head -1`</span><br><span class="line">device=&quot;/dev/mapper/$&#123;device&#125;&quot;</span><br><span class="line">partBoot=&quot;$&#123;device&#125;p1&quot;</span><br><span class="line">partRoot=&quot;$&#123;device&#125;p2&quot;</span><br></pre></td></tr></table></figure></p>
+<p>格式化虚拟磁盘分区<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo mkfs.vfat $partBoot</span><br><span class="line">sudo mkfs.ext4 $partRoot</span><br></pre></td></tr></table></figure></p>
+<p><strong>五、开始备份</strong><br>fat32虚拟磁盘分区建立好后直接用cp命令备份文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo mount -t vfat $partBoot /media</span><br><span class="line">sudo cp -rfp /boot/* /media/</span><br><span class="line">sudo umount /media</span><br></pre></td></tr></table></figure></p>
+<p>ext4 linux虚拟磁盘分区用dump &amp; restore 备份<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo mount -t ext4 $partRoot /media/</span><br><span class="line">cd /media</span><br><span class="line">sudo dump -0uaf - / |  sudo restore -rf -</span><br><span class="line">cd</span><br><span class="line">sudo umount /media</span><br></pre></td></tr></table></figure></p>
+<p><strong>六、卸载虚拟磁盘</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo kpartx -d $loopdevice</span><br><span class="line">sudo losetup -d $loopdevice</span><br></pre></td></tr></table></figure></p>
+<p>经过以上六步树莓派中的数据文件就全部备份到raspberrypi.img中了，你既可以在Windows中用Win32DiskImager将镜像恢复到SD卡，也可以在Linux用dd还原到SD卡，而且不要求恢复SD卡的大小跟原来的一样(不同品牌相同大小的SD卡实际可用空间不一样的，坑！)，这样就可以很方便的更换SD卡。当用此SD卡启动树莓派的时候执行raspi-config -&gt;Expand Filesystem 即可扩展未使用的空间。</p>
+<p>这里就是最后的脚本，包含了以上六步，只需要编辑<code>sudo vi backup.sh</code>复制以下内容，<code>sudo chmod 777 backup.sh</code>，然后<code>sudo ./backup.sh</code>就可以在当前脚本目录中生成树莓派的SD卡镜像了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">sudo dd if=/dev/zero of=raspberrypi.img bs=1MB count=2500</span><br><span class="line">sudo parted raspberrypi.img --script -- mklabel msdos</span><br><span class="line">sudo parted raspberrypi.img --script -- mkpart primary fat32 8192s 122879s</span><br><span class="line">sudo parted raspberrypi.img --script -- mkpart primary ext4 122880s -1</span><br><span class="line"></span><br><span class="line">loopdevice=`sudo losetup -f --show raspberrypi.img`</span><br><span class="line">device=`sudo kpartx -va $loopdevice | sed -E &apos;s/.*(loop[0-9])p.*/\1/g&apos; | head -1`</span><br><span class="line">device=&quot;/dev/mapper/$&#123;device&#125;&quot;</span><br><span class="line">partBoot=&quot;$&#123;device&#125;p1&quot;</span><br><span class="line">partRoot=&quot;$&#123;device&#125;p2&quot;</span><br><span class="line">sudo mkfs.vfat $partBoot</span><br><span class="line">sudo mkfs.ext4 $partRoot</span><br><span class="line">sudo mount -t vfat $partBoot /media</span><br><span class="line">sudo cp -rfp /boot/* /media/</span><br><span class="line">sudo umount /media</span><br><span class="line">sudo mount -t ext4 $partRoot /media/</span><br><span class="line">cd /media</span><br><span class="line">sudo dump -0uaf - / | sudo restore -rf -</span><br><span class="line">cd</span><br><span class="line">sudo umount /media</span><br><span class="line">sudo kpartx -d $loopdevice</span><br><span class="line">sudo losetup -d $loopdevice</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+	</div>
+	
+    
+
+    
+
+    
+
+	<div>
+		
+	</div>
+	
+	
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.lifayu.com/2019/01/10/Nextcloud个人云存储绝佳选择：一键自动安装方法和云盘使用体验/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fy.L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://z4a.net/images/2018/05/11/L.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fy.L 的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/10/Nextcloud个人云存储绝佳选择：一键自动安装方法和云盘使用体验/" itemprop="url">Nextcloud个人云存储绝佳选择：一键自动安装方法和云盘使用体验</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-09T19:33:37Z">
+                2019-01-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/树莓派/" itemprop="url" rel="index">
+                    <span itemprop="name">树莓派</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/树莓派/NextCloud/" itemprop="url" rel="index">
+                    <span itemprop="name">NextCloud</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/01/10/Nextcloud个人云存储绝佳选择：一键自动安装方法和云盘使用体验/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/01/10/Nextcloud个人云存储绝佳选择：一键自动安装方法和云盘使用体验/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,626 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  10分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>【原文链接：<a href="https://wzfou.com/nextcloud/】" target="_blank" rel="noopener">https://wzfou.com/nextcloud/】</a></p>
+<hr>
+<p>搭建个人云存储一般会想到ownCloud，堪称是自建云存储服务的经典。而<a href="https://wzfou.com/tag/nextcloud/" target="_blank" rel="noopener">Nextcloud</a>是ownCloud原开发团队打造的号称是“下一代”存储。初一看觉得“口气”不小，刚推出来就重新“定义”了Cloud，真正试用过后就由衷地赞同这个Nextcloud：它是个人云存储服务的绝佳选择。</p>
+<p>与ownCloud相比，Nextcloud的功能丝毫没有减弱，甚至由于可以安装云存储服务应用，自制性更强，也更符合用户的需求。Nextcloud官网的帮助文档写得相当地详细，几乎任何关于Nextcloud的问题都可以找到答案，这说明Nextcloud开发团队确实比ownCloud更加优秀。</p>
+<p>一开始以为Nextcloud只是一个网盘<a href="https://wzfou.com/tag/siyou-yuncunchu/" target="_blank" rel="noopener">云存储</a>，后来看到Nextcloud内置了Office文档、图片相册、日历联系人、两步验证、文件管理、RSS阅读等丰富的应用，我发现Nextcloud已经仅仅可以用作个人或者团队存储与共享，还可以打造成为一个个人办公平台，几乎相当于一个个人的Dropbox了。</p>
+<p>Nextcloud运行环境与平常我们常用的程序差不多，LAMP是官方首选，不过LNMP也照样可以运行，只不过需要自己写URL重写规则。当然，官方还提供了SNAP一键安装包，一分钟内就可以在VPS上部署好Nextcloud，非常地方便。本篇文章就来分享SNAP安装Nextcloud的方法。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud_00.jpg" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-e69e08a7b67df2bc.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Nextcloud个人云存储绝佳选择:一键安装自带免费客户端内置文档\相册\日历丰富应用"></a> </p>
+<p>更多的关于邮件分发、CDN加速和<a href="https://wzfou.com/tag/vps-tongbu/" target="_blank" rel="noopener">VPS同步</a>等工具，你还可以看看：</p>
+<ol>
+<li><a href="https://wzfou.com/mailchimp/" target="_blank" rel="noopener">利用MailChimp建立RSS邮件订阅平台-每月免费12000封邮件可加2000用户</a></li>
+<li><a href="https://wzfou.com/fikker/" target="_blank" rel="noopener">用Fikker自建CDN-支持Https,页面缓存,实时监控,流量统计,防CC攻击</a></li>
+<li><a href="https://wzfou.com/lsyncd/" target="_blank" rel="noopener">Lsyncd搭建同步镜像-用Lsyncd实现本地和远程服务器之间实时同步</a></li>
+</ol>
+<p><strong>PS：2017年9月27日更新，</strong>想要利用Nextcloud实现离线下载可以看这里：<a href="https://wzfou.com/nextcloud-aria2/" target="_blank" rel="noopener">Nextcloud离线下载搭建方法-整合Aria2和AriaNg、Aria2 WebUI实现离线下载</a>。</p>
+<h2 id="一、Nextcloud一键安装"><a href="#一、Nextcloud一键安装" class="headerlink" title="一、Nextcloud一键安装"></a>一、Nextcloud一键安装</h2><p>Nextcloud官网：</p>
+<blockquote>
+<ol>
+<li><a href="https://nextcloud.com/" target="_blank" rel="noopener">https://nextcloud.com/</a></li>
+<li>nextcloud snap：<a href="https://github.com/nextcloud/nextcloud-snap" target="_blank" rel="noopener">https://github.com/nextcloud/nextcloud-snap</a></li>
+</ol>
+</blockquote>
+<p><a href="https://wzfou.com/tag/nextcloud-snap/" target="_blank" rel="noopener">nextcloud snap</a>目前包含以下组件（会自动更新升级，请及时关注）：</p>
+<blockquote>
+<p>Nextcloud 11.0.3<br>Apache 2.4<br>PHP 7<br>MySQL 5.7<br>Redis 3.2<br>mDNS for network discovery</p>
+</blockquote>
+<p><strong>安装前修改好hostname。</strong>在终端窗口中输入命令：hostname或uname –n，均可以查看到当前主机的主机名，修改参考如下（Ubuntu修改可参考我之前的一篇文章：<a href="https://wzfou.com/ispconfig-3-1/#ISPConfig_31" target="_blank" rel="noopener">ISPConfig 3.1 安装方法</a>）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/hosts</span><br><span class="line">150.95.150.57 pan.wzfou.net pan  </span><br><span class="line"></span><br><span class="line">vim /etc/hostname</span><br><span class="line">pan.wzfou.net</span><br><span class="line">hostname -F /etc/hostname #重启</span><br><span class="line">hostname #再次查看</span><br></pre></td></tr></table></figure>
+<p><strong>一键安装方法：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install snap</span><br><span class="line">sudo apt-get install snapd</span><br><span class="line">sudo snap install nextcloud</span><br></pre></td></tr></table></figure>
+<p>如下图表示安装成功了。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud_01.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-eb4a774214ed86ce.gif?imageMogr2/auto-orient/strip" alt="Nextcloud一键安装成功"></a> </p>
+<p>接着，打开你的域名或者IP地址，然后会让你设置好管理员账号与密码，确定，完成安装。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud_02.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-982b42de3adc185e.gif?imageMogr2/auto-orient/strip" alt="Nextcloud打开域名"></a> </p>
+<p>可能有的人不想使用Snap安装方法，可以看看手动在VPS上部署LNMP/LAMP安装Nextcloud方法：<a href="https://wzfou.com/nextcloud-install/" target="_blank" rel="noopener">手动安装NextCloud教程</a>。</p>
+<p><strong>选择Snap还是VPS手动？</strong>不用纠结，以下官方的回答：</p>
+<blockquote>
+<p><strong>snap优点</strong>：The snap is nice for getting up and running quickly with minimal space, and will work great if you’re happy not messing with it. Since it’s a snap you also get the benefit of automatic updates and the ability to rollback without worrying about needing to take a snapshot, etc.</p>
+<p>#翻译：snap安装快捷，傻瓜式一键安装，几分钟内搞定。同时，snap支持自动升级、回滚等，你无需使用复杂的命令工具。</p>
+<p><strong>snap缺点：</strong>However, the snap is very opinionated. Don’t want to use Apache? Sorry, the snap uses it. Don’t want to use MySQL? Sorry, MariaDB does not run on ARM. Something other than PHP 7.0.15? We picked the version we feel gives the best results. In other words, it’s not very tinker-friendly. We don’t do this to be mean, <strong>we do this so that we can reliably update it without your needing to worry about it</strong>.</p>
+<p>#翻译：snap不能自定义，只能使用snap既定的MysqL、apache、PHP等。不过，这样的好处就是经过官方测试过的运行稳定且有利于后期自动升级。</p>
+<p><strong>VPS手动安装优缺点：</strong>The VM is much more flexible. It’s a full version of Ubuntu server edition, allowing you to tweak whatever you need and it comes with many apps which are not that easy to configure for inexperienced administrators. This of course makes it larger. You’ll also need to make sure you maintain it and keep the OS up-to-date. Since it’s virtualized you can assign disk, CPU, memory, and network quotas to it (you’d need to install the snap in an lxc container or a VM to get the same abilities).</p>
+<p>#翻译：VPS手动则比较灵活，你可以自已配置磁盘、CPU、内存和网络，但是同时你需要懂得如何维护好VPS操作系统。</p>
+</blockquote>
+<h2 id="二、Nextcloud管理使用"><a href="#二、Nextcloud管理使用" class="headerlink" title="二、Nextcloud管理使用"></a>二、Nextcloud管理使用</h2><p>以下就是Nextcloud的管理中心面板，是不是与我们用过的Dropbox有点类似-简洁。左边就是分享的链接、收藏、WebDav地址，中间就是我们上传的图片、文档、程序等了，点击可以查看详情。右边有管理、个人、用户等。（点击放大）</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud_04.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-a240e4fa4be90359.gif?imageMogr2/auto-orient/strip" alt="Nextcloud用户中心"></a> </p>
+<p>Nextcloud上传的视频支持在线播放。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud_05.jpg" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-433dedd13a82925d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Nextcloud视频播放"></a> </p>
+<p>Nextcloud上传的图片可以像幻灯片一样浏览。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud_06.jpg" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-9da8d4e1293d6e2f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Nextcloud浏览图片"></a> </p>
+<p>Nextcloud支持给分享的文档、图片等设置有效期、密码保护等，有点类似于百度网盘了。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud_07.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-77af3f35cd4c4380.gif?imageMogr2/auto-orient/strip" alt="Nextcloud分享文档"></a> </p>
+<p>别人打开你的共享链接后就可以预览到图片或者视频了，也可以直接点击下载了。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud_08.jpg" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-d26cfb414d533d6a.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Nextcloud下载文件"></a> </p>
+<p>在Nextcloud的个人中心页面，可以修改个人信息、应用密码、同步客户端等。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud_09.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-c605433b3494a0d8.gif?imageMogr2/auto-orient/strip" alt="Nextcloud个人中心"></a> </p>
+<p>Nextcloud在服务器管理页面，则可以查看CPU、内存等使用情况、切换Nextcloud主题、是否对存储在Nextcloud的文件进行加密、激活插件等。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud_09_1.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-ddeb550d0e1941a8.gif?imageMogr2/auto-orient/strip" alt="Nextcloud服务器设置"></a> </p>
+<h2 id="三、Nextcloud同步客户端"><a href="#三、Nextcloud同步客户端" class="headerlink" title="三、Nextcloud同步客户端"></a>三、Nextcloud同步客户端</h2><p>Nextcloud提供了免费的同步客户端供大家下载使用，支持PC和手机。下载地址：<a href="https://nextcloud.com/install/#install-clients" target="_blank" rel="noopener">https://nextcloud.com/install/#install-clients</a></p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud_03.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-b74c49cc33c3535d.gif?imageMogr2/auto-orient/strip" alt="Nextcloud客户端"></a> </p>
+<p>在电脑上运行Nextcloud同步客户端，先填入你的Nextcloud地址。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud_10.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-4cde727258fbae71.gif?imageMogr2/auto-orient/strip" alt="Nextcloud运行客户端"></a> </p>
+<p>然后就是输入Nextcloud的用户名以及客户端专用密码，这个专用密码需要到Nextcloud的个人中心页面生成。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud_11.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-f256ff2944190fbd.gif?imageMogr2/auto-orient/strip" alt="Nextcloud填入专用密码"></a> </p>
+<p>Nextcloud允许你选择同步某一个文件夹，还是同步整个Nextcloud账户。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud_12.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-e10ce193154227e8.gif?imageMogr2/auto-orient/strip" alt="Nextcloud同步文件夹设置"></a> </p>
+<p>连接好了后，你就可以在本地看到Nextcloud同步过来的文件了，你在本地的操作都会影响到Nextcloud云端的文件存储，自动实现同步。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud_13.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-59af2fd8d7529b28.gif?imageMogr2/auto-orient/strip" alt="Nextcloud本地同步"></a> </p>
+<p>以下是Nextcloud的手机同步客户端，功能差不多。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud_14.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-a1daedbdc4b9ca51.gif?imageMogr2/auto-orient/strip" alt="Nextcloud手机端"></a> </p>
+<p>Nextcloud手机客户端支持自动上传文件，还有设置下载路径等等。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud_15.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-4447adcb122a9212.gif?imageMogr2/auto-orient/strip" alt="Nextcloud备份手机文件"></a> </p>
+<h2 id="四、Nextcloud添加应用"><a href="#四、Nextcloud添加应用" class="headerlink" title="四、Nextcloud添加应用"></a>四、Nextcloud添加应用</h2><p>Nextcloud官方提供了非常多的应用：<a href="https://apps.nextcloud.com/，Office文档、图片相册、日历联系人、两步验证、文件管理、RSS阅读等丰富的应用。这些应用你可以手动下载安装，也可以直接在Nextcloud后台一键激活。" target="_blank" rel="noopener">https://apps.nextcloud.com/，Office文档、图片相册、日历联系人、两步验证、文件管理、RSS阅读等丰富的应用。这些应用你可以手动下载安装，也可以直接在Nextcloud后台一键激活。</a></p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud_22.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-548824b2c121e5e8.gif?imageMogr2/auto-orient/strip" alt="Nextcloud添加应用"></a> </p>
+<p><strong>Office文档插件</strong>：<a href="https://apps.nextcloud.com/apps/documents" target="_blank" rel="noopener">Documents</a>。有Collabora Online、Markdown Editor、Calendar、Onlyoffice、Documents等，其中Documents安装比较简单，直接启用即可。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud_23.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-eb499d68860ac3dc.gif?imageMogr2/auto-orient/strip" alt="Nextcloud查看Office文档"></a> </p>
+<p>如果不支持打开Doc（X），你需要在你的Ubuntu安装以下包：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">apt-get install libreoffice-writer</span><br><span class="line">apt-get install libreoffice-common</span><br><span class="line">apt-get install unoconv</span><br></pre></td></tr></table></figure>
+<p>Documents插件安装好了后就可以在线查看和编辑Office文档了。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud_24.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-ee9424510371210f.gif?imageMogr2/auto-orient/strip" alt="Nextcloud在线编辑文档"></a> </p>
+<p><strong>安全类插件</strong>：<a href="https://apps.nextcloud.com/apps/twofactor_totp" target="_blank" rel="noopener">Two Factor TOTP Provider</a>。这个插件可以让你的Nextcloud账号支持开启登录两步验证。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud_25.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-3db89324235221ba.gif?imageMogr2/auto-orient/strip" alt="Nextcloud两步验证"></a> </p>
+<p><strong>RSS阅读器插件</strong>：<a href="https://apps.nextcloud.com/apps/news" target="_blank" rel="noopener">News</a>。这个插件真的让我感觉眼前一亮，有了它我们可以将Nextcloud变身为一个RSS在线阅读器了。这个比之前我们<a href="https://wzfou.com/huginn-rss/" target="_blank" rel="noopener">利用Huginn抓取任意网站RSS</a>的方法可以简单了。（点击放大）</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud_26.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-23978e91c5ef5b40.gif?imageMogr2/auto-orient/strip" alt="Nextcloud阅读器"></a> </p>
+<h2 id="五、Nextcloud高级设置"><a href="#五、Nextcloud高级设置" class="headerlink" title="五、Nextcloud高级设置"></a>五、Nextcloud高级设置</h2><p>Nextcloud支持使用PHP发送邮件，但是自带的邮局发出去的邮件基本上是被各大邮箱判定为垃圾邮件，所以我们需要利用好Nextcloud提供的SMTP发信功能。</p>
+<h3 id="4-1-Nextcloud用SMTP发信"><a href="#4-1-Nextcloud用SMTP发信" class="headerlink" title="4.1  Nextcloud用SMTP发信"></a>4.1  Nextcloud用SMTP发信</h3><p>在Nextcloud的管理页面，找到“其他设置”，然后选择发信方式为SMTP，填写你的SMTP信息，这里我用的是腾讯企业邮箱的，你也可以使用Gmail、163等免费SMTP发信功能。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud_20.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-202288546a7abced.gif?imageMogr2/auto-orient/strip" alt="Nextcloud设置发信"></a> </p>
+<p>填写完成后，点击测试看看是不是可以成功发出邮件。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud_21.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-f113887797b40580.gif?imageMogr2/auto-orient/strip" alt="Nextcloud成功发出邮件"></a> </p>
+<h3 id="4-2-Nextcloud安装SSL证书"><a href="#4-2-Nextcloud安装SSL证书" class="headerlink" title="4.2  Nextcloud安装SSL证书"></a>4.2  Nextcloud安装SSL证书</h3><p>如果你使用Snap安装的Nextcloud，那么添加SSL加密访问将是一件非常简单的事情。先确保你的域名已经成功解析到你的VPS主机上，然后执行命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo nextcloud.enable-https lets-encrypt #安装Let&apos;s Encrypt SSL</span><br><span class="line">#如果你想使用自己的证书，请执行：</span><br><span class="line">sudo nextcloud.enable-https self-signed</span><br></pre></td></tr></table></figure>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud_16.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-eb3b7c16a56fd403.gif?imageMogr2/auto-orient/strip" alt="Nextcloud添加SSL证书"></a> </p>
+<p>如果你是使用自已的证书，请在执行命令后找到SSL证书的路径，将自己的证书上传替换生成的自签名证书文件即可。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud_17.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-b762185569f65121.gif?imageMogr2/auto-orient/strip" alt="Nextcloud自己的证书"></a> </p>
+<h3 id="4-3-Nextcloud备份与恢复"><a href="#4-3-Nextcloud备份与恢复" class="headerlink" title="4.3  Nextcloud备份与恢复"></a>4.3  Nextcloud备份与恢复</h3><p><strong>备份MysqL数据库</strong>。使用Snap安装的Nextcloud，数据库文件在以下路径中，你直接将Nextcloud这个数据库全部备份即可。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud_18.gif" target="_blank" rel="noopener">[图片上传失败…(image-1fd742-1525492497608)]</a> </p>
+<p><strong>备份文件。</strong>Nextcloud上传的文件存储在以下路径中，将里面的Data文件全部备份即可。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud_19.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-a5b470dc55adef65.gif?imageMogr2/auto-orient/strip" alt="Nextcloud备份存储文件"></a> </p>
+<p><strong>Nextcloud恢复。</strong>重装安装了Nextcloud后，将上面的数据库文件与文件数据全部导入到新的服务器，保持原来的路径即可。对于大量的文件迁移，推荐使用远程搬家方法：<a href="https://wzfou.com/rsync-scp-tar/" target="_blank" rel="noopener">三个命令工具Rsync,SCP,Tar-快速解决Linux VPS远程网站搬家数据同步烦恼</a>。</p>
+<h2 id="六、总结"><a href="#六、总结" class="headerlink" title="六、总结"></a>六、总结</h2><p>Nextcloud采用Snap的安装方法简单方便，适合不想折腾的朋友，并且官方打包的<a href="https://wzfou.com/tag/nextcloud-install/" target="_blank" rel="noopener">Nextcloud Snap自动部署</a>好了LAMP，如果你想迁移服务器，只需要将新的服务器按照同样的方法安装Nextcloud，然后导入之前的数据库与存储文件即可。</p>
+<p>Nextcloud如果用来存储一些私人的照片或者文件的话，最让人担心的恐怕是安全问题了。目前来看，Nextcloud本身的安全措施已经做得非常到位，例如账号两步验证、程序与存储文件分开、数据加密等。可能唯一需要我们自己做的就是保证服务器不要出现漏洞。</p>
+<p>文章出自：<a href="https://wzfou.com/" target="_blank" rel="noopener">挖站否</a> <a href="https://wzfou.com/nextcloud/" target="_blank" rel="noopener">https://wzfou.com/nextcloud/</a>，版权所有。本站文章除注明出处外，皆为作者原创文章，可自由引用，但请注明来源。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+	</div>
+	
+    
+
+    
+
+    
+
+	<div>
+		
+	</div>
+	
+	
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.lifayu.com/2019/01/10/手动安装NextCloud教程-免费开源的私有云存储网盘可播放图片音乐/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fy.L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://z4a.net/images/2018/05/11/L.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fy.L 的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/10/手动安装NextCloud教程-免费开源的私有云存储网盘可播放图片音乐/" itemprop="url">手动安装NextCloud教程-免费开源的私有云存储网盘可播放图片音乐</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-09T19:32:09Z">
+                2019-01-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/树莓派/" itemprop="url" rel="index">
+                    <span itemprop="name">树莓派</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/树莓派/NextCloud/" itemprop="url" rel="index">
+                    <span itemprop="name">NextCloud</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/01/10/手动安装NextCloud教程-免费开源的私有云存储网盘可播放图片音乐/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/01/10/手动安装NextCloud教程-免费开源的私有云存储网盘可播放图片音乐/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,524 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  10分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>【原文链接：<a href="https://wzfou.com/nextcloud-install/】" target="_blank" rel="noopener">https://wzfou.com/nextcloud-install/】</a></p>
+<hr>
+<p>NextCloud由原ownCloud联合创始人Frank Karlitschek创建的，继承原ownCloud的核心技术又有不少的创新。在功能上NextCloud和ownCloud差不多，甚至还要丰富一些，在用户使用体验方面，NextCloud安装与使用都非常地顺手，最重要的是NextCloud完全开源免费。</p>
+<p><a href="https://wzfou.com/tag/nextcloud/" target="_blank" rel="noopener">NextCloud</a>不仅是一个私人云网盘平台，也支持多用户同步协作使用。NextCloud支持账号注册，可以为账号开启两步验证，以确保账号安全。同时，NextCloud对于公开分享的文件可以设置有效期，对于上传的视频、音乐、Office文档等直接支持在线预览和播放。</p>
+<p>NextCloud还提供了上百种的免费应用和插件，这些<a href="https://wzfou.com/tag/nextcloud-yingyong/" target="_blank" rel="noopener">NextCloud应用</a>与插件可以将NextCloud打造成为一个在线文档共享与编辑平台、音乐与视频娱乐平台以及文件存储下载平台。当然，如果是自己手动安装的NextCloud的话，那么这些插件也得自己配置好环境才行。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud-install_00.jpg" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-142f8ca689e7d524.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="手动安装NextCloud教程-免费开源私人云存储网盘可在线预览图片播放音乐"></a> </p>
+<p>本篇文章就来分享一下手动安装<a href="https://wzfou.com/tag/nextcloud-jiaocheng/" target="_blank" rel="noopener">NextCloud教程</a>，更多的站长自建服务与平台，你还可以试试：</p>
+<ol>
+<li><a href="https://wzfou.com/lsyncd/" target="_blank" rel="noopener">Lsyncd搭建同步镜像-用Lsyncd实现本地和远程服务器之间实时同步</a></li>
+<li><a href="https://wzfou.com/vestacp-whmcs/" target="_blank" rel="noopener">VestaCP与WHMCS整合教程-实现自助开通虚拟主机销售主机空间产品</a></li>
+<li><a href="https://wzfou.com/ispconfig-whmcs/" target="_blank" rel="noopener">ISPConfig与WHMCS整合方法-自动激活开通虚拟主机和管理空间用户</a></li>
+</ol>
+<p><strong>PS：2017年9月20日更新，</strong>觉得手动安装麻烦的朋友，可以使用一键安装的方法，参考：<a href="https://wzfou.com/nextcloud/" target="_blank" rel="noopener">Nextcloud个人云存储绝佳选择：一键自动安装方法和云盘使用体验</a>。</p>
+<h2 id="一、LAMP安装NextCloud"><a href="#一、LAMP安装NextCloud" class="headerlink" title="一、LAMP安装NextCloud"></a>一、LAMP安装NextCloud</h2><p>NextCloud官网：</p>
+<ol>
+<li><a href="https://nextcloud.com/" target="_blank" rel="noopener">https://nextcloud.com/</a></li>
+</ol>
+<p><strong>准备好LAMP环境。</strong>LAMP即Apache、MysqL或Mariadb、PHP环境，NextCloud官方推荐使用Apache运行NextCloud，自带了.htaccess规则。而Nginx的话还需要自己手动编写NextCloud的URL重写规则。推荐以下方法一键安装LAMP：</p>
+<ol>
+<li><a href="https://wzfou.com/lnmp-1-4/" target="_blank" rel="noopener">Linux VPS建站工具LNMP 1.4安装与使用-SSL自动配置续期和多版本PHP支持</a></li>
+<li><a href="https://wzfou.com/oneinstack/" target="_blank" rel="noopener">OneinStack一键安装脚本-轻松部署Let’s Encrypt证书配置Https站点</a></li>
+</ol>
+<p>LNMP 1.4和OneinStack都可以一键安装LAMP环境，这里我以OneinStack来作为操作演示，在安装OneinStack时选择组件时选择Apache即可，PHP建议使用7.0以上，数据库的话建议Mariadb。其它的缓存组件也可以安装。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud-install_01.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-2d4e7c6a373b3b67.gif?imageMogr2/auto-orient/strip" alt="NextCloud安装Apache"></a> </p>
+<p><strong>绑定好域名与添加SSL证书。</strong>OneinStack在添加网站时直接就可以添加SSL证书了，同时要求绑定的域名必须提前解析到服务器的IP上，这样才可以一键生成Lets免费证书。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud-install_02.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-eb982f15f1949705.gif?imageMogr2/auto-orient/strip" alt="NextCloud添加SSL证书"></a> </p>
+<p><strong>下载NextCloud程度包安装。</strong>到官网：<a href="https://nextcloud.com/install/#instructions-server，下载最新的程序包解压上传到网站的根目录。" target="_blank" rel="noopener">https://nextcloud.com/install/#instructions-server，下载最新的程序包解压上传到网站的根目录。</a></p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud-install_03_1.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-35bad6780fd4c569.gif?imageMogr2/auto-orient/strip" alt="NextCloud下载程序包"></a> </p>
+<p>为NextCloud建立新的数据库。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud-install_03.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-9d165b0781ecc8fe.gif?imageMogr2/auto-orient/strip" alt="NextCloud新建数据库"></a> </p>
+<p>访问域名就会自动进入到NextCloud的安装页面了，填写你的管理员账号与密码，然后在下方设置好文件存储路径，最好与程序不要在同一个目录下。同时填入SQL数据库信息，完成安装。（点击放大）</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud-install_04.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-516d8fe28cf6a69d.gif?imageMogr2/auto-orient/strip" alt="NextCloud点击安装"></a> </p>
+<p>完成后，你就可以登录到NextCloud后台，这就是NextCloud的用户管理界面。（点击放大）</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud-install_05.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-c8e9f87eb15e3eab.gif?imageMogr2/auto-orient/strip" alt="NextCloud用户管理界面"></a> </p>
+<h2 id="二、LNMP安装NextCloud"><a href="#二、LNMP安装NextCloud" class="headerlink" title="二、LNMP安装NextCloud"></a>二、LNMP安装NextCloud</h2><p>准备<a href="https://wzfou.com/tag/lnmp/" target="_blank" rel="noopener">LNMP</a>环境和上面一样，只是在LNMP 1.4和OneinStack安装时选择Nginx环境即可，其它的组件都一样有选择性地安装。如果安装了Zend OPcache，可能在安装时会提示错误：<code>“PHP 被设置为移除内联块, 这将导致多个核心应用无法访问</code>。</p>
+<p><strong>解决方法：</strong>修改php.ini中Opcache的参数进行修改，如果是Oneinstack的话需要在/usr/local/php/etc/php.d/ext-opcache.ini 中修改。找到此代码并改成：opcache.save_comments=1 ，因为默认是0，改完重启php-fpm就行。</p>
+<p><strong>编写URL地址重写规则。</strong>出现错误：No input file specified.，主要是Nginx还需要自己写重写规则，你可以将以下规则复制粘贴到/usr/local/nginx/conf/vhost/你的网站.conf，由于规则太多，你也可单独建立一个文件，然后在你的网站.conf引用即可。具体规则如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">#(可选)添加如下header主要为了安全</span><br><span class="line">  add_header X-Content-Type-Options nosniff;</span><br><span class="line">  add_header X-XSS-Protection &quot;1; mode=block&quot;;</span><br><span class="line">  add_header X-Robots-Tag none;</span><br><span class="line">  add_header X-Download-Options noopen;</span><br><span class="line">  add_header X-Permitted-Cross-Domain-Policies none;</span><br><span class="line">  #(可选)为了支持user_webfinger app</span><br><span class="line">  rewrite ^/.well-known/host-meta /public.php?service=host-meta last;</span><br><span class="line">  rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json last;</span><br><span class="line"></span><br><span class="line">  #日历和联系人，建议加上</span><br><span class="line">  location = /.well-known/carddav &#123;</span><br><span class="line">  return 301 $scheme://$host/remote.php/dav;</span><br><span class="line">  &#125;</span><br><span class="line">  location = /.well-known/caldav &#123;</span><br><span class="line">  return 301 $scheme://$host/remote.php/dav;</span><br><span class="line">  &#125;</span><br><span class="line">  #设置上传文件的最大大小</span><br><span class="line">  client_max_body_size 512M;</span><br><span class="line">  fastcgi_buffers 64 4K;</span><br><span class="line">  #将所有请求转发到index.php上</span><br><span class="line">  location / &#123;</span><br><span class="line">  rewrite ^ /index.php$uri;</span><br><span class="line">  &#125;</span><br><span class="line">  #安全设置，禁止访问部分敏感内容</span><br><span class="line">  location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/ &#123;</span><br><span class="line">  deny all;</span><br><span class="line">  &#125;</span><br><span class="line">  location ~ ^/(?:\.|autotest|occ|issue|indie|db_|console) &#123;</span><br><span class="line">  deny all;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  #默认有，替换原来的就行</span><br><span class="line">  location ~ ^/(?:index|remote|public|cron|core/ajax/update|status|ocs/v[12]|updater/.+|ocs-provider/.+)\.php(?:$|/) &#123;</span><br><span class="line">  fastcgi_split_path_info ^(.+\.php)(/.*)$;</span><br><span class="line">  fastcgi_param PATH_INFO $fastcgi_path_info;</span><br><span class="line">  fastcgi_param modHeadersAvailable true;</span><br><span class="line">  fastcgi_param front_controller_active true;</span><br><span class="line">  fastcgi_pass unix:/dev/shm/php-cgi.sock; #这边我改过，参照原来的</span><br><span class="line">  fastcgi_intercept_errors on;</span><br><span class="line">  fastcgi_request_buffering off;</span><br><span class="line">  include fastcgi.conf;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  #安全设置，禁止访问部分敏感内容</span><br><span class="line">  location ~ ^/(?:updater|ocs-provider)(?:$|/) &#123;</span><br><span class="line">  try_files $uri/ =404;</span><br><span class="line">  index index.php;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  location ~ \.(?:css|js|woff|svg|gif)$ &#123;</span><br><span class="line">  try_files $uri /index.php$uri$is_args$args;</span><br><span class="line">  add_header Cache-Control &quot;public, max-age=15778463&quot;;</span><br><span class="line">  add_header X-Content-Type-Options nosniff;</span><br><span class="line">  add_header X-XSS-Protection &quot;1; mode=block&quot;;</span><br><span class="line">  add_header X-Robots-Tag none;</span><br><span class="line">  add_header X-Download-Options noopen;</span><br><span class="line">  add_header X-Permitted-Cross-Domain-Policies none;</span><br><span class="line">  access_log off;</span><br><span class="line">  &#125;</span><br><span class="line">  location ~ \.(?:png|html|ttf|ico|jpg|jpeg)$ &#123;</span><br><span class="line">  try_files $uri /index.php$uri$is_args$args;</span><br><span class="line">  access_log off;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>fileinfo\Memcached\Redis等都可以通过OneinStack一键安装。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud-install_06.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-77182db0bdd0121b.gif?imageMogr2/auto-orient/strip" alt="NextCloud安装附加组件"></a> </p>
+<p><strong>NextCloud安全与性能优化：</strong>这种提示一般在NextCloud的服务器管理中可以看到，建议缓存类的直接安装一个即可，安装多了也没有什么用。</p>
+<blockquote>
+<p>为了您服务的安全和性能, 请将所有设置配置正确. 我们将会进行一些自动化检查以帮助您完成这项工作. 详情请查看 “小提示” 部分及相关文档.</p>
+<p>PHP 模块 ‘fileinfo’ 缺失. 我们强烈建议启用此模块以便在 MIME 类型检测时获得最准确的结果.</p>
+<p>HTTP 请求头 “Strict-Transport-Security” 没有配置为至少 “15552000” 秒. 出于增强安全性考虑, 我们推荐按照安全提示中的说明启用 HSTS.</p>
+<p>内存缓存未配置. 如果可用, 请配置 memcache 以增强性能. 更多信息请查看我们的文档.<br>PHP 的组件 OPcache 没有正确配置. 为了提供更好的性能, 我们建议在php.ini文件中使用下列设置:</p>
+<p>opcache.enable=1<br>opcache.enable_cli=1<br>opcache.interned_strings_buffer=8<br>opcache.max_accelerated_files=10000<br>opcache.memory_consumption=128<br>opcache.save_comments=1<br>opcache.revalidate_freq=1</p>
+</blockquote>
+<p><strong>NextCloud添加Memcached缓存。</strong>修改程序目录下的config目录中的config.php文件，在配置文件中添加如下，这个是多个Memcached实例，单个自己改：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&apos;memcache.local&apos; =&gt; &apos;\OC\Memcache\APCu&apos;,</span><br><span class="line">&apos;memcache.distributed&apos; =&gt; &apos;\OC\Memcache\Memcached&apos;,</span><br><span class="line">&apos;memcached_servers&apos; =&gt; array(</span><br><span class="line">     array(&apos;localhost&apos;, 11211),</span><br><span class="line">     array(&apos;server1.example.com&apos;, 11211),</span><br><span class="line">     array(&apos;server2.example.com&apos;, 11211),</span><br><span class="line">     ),</span><br></pre></td></tr></table></figure>
+<p><strong>NextCloud添加Redis缓存。</strong>在配置文件中添加如下，这个是通过TCP连接的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&apos;memcache.local&apos; =&gt; &apos;\OC\Memcache\Redis&apos;,</span><br><span class="line">&apos;redis&apos; =&gt; array(</span><br><span class="line">     &apos;host&apos; =&gt; &apos;localhost&apos;,</span><br><span class="line">     &apos;port&apos; =&gt; 6379,</span><br><span class="line">      ),</span><br></pre></td></tr></table></figure>
+<p>还有性能更好的UNIX连接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&apos;memcache.local&apos; =&gt; &apos;\OC\Memcache\Redis&apos;,</span><br><span class="line">&apos;redis&apos; =&gt; array(</span><br><span class="line">     &apos;host&apos; =&gt; &apos;/var/run/redis/redis.sock&apos;,</span><br><span class="line">     &apos;port&apos; =&gt; 0,</span><br><span class="line">     &apos;dbindex&apos; =&gt; 0,</span><br><span class="line">     &apos;password&apos; =&gt; &apos;secret&apos;,</span><br><span class="line">     &apos;timeout&apos; =&gt; 1.5,</span><br><span class="line">      ),</span><br></pre></td></tr></table></figure>
+<p>同时，官方还推荐加入如下，来用于存储文件锁</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos;memcache.locking&apos; =&gt; &apos;\OC\Memcache\Redis&apos;,</span><br></pre></td></tr></table></figure>
+<p>Nginx运行NextCloud一切正常。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud-install_11.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-d2cbe62dbd888ac1.gif?imageMogr2/auto-orient/strip" alt="NextCloud运行正常"></a> </p>
+<h2 id="三、NextCloud添加应用"><a href="#三、NextCloud添加应用" class="headerlink" title="三、NextCloud添加应用"></a>三、NextCloud添加应用</h2><p>NextCloud提供了丰富了内置应用，并且这些应用可以直接在NextCloud的后台下载并安装，有点像我们的Wordpress插件一样直接安装。这些介绍几个有用的<a href="https://wzfou.com/tag/nextcloud-pluin/" target="_blank" rel="noopener">NextCloud插件</a>，相信大家一定会用到。</p>
+<p><strong>SMTP发信与限制最大上传文件。</strong>这个直接在NextCloud的后台设置中就可以设置选项，SMTP可以让我们调用第三方的发信服务来发送NextCloud的邮件，自带的PHP发信也可以，但是基本上会被各大邮箱判定为垃圾邮件。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud-install_07.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-6dfb933da287375a.gif?imageMogr2/auto-orient/strip" alt="NextCloud发信设置"></a> </p>
+<p><strong>数据存储加密与外挂存储。</strong>首先到NextCloud应用中激活Default encryption module、External storage support这两个插件。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud-install_08.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-2d976dc9a6f9afa6.gif?imageMogr2/auto-orient/strip" alt="NextCloud存储加密"></a> </p>
+<p><strong>启用数据加密需要谨慎：</strong>因为数据一旦加密被启用, 之后上传到服务器的所有文件都将服务器上加密，只有当启用状态的加密模块支持解密并且所有前提都满足时 (例如: 设定恢复密钥) 才能解除加密。请注意, 加密会增加文件大小，单独的加密不能保证系统的安全性，你需要同时设置恢复密钥。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud-install_09.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-16a8467ded56a63b.gif?imageMogr2/auto-orient/strip" alt="NextCloud启用文件加密"></a> </p>
+<p>外挂存储主要是可以让NextCloud通过SMB / CIFS 登录 OC 的方式挂载第三方的存储应用，启用这个插件有些麻烦，可能提示：没有安装 “smbclient”. 安装命令：apt-get install smbclient和apt-get install php-smbclient。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud-install_10.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-3134ebe01ad560e7.gif?imageMogr2/auto-orient/strip" alt="NextCloud外挂存储"></a> </p>
+<h2 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h2><p>至于选择Apache还是Nginx来运行NextCloud主要还是取决你对Nginx或者Apache的熟悉程度，LNMP 1.4和OneinStack对Nginx都做了很好了优化，Http 2.0、SSL证书还有缓存组件和PHP函数都可以一键安装与配置，省去了不少的麻烦。</p>
+<p><a href="https://wzfou.b0.upaiyun.com/wp-content/uploads/2017/08/nextcloud-install_12.gif" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/3832962-cb0df8aa0851ed0d.gif?imageMogr2/auto-orient/strip" alt="NextCloud私有云"></a> </p>
+<p>NextCloud的图片预览、音乐视频在线播放等基本功能都是没有问题了，在使用NextCloud应用过程中倒是遇到了不少的问题。首要的问题就是NextCloud的应用配置比较难，例如Office文档插件、RSS在线阅读器插件等，都需要自己手动配置好服务器环境。</p>
+<p>文章出自：<a href="https://wzfou.com/" target="_blank" rel="noopener">挖站否</a> <a href="https://wzfou.com/nextcloud-install/" target="_blank" rel="noopener">https://wzfou.com/nextcloud-install/</a>，部分内容参考自：<a href="https://www.zrj96.com/post-542.html" target="_blank" rel="noopener">zrj96</a>  版权所有。本站文章除注明出处外，皆为作者原创文章，可自由引用，但请注明来源。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+	</div>
+	
+    
+
+    
+
+    
+
+	<div>
+		
+	</div>
+	
+	
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.lifayu.com/2019/01/10/RASPBIAN-STRETCH-安装桌面/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fy.L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://z4a.net/images/2018/05/11/L.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fy.L 的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/10/RASPBIAN-STRETCH-安装桌面/" itemprop="url">RASPBIAN STRETCH 安装桌面</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-09T19:30:38Z">
+                2019-01-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/树莓派/" itemprop="url" rel="index">
+                    <span itemprop="name">树莓派</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/01/10/RASPBIAN-STRETCH-安装桌面/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/01/10/RASPBIAN-STRETCH-安装桌面/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  180 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>首先更新系统<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get upgrade</span><br><span class="line">sudo reboot</span><br></pre></td></tr></table></figure></p>
+<p>如果需要卸载原来的桌面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get autoremove raspberrypi-ui-mods lxterminal gvfs</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>–no-install-recommends参数来避免安装非必须的文件，从而减小镜像的体积</p>
+</blockquote>
+<p>安装GUI显示服务：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install xserver-xorg</span><br></pre></td></tr></table></figure></p>
+<p>安装MATE桌面环境<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install mate-desktop-environment-core</span><br></pre></td></tr></table></figure></p>
+<p>安装登陆服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install lightdm</span><br></pre></td></tr></table></figure></p>
+<p>启动你的桌面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">startx</span><br></pre></td></tr></table></figure></p>
+<p>同理，如果想换回官方桌面的话，只需要卸载MATE桌面并安装原来的就行了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install mate-desktop*  //为了卸载干净直接用了 * 号</span><br><span class="line">// 安装官方桌面</span><br><span class="line">sudo apt-get install raspberrypi-ui-mods lxterminal gvfs</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+	</div>
+	
+    
+
+    
+
+    
+
+	<div>
+		
+	</div>
+	
+	
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.lifayu.com/2019/01/10/树莓派安装Chromium/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fy.L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://z4a.net/images/2018/05/11/L.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fy.L 的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/10/树莓派安装Chromium/" itemprop="url">树莓派安装Chromium</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-09T19:28:28Z">
+                2019-01-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/树莓派/" itemprop="url" rel="index">
+                    <span itemprop="name">树莓派</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/01/10/树莓派安装Chromium/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/01/10/树莓派安装Chromium/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  305 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <a id="more"></a>
+<p>【原文链接：<a href="https://blog.csdn.net/zbgjhy88/article/details/60323047】" target="_blank" rel="noopener">https://blog.csdn.net/zbgjhy88/article/details/60323047】</a></p>
+<hr>
+<p>Chromium是谷歌Chrome的开源版本，在此介绍一下当下该如何安装Chromium。</p>
+<p>1.访问<a href="http://ports.ubuntu.com/pool/universe/c/chromium-browser/" target="_blank" rel="noopener"><strong>Ubuntu的源</strong></a>下载Chromium安装包，建议在pc中下载然后通过winscp传到树莓派中：</p>
+<p>这个源对Chromium还在不断更新维护中，可以选择下载最新的包，截止收稿，最新的为65.0.3325.181-0ubuntu0.17.10.1，需要下载的是下面三个包：</p>
+<blockquote>
+<p>chromium-browser_65.0.3325.181-0ubuntu0.17.10.1_armhf.deb<br>chromium-codecs-ffmpeg-extra_65.0.3325.181-0ubuntu1_armhf.deb<br>chromium-browser-l10n_56.0.2924.76-0ubuntu0.16.10.1335_all.deb </p>
+</blockquote>
+<p>网速不是很给力，我放到我的资源中了，大家可以点此下载（注意解压成三个文件再传到树莓派中）：<a href="http://download.csdn.net/detail/zbgjhy88/9770147" target="_blank" rel="noopener">树莓派Chromium-browser离线安装包</a></p>
+<p>2.进入存放三个deb包的文件夹，执行命令：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo dpkg -i chromium-browser_56.0.2924.76-0ubuntu0.16.10.1335_armhf.deb </span><br><span class="line">sudo dpkg -i chromium-codecs-ffmpeg-extra_56.0.2924.76-0ubuntu0.16.10.1335_armhf.deb</span><br><span class="line">sudo dpkg -i chromium-browser-l10n_65.0.3325.181-0ubuntu1_all.deb</span><br></pre></td></tr></table></figure></p>
+<p>安装过程中可能会遇到依赖关系问题，因为你的树莓派上可能安装了更新的一些lib包。可以尝试运行<code>apt-get -f install</code>或<code>aptitude install</code>解决。</p>
+<p>完成。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+	</div>
+	
+    
+
+    
+
+    
+
+	<div>
+		
+	</div>
+	
+	
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.lifayu.com/2019/01/10/树莓派安装OctoPrint/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fy.L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://z4a.net/images/2018/05/11/L.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fy.L 的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/10/树莓派安装OctoPrint/" itemprop="url">树莓派安装OctoPrint，搭建3D打印服务器</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-09T19:23:34Z">
+                2019-01-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/树莓派/" itemprop="url" rel="index">
+                    <span itemprop="name">树莓派</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/01/10/树莓派安装OctoPrint/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/01/10/树莓派安装OctoPrint/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,101 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <hr>
+<p>【参考链接】<br>官方文档：<a href="https://octoprint.org/download/" target="_blank" rel="noopener">https://octoprint.org/download/</a></p>
+<hr>
+<h1 id="一、在树莓派上搭建OctoPrint服务："><a href="#一、在树莓派上搭建OctoPrint服务：" class="headerlink" title="一、在树莓派上搭建OctoPrint服务："></a>一、在树莓派上搭建OctoPrint服务：</h1><ol>
+<li>安装包含 <a href="https://pip.pypa.io/en/latest/installing.html" target="_blank" rel="noopener">pip</a> 和 <a href="https://virtualenv.pypa.io/en/stable/installation/" target="_blank" rel="noopener">virtualenv</a> 的 <a href="https://www.python.org/" target="_blank" rel="noopener">Python 2.7</a> .<br>树莓派最新版本的系统已经自带 <a href="https://www.python.org/" target="_blank" rel="noopener">Python2.7</a>，如果没有，可以手动安装：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt update</span><br><span class="line">$ sudo apt upgrade</span><br><span class="line">$ sudo apt install python virtualenv</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2016/09/17/raspberry-iot/#more" rel="contents">
+            <a class="btn" href="/2019/01/10/树莓派安装OctoPrint/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -512,7 +1729,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.lifayu.com/2016/06/22/ActionBar-TopBackButton/">
+    <link itemprop="mainEntityOfPage" href="http://www.lifayu.com/2018/08/26/Android-PopupWindow怎么合理控制弹出位置（showAtLocation）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Fy.L">
@@ -531,7 +1748,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2016/06/22/ActionBar-TopBackButton/" itemprop="url">ActionBar基础：实现顶部返回按钮</a></h1>
+                <a class="post-title-link" href="/2018/08/26/Android-PopupWindow怎么合理控制弹出位置（showAtLocation）/" itemprop="url">Android PopupWindow怎么合理控制弹出位置</a></h1>
         
 
         <div class="post-meta">
@@ -543,8 +1760,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-06-22T15:36:54Z">
-                2016-06-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-26T09:07:33Z">
+                2018-08-26
               </time>
             
 
@@ -562,8 +1779,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2016/06/22/ActionBar-TopBackButton/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2016/06/22/ActionBar-TopBackButton/" itemprop="commentCount"></span>
+                <a href="/2018/08/26/Android-PopupWindow怎么合理控制弹出位置（showAtLocation）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/08/26/Android-PopupWindow怎么合理控制弹出位置（showAtLocation）/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -585,181 +1802,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  416 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>在开写之前需要先引入工程包lib_v7_appcompat，里面为我们提供了ActionBarActivity等许多相关类。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2016/06/22/ActionBar-TopBackButton/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-	<div>
-      
-	</div>
-	
-    
-
-    
-
-    
-
-	<div>
-		
-	</div>
-	
-	
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.lifayu.com/2016/06/15/sqlite-data-type/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Fy.L">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://z4a.net/images/2018/05/11/L.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Fy.L 的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/06/15/sqlite-data-type/" itemprop="url">SQLite数据库的char,varchar,text,nchar,nvarchar,ntext的区别</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-06-14T17:33:11Z">
-                2016-06-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2016/06/15/sqlite-data-type/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2016/06/15/sqlite-data-type/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  742 字
+                  799 字
                 </span>
               
 
@@ -797,11 +1840,11 @@
 
       
         
-          <ol>
-<li><p><strong>CHAR</strong><br> CHAR存储定长数据很方便，CHAR字段上的索引效率级高，比如定义char(10)，那么不论你存储的数据是否达到了10个字节，都要占去10个字节的空间,不足的自动用空格填充。</p>
+          <p>说到PopupWindow，应该都会有种熟悉的感觉，使用起来也很简单</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// 一个自定义的布局，作为显示的内容</span><br><span class="line">Context context = null;　　// 真实环境中要赋值</span><br><span class="line">int layoutId = 0;　　　　　　// 布局ID</span><br><span class="line">View contentView = LayoutInflater.from(context).inflate(layoutId, null);</span><br><span class="line">      </span><br><span class="line">final PopupWindow popupWindow = new PopupWindow(contentView,</span><br><span class="line">                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, true);</span><br><span class="line"></span><br><span class="line">popupWindow.setTouchable(true);</span><br><span class="line">// 如果不设置PopupWindow的背景，有些版本就会出现一个问题：无论是点击外部区域还是Back键都无法dismiss弹框</span><br><span class="line">// 这里单独写一篇文章来分析</span><br><span class="line">popupWindow.setBackgroundDrawable(new ColorDrawable());</span><br><span class="line">// 设置好参数之后再show</span><br><span class="line">popupWindow.showAsDropDown(contentView);</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2016/06/15/sqlite-data-type/#more" rel="contents">
+            <a class="btn" href="/2018/08/26/Android-PopupWindow怎么合理控制弹出位置（showAtLocation）/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -861,7 +1904,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.lifayu.com/2016/06/08/chcp/">
+    <link itemprop="mainEntityOfPage" href="http://www.lifayu.com/2018/05/22/AndroidSwitch控件修改样式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Fy.L">
@@ -880,7 +1923,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2016/06/08/chcp/" itemprop="url">CMD命令提示符改编编码命令</a></h1>
+                <a class="post-title-link" href="/2018/05/22/AndroidSwitch控件修改样式/" itemprop="url">AndroidSwitch控件修改样式</a></h1>
         
 
         <div class="post-meta">
@@ -892,8 +1935,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-06-08T09:13:58Z">
-                2016-06-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-22T11:17:38Z">
+                2018-05-22
               </time>
             
 
@@ -911,8 +1954,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2016/06/08/chcp/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2016/06/08/chcp/" itemprop="commentCount"></span>
+                <a href="/2018/05/22/AndroidSwitch控件修改样式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/05/22/AndroidSwitch控件修改样式/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -934,7 +1977,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  88 字
+                  1,204 字
                 </span>
               
 
@@ -950,7 +1993,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1分钟
+                  5分钟
                 </span>
               
             </div>
@@ -972,10 +2015,12 @@
 
       
         
-          <p>CMD中修改字符编码的命令为 chcp，以下为帮助文档：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\Windows\system32&gt;help chcp 显示或设置活动代码页编号。 CHCP [nnn]   nnn</span><br><span class="line">指定代码页编号。 不带参数键入 CHCP 以显示活动代码页编号。</span><br></pre></td></tr></table></figure></p>
+          <p>Android中自带的Switch控件在很多时候总觉得和整体系统风格不符，很多时候，自定义Switch是一种方法。</p>
+<p>但其实不用这么麻烦，安卓自带的Switch通过修改一些属性，也可以达到和自定义Switch差不多的一个效果。</p>
+<p>个人感觉，Switch的属性设置和其他控件还是有挺大区别的。因此，写下此文，方便有需要的同学参考。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2016/06/08/chcp/#more" rel="contents">
+            <a class="btn" href="/2018/05/22/AndroidSwitch控件修改样式/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1035,7 +2080,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.lifayu.com/2016/06/06/Android-Studio-settings/">
+    <link itemprop="mainEntityOfPage" href="http://www.lifayu.com/2018/05/12/ArcGIS-Runtime中坐标的转换/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Fy.L">
@@ -1054,7 +2099,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2016/06/06/Android-Studio-settings/" itemprop="url">Android Studio 自动提示代码设置</a></h1>
+                <a class="post-title-link" href="/2018/05/12/ArcGIS-Runtime中坐标的转换/" itemprop="url">ArcGIS Runtime中坐标的转换</a></h1>
         
 
         <div class="post-meta">
@@ -1066,8 +2111,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-06-06T08:39:47Z">
-                2016-06-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-11T17:33:36Z">
+                2018-05-11
               </time>
             
 
@@ -1077,6 +2122,39 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/ArcGIS-Runtime/" itemprop="url" rel="index">
+                    <span itemprop="name">ArcGIS Runtime</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -1085,8 +2163,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2016/06/06/Android-Studio-settings/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2016/06/06/Android-Studio-settings/" itemprop="commentCount"></span>
+                <a href="/2018/05/12/ArcGIS-Runtime中坐标的转换/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/05/12/ArcGIS-Runtime中坐标的转换/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1108,7 +2186,183 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  79 字
+                  1,782 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  6分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>【原文链接：<a href="https://blog.csdn.net/bit_kaki/article/details/76252181】" target="_blank" rel="noopener">https://blog.csdn.net/bit_kaki/article/details/76252181】</a></p>
+<hr>
+<p>在我们的GIS应用项目里，常常遇见坐标转换的问题。最常见的就是WGS84坐标转其他坐标系，原因是WGS84坐标系是目前GPS数据采集所用的坐标系，而我国实际生产项目里常用的地图却是北京54坐标系，西安80坐标系以及中国大地2000坐标系等。所以当我们用设备采集到GPS经纬度以后，需要将其进行坐标转换才可以正确显示到我们使用的地图上。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/12/ArcGIS-Runtime中坐标的转换/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+	</div>
+	
+    
+
+    
+
+    
+
+	<div>
+		
+	</div>
+	
+	
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.lifayu.com/2018/05/11/hello-world/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fy.L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://z4a.net/images/2018/05/11/L.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fy.L 的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/11/hello-world/" itemprop="url">Hello World</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-11T07:45:36Z">
+                2018-05-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/05/11/hello-world/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/05/11/hello-world/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  121 字
                 </span>
               
 
@@ -1146,10 +2400,10 @@
 
       
         
-          <p>Android Studio中默认设置自动提示代码首字母必须严格按照大小写来输入才能提示正确的代码，修改如下设置项，可实现忽略大小写，自动完成代码。</p>
+          <p>欢迎来到 <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! 来发布你的第一篇博客吧. 查看 <a href="https://hexo.io/docs/" target="_blank" rel="noopener">文档</a> 以获取更多信息. 如果你在使用Hexo的过程中遇到任何问题, 你可以来 <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> 寻找答案或者在 <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>上提问.</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2016/06/06/Android-Studio-settings/#more" rel="contents">
+            <a class="btn" href="/2018/05/11/hello-world/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1200,7 +2454,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1250,7 +2504,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1261,7 +2515,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1272,7 +2526,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">36</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
